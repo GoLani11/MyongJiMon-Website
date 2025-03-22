@@ -10,4 +10,3 @@ React, Node.js, MySQL을 사용하며, Azure 서버에 배포합니다.
   - Backend: Node.js
   - Database: MySQL
   - Server: Azure
-- **UI 설계**: [Figma 프로젝트 링크](https://www.figma.com/files/project/354751315)
