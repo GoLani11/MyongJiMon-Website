@@ -58,13 +58,25 @@ node index.js
 `.env.example` 파일을 참고하여 `.env` 파일을 생성하세요.
 
 ```dotenv
+# 서버가 실행될 포트 번호입니다. 일반적으로 5000번을 많이 씁니다.
 PORT=5000
 
-DB_HOST=localhost
+# Azure MySQL 설정
+# Azure에서 생성한 MySQL 서버의 호스트명 (예: <서버이름>.mysql.database.azure.com)
+DB_HOST=myongjimon.mysql.database.azure.com
+
+# Azure의 기본 포트입니다.
 DB_PORT=3306
-DB_USER=root
-DB_PASS=yourpassword
+
+# Azure MySQL 접속용 사용자 계정 (보통은 `<사용자>@<서버이름>` 형태로 작성해야 함)
+DB_USER=youruser@myongjimon
+
+# 사용자의 비밀번호 (Azure MySQL 만들 때 설정한 값)
+DB_PASS=yourStrongPassword!
+
+# 실제로 만든 데이터베이스 이름
 DB_NAME=myongjimon
+
 ```
 
 ---
