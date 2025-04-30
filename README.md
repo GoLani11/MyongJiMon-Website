@@ -10,3 +10,13 @@ React, Node.js, MySQL을 사용하며, Azure 서버에 배포합니다.
   - Backend: Node.js
   - Database: MySQL
   - Server: Azure
+
+## 프론트
+cd frontend
+npm install
+npm start
+
+## 백엔드
+cd ../backend
+npm install
+node index.js
