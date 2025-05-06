@@ -2,9 +2,19 @@
 import React from 'react';
 // CSS 파일 불러오기
 import './Login.css';
+// 페이지 이동을 위한 useNavigate 불러오기
+import { useNavigate } from 'react-router-dom';
 
 // 로그인 화면 컴포넌트
 function Login() {
+  const navigate = useNavigate();
+
+  // 로그인 폼 제출 시 메인으로 이동
+  const handleLogin = (e) => {
+    e.preventDefault();
+    navigate('/main');
+  };
+
   return (
     <div className="login-page-container">
       <div className="login-box">
@@ -16,7 +26,7 @@ function Login() {
         <p className="welcome-subtitle">명지몬은 명지전문대학 학생과 교수를 위한 플랫폼입니다.</p>
 
         {/* 로그인 폼 */}
-        <form className="login-form">
+        <form className="login-form" onSubmit={handleLogin}>
           {/* 아이디 입력 */}
           <div className="input-group">
             <label htmlFor="username">아이디</label>

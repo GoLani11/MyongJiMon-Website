@@ -23,12 +23,13 @@ body, html {
 /* 로그인 흰색 상자 */
 .login-box {
   background-color: white;
-  padding: 30px 40px;
+  padding: 30px 20px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
   width: 100%;
   max-width: 420px;
+  min-width: 280px;
 }
 
 /* 로고 (파란 동그라미) */
@@ -172,6 +173,7 @@ body, html {
   display: flex;
   justify-content: center;
   gap: 25px;
+  flex-wrap: wrap;
 }
 
 /* SNS 버튼 */
@@ -206,4 +208,44 @@ body, html {
 /* 네이버 */
 .naver-icon {
   background-color: #03C75A;
+}
+
+/* 반응형 화면 - 모바일 화면 */
+@media (max-width: 480px) {
+  .login-box {
+    padding: 20px 15px;
+    min-width: auto;
+  }
+  
+  .welcome-title {
+    font-size: 20px;
+  }
+  
+  .sns-buttons-container {
+    gap: 15px;
+  }
+  
+  .sns-icon {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* 반응형 화면 - 태블릿 화면 */
+@media (min-width: 481px) and (max-width: 768px) {
+  .login-box {
+    padding: 25px;
+    max-width: 380px;
+  }
+  
+  .sns-buttons-container {
+    gap: 20px;
+  }
+}
+
+/* 반응형 화면 - 큰 화면 */
+@media (min-width: 769px) {
+  .login-box {
+    padding: 30px 40px;
+  }
 }
