@@ -12,7 +12,7 @@ function Login() {
   // 로그인 폼 제출 시 메인으로 이동
   const handleLogin = (e) => {
     e.preventDefault();
-    navigate('/main');
+    navigate('/home');
   };
 
   return (

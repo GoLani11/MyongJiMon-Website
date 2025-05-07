@@ -1,160 +1,159 @@
 /* 기본 설정 */
 body, html {
-    margin: 0;
-    padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background-color: #f0f2f5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    box-sizing: border-box;
-  }
-  
-  /* 회원가입 페이지 (로그인 페이지와 동일한 스타일 적용) */
-  .register-page-container { /* .login-page-container 와 동일 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 20px;
-  }
-  
-  /* 회원가입 흰색 상자 (로그인 페이지와 동일한 스타일 적용) */
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: #f0f2f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* 회원가입 페이지 (로그인 페이지와 동일한 스타일 적용) */
+.register-page-container { /* .login-page-container 와 동일 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+}
+
+/* 회원가입 흰색 상자 (로그인 페이지와 동일한 스타일 적용) */
+.register-box { /* .login-box 와 동일 */
+  background-color: white;
+  padding: 30px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+  max-width: 420px;
+  min-width: 280px;
+}
+
+/* 로고 (파란 동그라미) */
+.logo-placeholder {
+  width: 70px;
+  height: 70px;
+  background-color: #007bff;
+  border-radius: 50%;
+  margin: 0 auto 20px auto;
+}
+
+/* 큰 제목 */
+.welcome-title {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+/* 작은 설명 */
+.welcome-subtitle {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 25px;
+}
+
+/* 회원가입 폼 (로그인 페이지와 동일한 스타일 적용) */
+.register-form { /* .login-form 과 동일 */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+/* 입력 영역 */
+.input-group {
+  text-align: left;
+}
+
+/* 라벨 (아이디, 비밀번호 등) */
+.input-group label {
+  display: block;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+/* 입력창 */
+.input-group input[type="text"],
+.input-group input[type="password"],
+.input-group input[type="email"] { /* email 타입 추가 */
+  width: calc(100% - 22px);
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 15px;
+}
+
+/* 회원가입 버튼 (로그인 버튼과 동일한 스타일 적용) */
+.register-button { /* .login-button 과 동일한 스타일 */
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* 버튼 호버 효과 */
+.register-button:hover { /* .login-button:hover 와 동일한 스타일 */
+  background-color: #0056b3;
+}
+
+/* 링크 모음 (이미 계정이 있으신가요? 로그인) */
+.extra-links {
+  margin-top: 20px;
+  font-size: 13px;
+  color: #555;
+}
+
+/* 링크 버튼 */
+.extra-links .link-button {
+  color: #007bff; /* 로그인 페이지의 링크 버튼보다 강조 */
+  text-decoration: none;
+  margin: 0 5px;
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  font-weight: 500; /* 약간 굵게 */
+}
+
+/* 링크 호버 효과 */
+.extra-links .link-button:hover {
+  text-decoration: underline;
+}
+
+/* 반응형 화면 - 모바일 화면 */
+@media (max-width: 480px) {
   .register-box { /* .login-box 와 동일 */
-    background-color: white;
-    padding: 30px 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 100%;
-    max-width: 420px;
-    min-width: 280px;
+    padding: 20px 15px;
+    min-width: auto;
   }
   
-  /* 로고 (파란 동그라미) */
-  .logo-placeholder {
-    width: 70px;
-    height: 70px;
-    background-color: #007bff;
-    border-radius: 50%;
-    margin: 0 auto 20px auto;
-  }
-  
-  /* 큰 제목 */
   .welcome-title {
-    font-size: 22px;
-    color: #333;
-    margin-bottom: 8px;
-    font-weight: 600;
+    font-size: 20px;
   }
-  
-  /* 작은 설명 */
-  .welcome-subtitle {
-    font-size: 13px;
-    color: #666;
-    margin-bottom: 25px;
+}
+
+/* 반응형 화면 - 태블릿 화면 */
+@media (min-width: 481px) and (max-width: 768px) {
+  .register-box { /* .login-box 와 동일 */
+    padding: 25px;
+    max-width: 380px;
   }
-  
-  /* 회원가입 폼 (로그인 페이지와 동일한 스타일 적용) */
-  .register-form { /* .login-form 과 동일 */
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 20px;
+}
+
+/* 반응형 화면 - 큰 화면 */
+@media (min-width: 769px) {
+  .register-box { /* .login-box 와 동일 */
+    padding: 30px 40px;
   }
-  
-  /* 입력 영역 */
-  .input-group {
-    text-align: left;
-  }
-  
-  /* 라벨 (아이디, 비밀번호 등) */
-  .input-group label {
-    display: block;
-    font-size: 14px;
-    color: #555;
-    margin-bottom: 5px;
-  }
-  
-  /* 입력창 */
-  .input-group input[type="text"],
-  .input-group input[type="password"],
-  .input-group input[type="email"] { /* email 타입 추가 */
-    width: calc(100% - 22px);
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 15px;
-  }
-  
-  /* 회원가입 버튼 (로그인 버튼과 동일한 스타일 적용) */
-  .register-button { /* .login-button 과 동일한 스타일 */
-    width: 100%;
-    padding: 12px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  /* 버튼 호버 효과 */
-  .register-button:hover { /* .login-button:hover 와 동일한 스타일 */
-    background-color: #0056b3;
-  }
-  
-  /* 링크 모음 (이미 계정이 있으신가요? 로그인) */
-  .extra-links {
-    margin-top: 20px;
-    font-size: 13px;
-    color: #555;
-  }
-  
-  /* 링크 버튼 */
-  .extra-links .link-button {
-    color: #007bff; /* 로그인 페이지의 링크 버튼보다 강조 */
-    text-decoration: none;
-    margin: 0 5px;
-    background: none;
-    border: none;
-    padding: 0;
-    font: inherit;
-    cursor: pointer;
-    font-weight: 500; /* 약간 굵게 */
-  }
-  
-  /* 링크 호버 효과 */
-  .extra-links .link-button:hover {
-    text-decoration: underline;
-  }
-  
-  /* 반응형 화면 - 모바일 화면 */
-  @media (max-width: 480px) {
-    .register-box { /* .login-box 와 동일 */
-      padding: 20px 15px;
-      min-width: auto;
-    }
-    
-    .welcome-title {
-      font-size: 20px;
-    }
-  }
-  
-  /* 반응형 화면 - 태블릿 화면 */
-  @media (min-width: 481px) and (max-width: 768px) {
-    .register-box { /* .login-box 와 동일 */
-      padding: 25px;
-      max-width: 380px;
-    }
-  }
-  
-  /* 반응형 화면 - 큰 화면 */
-  @media (min-width: 769px) {
-    .register-box { /* .login-box 와 동일 */
-      padding: 30px 40px;
-    }
-  }
-  
+}
