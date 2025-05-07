@@ -1,0 +1,33 @@
+@media (max-width: 1024px) {
+  .header-center,
+  .sidebar-widget {
+    display: none !important;
+  }
+  .main-layout {
+    margin: 10px 48px 0 48px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .board-grid {
+    flex-direction: column !important;
+  }
+
+  .board-column {
+    flex: none !important;
+    max-width: 100% !important;
+  }
+} 
+@media (max-width: 640px) {
+  .header-right,
+  .search-box,
+  .sidebar-wrapper {
+    display: none !important;
+  }
+  .main-layout{
+    margin: 10px 8px !important;
+  }
+  .bottom-nav {
+    display: flex !important;
+  }
+}
