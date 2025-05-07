@@ -12,7 +12,7 @@ function Login() {
   // 로그인 폼 제출 시 메인으로 이동
   const handleLogin = (e) => {
     e.preventDefault();
-    navigate('/main');
+    navigate('/home');
   };
 
   return (
@@ -55,7 +55,7 @@ function Login() {
           <span className="separator">|</span>
           <button className="link-button">비밀번호찾기</button>
           <span className="separator">|</span>
-          <button className="link-button">회원가입</button>
+          <button type="button" className="link-button" onClick={() => navigate('/register')}>회원가입</button>
         </div>
 
         {/* SNS 로그인 */}
