@@ -10,7 +10,6 @@ COPY /frontend/ .
 #RUN npm install react-router-dom --save
 RUN npm install
 
-# test
 RUN npm run build
 
 CMD ["npm", "start"]
