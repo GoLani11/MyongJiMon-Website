@@ -51,9 +51,9 @@ function Login() {
 
         {/* 아이디/비밀번호 찾기, 회원가입 */}
         <div className="extra-links">
-          <button className="link-button">아이디찾기</button>
+          <button className="link-button" onClick={() => navigate('/findid')}>아이디찾기</button>
           <span className="separator">|</span>
-          <button className="link-button">비밀번호찾기</button>
+          <button className="link-button" onClick={() => navigate('/findpassword')}>비밀번호찾기</button>
           <span className="separator">|</span>
           <button type="button" className="link-button" onClick={() => navigate('/register')}>회원가입</button>
         </div>
