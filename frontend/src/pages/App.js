@@ -5,6 +5,8 @@ import Login from './Login/Login';
 import Home from './Home/Home'
 import Schedule from './Schedule/Schedule';
 import Register from './Register/Register';
+import FindId from './FindId/FindId';
+import FindPassword from './FindPassword/FindPassword';
 import './App.css';
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/findid" element={<FindId />} />
+          <Route path="/findpassword" element={<FindPassword />} />
         </Routes>
       </div>
     </Router>

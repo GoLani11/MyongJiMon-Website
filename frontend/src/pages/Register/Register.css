@@ -133,6 +133,10 @@ body, html {
 
 /* 반응형 화면 - 모바일 화면 */
 @media (max-width: 480px) {
+  .register-page-container {
+    padding: 10px; /* 전체 컨테이너 패딩 조정 */
+  }
+
   .register-box { /* .login-box 와 동일 */
     padding: 20px 15px;
     min-width: auto;
@@ -140,6 +144,36 @@ body, html {
   
   .welcome-title {
     font-size: 20px;
+  }
+
+  .welcome-subtitle {
+    font-size: 12px; /* 부제목 글씨 크기 조정 */
+    margin-bottom: 20px;
+  }
+
+  .register-form { /* .login-form 과 동일 */
+    gap: 10px; /* 폼 입력 필드 간 간격 조정 */
+  }
+
+  .input-group label {
+    font-size: 13px; /* 라벨 글씨 크기 조정 */
+  }
+
+  .input-group input[type="text"],
+  .input-group input[type="password"],
+  .input-group input[type="email"] {
+    padding: 8px; /* 입력 필드 패딩 조정 */
+    font-size: 14px;
+  }
+
+  .register-button { /* .login-button 과 동일한 스타일 */
+    padding: 10px; /* 회원가입 버튼 패딩 조정 */
+    font-size: 15px;
+  }
+
+  .extra-links {
+    margin-top: 15px; /* 추가 링크 영역 상단 간격 조정 */
+    font-size: 12px;
   }
 }
 
