@@ -20,15 +20,18 @@
 .admin-content {
   display: flex;
   width: 100%;
-  gap: 20px;
+  gap: 10px;
+  align-items: center;
 }
 
 .admin-sidebar {
-  flex: 0 0 240px;
+  flex: 0 0 200px;
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
+  align-self: flex-start;
+  width: 100%;
 }
 
 .admin-sidebar-title {
@@ -79,7 +82,10 @@
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  padding: 10px;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 .admin-panel-title {
@@ -130,7 +136,7 @@
 
 .admin-table th, 
 .admin-table td {
-  padding: 12px 20px;
+  padding: 12px 25px;
   text-align: left;
   border-bottom: 1px solid #eee;
   white-space: normal;
@@ -321,12 +327,14 @@ textarea.form-control {
   .admin-content {
     flex-direction: column;
     gap: 15px;
+    align-items: center;
   }
   
   .admin-sidebar {
     flex: none;
     margin-bottom: 15px;
     padding: 15px;
+    width: 100%;
   }
 
   .admin-sidebar-title {
