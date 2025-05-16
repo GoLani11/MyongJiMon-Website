@@ -3,11 +3,11 @@ import { AiOutlineUser, AiOutlineFileText, AiOutlineNotification, AiOutlineWarni
 import './Admin.css';
 
 // Admin 컴포넌트들
-import AdminDashboard from '../../components/Admin/AdminDashboard';
-import UserManagement from '../../components/Admin/UserManagement';
-import PostManagement from '../../components/Admin/PostManagement';
-import NoticeManagement from '../../components/Admin/NoticeManagement';
-import ReportManagement from '../../components/Admin/ReportManagement';
+import AdminDashboard from './components/AdminDashboard';
+import UserManagement from './components/UserManagement';
+import PostManagement from './components/PostManagement';
+import NoticeManagement from './components/NoticeManagement';
+import ReportManagement from './components/ReportManagement';
 
 function Admin() {
   // 현재 메뉴 상태
