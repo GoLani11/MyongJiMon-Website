@@ -7,6 +7,7 @@ import Schedule from './Schedule/Schedule';
 import Register from './Register/Register';
 import FindId from './FindId/FindId';
 import FindPassword from './FindPassword/FindPassword';
+import Admin from './Admin/Admin';
 import './App.css';
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
     <Router>
       <div className="App">
         <nav>
-          <Link to="/">Main</Link> | <Link to="/login">Login</Link> | <Link to="/home">Home</Link> | <Link to="/schedule">Schedule</Link>
+          <Link to="/">Main</Link> | <Link to="/login">Login</Link> | <Link to="/home">Home</Link> | <Link to="/schedule">Schedule</Link> | <Link to="/admin">Admin</Link>
         </nav>
         <Routes>
           <Route path="/main" element={<Main />} />
@@ -24,6 +25,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/findid" element={<FindId />} />
           <Route path="/findpassword" element={<FindPassword />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </div>
     </Router>
