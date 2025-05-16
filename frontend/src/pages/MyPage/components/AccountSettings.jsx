@@ -30,7 +30,7 @@ function AccountSettings() {
   // 계정 탈퇴 핸들러
   const handleAccountDelete = () => {
     if (window.confirm('정말 탈퇴하시겠습니까? 이 작업은 되돌릴 수 없습니다.')) {
-      // 실제로는 API를 통해 서버에 계정 탈퇴 요청
+  
       alert('계정이 삭제되었습니다. 이용해 주셔서 감사합니다.');
     }
   };
