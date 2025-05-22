@@ -1,0 +1,100 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f1f1f1;
+  }
+  
+  .chat-wrapper {
+    width: 100vw;           /* 전체 너비 */
+    height: 100vh;          /* 전체 높이 */
+    margin: 0;              /* 가운데 정렬 제거 */
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border: 1px solid #ddd;
+  }
+  
+  .chat-header {
+    padding: 16px;
+    font-size: 20px;
+    background-color: #4f46e5;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .chat-body {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #f9fafb;
+  }
+  
+  .chat-message {
+    display: flex;
+    max-width: 70%;
+  }
+  
+  .chat-message.you {
+    justify-content: flex-start;
+  }
+  
+  .chat-message.me {
+    justify-content: flex-end;
+    align-self: flex-end;
+  }
+  
+  .message-text {
+    padding: 10px 14px;
+    border-radius: 18px;
+    font-size: 14px;
+    word-break: break-word;
+  }
+  
+  .chat-message.you .message-text {
+    background-color: #e4e4e7;
+    color: #333;
+  }
+  
+  .chat-message.me .message-text {
+    background-color: #4f46e5;
+    color: white;
+  }
+  
+  .chat-footer {
+    display: flex;
+    padding: 12px;
+    border-top: 1px solid #ddd;
+    background-color: white;
+  }
+  
+  .chat-footer input {
+    flex: 1;
+    padding: 10px 14px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 14px;
+  }
+  
+  .chat-footer button {
+    margin-left: 10px;
+    padding: 10px 18px;
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .chat-footer button:hover {
+    background-color: #4338ca;
+  }
