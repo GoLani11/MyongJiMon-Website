@@ -1,0 +1,33 @@
+.comment_edit_box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 1034px;
+    height: 100px;
+    margin: 20px 0px;
+}
+
+.comment_edit_textarea {
+    width: 954px;
+    height: 78px;
+    padding: 10px;
+    margin: 0px;
+
+    font-size: 16px;
+    
+    border: 1px solid #0090F9;
+    border-radius: 20px;
+
+    resize: none;
+}
+
+.comment_edit_box_send_icon {
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+}
+
+.comment_edit_box_send_icon:hover {
+    cursor:pointer;
+}
