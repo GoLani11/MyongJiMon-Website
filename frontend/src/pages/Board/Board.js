@@ -2,15 +2,19 @@ import React, { useState } from "react";
 import {nanoid} from "nanoid";
 
 import './Board.css';
-import BoardTitle from './BoardTitle';
-import BoardContent from './BoardContent';
-import PostView from './PostView';
-import CommentEdit from './CommentEdit';
-import Comment from './Comment';
+import BoardTitle from '../../components/BoardTitle';
+import BoardContent from '../../components/BoardContent';
+import PostView from '../../components/PostView';
+import CommentEdit from '../../components/CommentEdit';
+import Comment from '../../components/Comment';
 
 function Board(props) {
   const [isWatching, setIsWatching] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState(null);
+
+  const [boards, setboards] = useState([
+
+  ]);
 
   const [posts, setPosts] = useState([
     { postId: nanoid(), PostName: "새로운 취미 시작히기", Name: "aaaaa", CreateTime: "2025-05-23 17:22:56", GoodCount: 0, CommentCount:"0", ViewCount: 0, UserTagName: "학생", PostContent: "post content1입니다."},
