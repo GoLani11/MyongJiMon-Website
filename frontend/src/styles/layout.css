@@ -1,0 +1,100 @@
+/* 전체 레이아웃 */
+.main-layout {
+  display: flex;
+  margin: 10px 10px 0 48px;
+  gap: 10px;
+}
+
+/* 게시판 그리드: 여러 게시판을 줄바꿈되며 나열 */
+.board-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  max-width: 100%;
+  flex: 1;
+}
+/* 게시판 한 칸 */
+.board-column {
+  flex: 1 1 calc(50% - 12px);
+  max-width: calc(50% - 12px);
+  /* border: 1px solid var(--border-gray);
+  border-radius: 8px; */
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* 게시판 제목 */
+.board-title {
+  width: 100%;
+  background-color: darkgray;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 12px;
+  box-sizing: border-box;
+  margin: 0px;
+}
+
+/* 게시글 리스트 */
+.board-posts {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* 게시글 항목 하나 */
+.board-post {
+  border-bottom: 1px solid black;
+  padding: 12px;
+  font-size: 14px;
+  color: var(--text-black);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* 게시글 첫 번째 줄 */
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 작성자 정보 (왼쪽) */
+.author-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.profile {
+  width: 28px;
+  height: 28px;
+  background-color: #ccc;
+  border-radius: 50%;
+}
+
+.nickname {
+  font-weight: bold;
+  color: #333;
+}
+
+.time {
+  font-size: 12px;
+  color: var(--text-gray);
+}
+
+/* 리액션 정보 (오른쪽) */
+.reactions {
+  display: flex;
+  gap: 8px;
+  font-size: 12px;
+  color: #666;
+}
+
+/* 게시글 제목 줄 (두 번째 줄) */
+.post-bottom {
+  font-size: 15px;
+  font-weight: 600;
+}

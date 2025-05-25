@@ -1,0 +1,30 @@
+/* Schedule.css */
+
+/* 메인 좌우 레이아웃 : 버튼 + 시간표 + 위젯 */
+.main-layout {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+/* 좌측 버튼 세로 정렬 */
+.schedule-buttons-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+/* 시간표 + 위젯을 감싸는 우측 영역 */
+.schedule-content {
+  display: flex;
+  gap: 24px;
+  flex: 1;
+}
+
+/* 시간표 테이블 */
+.schedule-container {
+  flex: 1;
+  min-width: 600px;
+  max-width: 920px;
+}

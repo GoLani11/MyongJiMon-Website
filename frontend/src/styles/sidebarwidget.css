@@ -1,0 +1,52 @@
+/* 사이드바 위젯 전체 컨테이너 */
+.sidebar-widget {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 200px;
+    flex-shrink: 0; /* 줄어들지 않게 고정 */
+  }
+  
+  /* 일정 박스와 인기 검색어 박스 공통 스타일 */
+  .schedule-box,
+  .popular-search-box {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 16px;
+    background: var(--bg-white);
+  }
+  
+  /* 박스 제목 */
+  .schedule-box h3,
+  .popular-search-box h3 {
+    margin: 0 0 8px;
+    font-size: 14px;
+    color: var(--text-black);
+  }
+  
+  /* 일정 텍스트 */
+  .schedule-box p {
+    font-size: 13px;
+    color: var(--text-gray);
+    margin: 4px 0;
+  }
+  
+  /* 인기 검색어 리스트 */
+  .popular-search-box ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .popular-search-box li {
+    font-size: 13px;
+    margin-bottom: 6px;
+    color: #444;
+  }
+  
+  .rank {
+    font-weight: bold;
+    margin-right: 8px;
+    color: var(--primary-blue);
+  }

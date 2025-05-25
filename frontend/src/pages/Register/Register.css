@@ -11,8 +11,8 @@ body, html {
   box-sizing: border-box;
 }
 
-/* 로그인 페이지 */
-.login-page-container {
+/* 회원가입 페이지 (로그인 페이지와 동일한 스타일 적용) */
+.register-page-container { /* .login-page-container 와 동일 */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,8 +20,8 @@ body, html {
   padding: 20px;
 }
 
-/* 로그인 흰색 상자 */
-.login-box {
+/* 회원가입 흰색 상자 (로그인 페이지와 동일한 스타일 적용) */
+.register-box { /* .login-box 와 동일 */
   background-color: white;
   padding: 30px 20px;
   border-radius: 8px;
@@ -56,8 +56,8 @@ body, html {
   margin-bottom: 25px;
 }
 
-/* 로그인 폼 */
-.login-form {
+/* 회원가입 폼 (로그인 페이지와 동일한 스타일 적용) */
+.register-form { /* .login-form 과 동일 */
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -69,7 +69,7 @@ body, html {
   text-align: left;
 }
 
-/* 라벨 (아이디, 비밀번호) */
+/* 라벨 (아이디, 비밀번호 등) */
 .input-group label {
   display: block;
   font-size: 14px;
@@ -79,7 +79,8 @@ body, html {
 
 /* 입력창 */
 .input-group input[type="text"],
-.input-group input[type="password"] {
+.input-group input[type="password"],
+.input-group input[type="email"] { /* email 타입 추가 */
   width: calc(100% - 22px);
   padding: 10px;
   border: 1px solid #ddd;
@@ -87,28 +88,8 @@ body, html {
   font-size: 15px;
 }
 
-/* 아이디 저장 체크박스 */
-.remember-me {
-  display: flex;
-  align-items: center;
-  text-align: left;
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 15px;
-}
-
-/* 체크박스 */
-.remember-me input[type="checkbox"] {
-  margin-right: 8px;
-}
-
-/* 체크박스 라벨 */
-.remember-id-label {
-  cursor: pointer;
-}
-
-/* 로그인 버튼 */
-.login-button {
+/* 회원가입 버튼 (로그인 버튼과 동일한 스타일 적용) */
+.register-button { /* .login-button 과 동일한 스타일 */
   width: 100%;
   padding: 12px;
   background-color: #007bff;
@@ -121,11 +102,11 @@ body, html {
 }
 
 /* 버튼 호버 효과 */
-.login-button:hover {
+.register-button:hover { /* .login-button:hover 와 동일한 스타일 */
   background-color: #0056b3;
 }
 
-/* 링크 모음 (아이디/비밀번호 찾기, 회원가입) */
+/* 링크 모음 (이미 계정이 있으신가요? 로그인) */
 .extra-links {
   margin-top: 20px;
   font-size: 13px;
@@ -134,7 +115,7 @@ body, html {
 
 /* 링크 버튼 */
 .extra-links .link-button {
-  color: #555;
+  color: #007bff; /* 로그인 페이지의 링크 버튼보다 강조 */
   text-decoration: none;
   margin: 0 5px;
   background: none;
@@ -142,6 +123,7 @@ body, html {
   padding: 0;
   font: inherit;
   cursor: pointer;
+  font-weight: 500; /* 약간 굵게 */
 }
 
 /* 링크 호버 효과 */
@@ -149,74 +131,13 @@ body, html {
   text-decoration: underline;
 }
 
-/* 구분선 */
-.extra-links .separator {
-  color: #ccc;
-}
-
-/* SNS 로그인 영역 */
-.sns-login-section {
-  margin-top: 30px;
-  padding-top: 20px;
-  border-top: 1px solid #eee;
-}
-
-/* SNS 로그인 제목 */
-.sns-login-title {
-  font-size: 14px;
-  color: #777;
-  margin-bottom: 20px;
-}
-
-/* SNS 버튼 컨테이너 */
-.sns-buttons-container {
-  display: flex;
-  justify-content: center;
-  gap: 25px;
-  flex-wrap: wrap;
-}
-
-/* SNS 버튼 */
-.sns-button {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  font-size: 12px;
-  color: #555;
-}
-
-/* SNS 아이콘 */
-.sns-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  margin-bottom: 8px;
-}
-
-/* 카카오 */
-.kakao-icon {
-  background-color: #FEE500;
-}
-
-/* 구글 */
-.google-icon {
-  background-color: white;
-  border: 1px solid #e0e0e0;
-}
-
-/* 네이버 */
-.naver-icon {
-  background-color: #03C75A;
-}
-
 /* 반응형 화면 - 모바일 화면 */
 @media (max-width: 480px) {
-  .login-page-container {
-    padding: 10px;
+  .register-page-container {
+    padding: 10px; /* 전체 컨테이너 패딩 조정 */
   }
-  
-  .login-box {
+
+  .register-box { /* .login-box 와 동일 */
     padding: 20px 15px;
     min-width: auto;
   }
@@ -224,80 +145,49 @@ body, html {
   .welcome-title {
     font-size: 20px;
   }
-  
+
   .welcome-subtitle {
-    font-size: 12px;
+    font-size: 12px; /* 부제목 글씨 크기 조정 */
     margin-bottom: 20px;
   }
-  
-  .login-form {
-    gap: 10px;
+
+  .register-form { /* .login-form 과 동일 */
+    gap: 10px; /* 폼 입력 필드 간 간격 조정 */
   }
-  
+
   .input-group label {
-    font-size: 13px;
+    font-size: 13px; /* 라벨 글씨 크기 조정 */
   }
-  
+
   .input-group input[type="text"],
-  .input-group input[type="password"] {
-    padding: 8px;
+  .input-group input[type="password"],
+  .input-group input[type="email"] {
+    padding: 8px; /* 입력 필드 패딩 조정 */
     font-size: 14px;
   }
 
-  .remember-me {
-    font-size: 13px;
-  }
-
-  .login-button {
-    padding: 10px;
+  .register-button { /* .login-button 과 동일한 스타일 */
+    padding: 10px; /* 회원가입 버튼 패딩 조정 */
     font-size: 15px;
   }
-  
+
   .extra-links {
-    margin-top: 15px;
+    margin-top: 15px; /* 추가 링크 영역 상단 간격 조정 */
     font-size: 12px;
-  }
-  
-  .sns-login-section {
-    margin-top: 25px;
-    padding-top: 15px;
-  }
-
-  .sns-login-title {
-    font-size: 13px;
-    margin-bottom: 15px;
-  }
-  
-  .sns-buttons-container {
-    gap: 15px;
-  }
-  
-  .sns-button {
-    font-size: 11px;
-  }
-
-  .sns-icon {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 6px;
   }
 }
 
 /* 반응형 화면 - 태블릿 화면 */
 @media (min-width: 481px) and (max-width: 768px) {
-  .login-box {
+  .register-box { /* .login-box 와 동일 */
     padding: 25px;
     max-width: 380px;
-  }
-  
-  .sns-buttons-container {
-    gap: 20px;
   }
 }
 
 /* 반응형 화면 - 큰 화면 */
 @media (min-width: 769px) {
-  .login-box {
+  .register-box { /* .login-box 와 동일 */
     padding: 30px 40px;
   }
 }

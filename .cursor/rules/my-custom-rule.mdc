@@ -1,0 +1,24 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Project Title: College Community Website Frontend
+Project Goal: Develop the frontend of a college community website using React. The website should provide features for students to interact, share information, and build a sense of community.
+Technology Stack: React (Frontend)
+Target Audience & Skill Level: This project is being developed by a team of university students who are beginners in React. The codebase should be written with readability and simplicity as top priorities to ensure all team members can easily understand and contribute.
+Coding Principles:
+Readability: Prioritize clear, concise, and well-commented code.
+Simplicity: Avoid complex patterns or advanced React features where simpler alternatives exist.
+Consistency: Maintain consistent coding styles and practices across the project.
+Modularity: Break down the UI into small, reusable components.
+Key Features (High-Level Overview):
+User Authentication (Login, Registration)
+Homepage/Dashboard
+Post Creation and Display
+Commenting on Posts
+User Profiles
+Basic Navigation
+Expected Outcome: A functional and user-friendly frontend application that demonstrates a solid understanding of fundamental React concepts and best practices for beginner-level development. The codebase should serve as a learning resource for the team.
+
+
