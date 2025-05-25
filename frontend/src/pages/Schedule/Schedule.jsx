@@ -1,5 +1,5 @@
 // Schedule.jsx
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 
 // PNG 내보내기 관련 import
 // react의 useRef 사용하기 위해 import
@@ -15,6 +15,7 @@ import BottomNav from '../../components/BottomNav';
 // 버튼, 시간표 컴포넌트
 import ScheduleButton from '../../components/ScheduleButton';
 import ScheduleTable from '../../components/ScheduleTable';
+import ScheduleChangeModal from '../../components/ScheduleChangeModal';
 
 // 각 필요 스타일 import
 import './Schedule.css';
@@ -57,6 +58,8 @@ function Schedule() {
     });
   };
 
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <>
       {/* 상단 공통 헤더*/}
@@ -76,7 +79,7 @@ function Schedule() {
           {/* 학기 */}
           <div className="semester-label">{semesterLabel}</div>
           {/* 버튼 그룹 */}
-          <ScheduleButton>시간표 변경하기</ScheduleButton>
+          <ScheduleButton onClick={() => setShowModal(true)}>시간표 변경하기</ScheduleButton>
           <ScheduleButton onClick={handleExportPNG}>시간표 내보내기(PNG)</ScheduleButton>
           <ScheduleButton>친구 추가하기</ScheduleButton>
           <ScheduleButton>내 친구 시간표 확인하기</ScheduleButton>
@@ -96,6 +99,9 @@ function Schedule() {
 
       {/* 하단 모바일 전용 내비게이션 */}
       <BottomNav />
+
+      {/* ✅ 모달창 추가 */}
+      {showModal && <ScheduleChangeModal onClose={() => setShowModal(false)} />}
     </>
   );
 }
