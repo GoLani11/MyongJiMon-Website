@@ -21,14 +21,27 @@ router.get('/:userId', async (req, res) => {
   }
 });
 
-// 2️⃣ 시간표에 과목 추가 (POST /api/timetable)
+// POST /api/timetable
 router.post('/', async (req, res) => {
   const { user_id, course_id, tt_year, tt_semester } = req.body;
   try {
+    // 🟢 중복 검사
+    const [existing] = await pool.query(
+      'SELECT * FROM timetable WHERE user_id = ? AND course_id = ?',
+      [user_id, course_id]
+    );
+
+    if (existing.length > 0) {
+      // 이미 존재하는 경우
+      return res.status(400).json({ error: '이미 시간표에 추가된 과목입니다' });
+    }
+
+    // 신규 추가
     await pool.query(`
       INSERT INTO timetable (user_id, course_id, tt_year, tt_semester)
       VALUES (?, ?, ?, ?)
     `, [user_id, course_id, tt_year, tt_semester]);
+
     res.json({ message: '시간표 추가 성공!' });
   } catch (err) {
     console.error('시간표 추가 오류:', err);
@@ -36,15 +49,25 @@ router.post('/', async (req, res) => {
   }
 });
 
-// GET /api/courses - 과목 목록 가져오기
-router.get('/courses', async (req, res) => {
-    try {
-      const [rows] = await pool.query('SELECT * FROM courses');
-      res.json(rows);
-    } catch (error) {
-      console.error('과목 목록 조회 오류:', error);
-      res.status(500).json({ error: '과목 목록 조회 오류', detail: error.message });
+// DELETE /api/timetable/:user_id/:course_id - 특정 유저의 특정 과목 삭제
+router.delete('/:user_id/:course_id', async (req, res) => {
+  const { user_id, course_id } = req.params;
+
+  try {
+    const [result] = await pool.query(
+      'DELETE FROM timetable WHERE user_id = ? AND course_id = ?',
+      [user_id, course_id]
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: '삭제할 과목이 없음' });
     }
-  });
+
+    res.json({ message: '삭제 완료' });
+  } catch (error) {
+    console.error('시간표 삭제 오류:', error);
+    res.status(500).json({ error: '시간표 삭제 실패', detail: error.message });
+  }
+});
 
 module.exports = router;
