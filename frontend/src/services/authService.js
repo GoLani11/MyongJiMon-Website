@@ -94,3 +94,29 @@ export const checkUsername = async (username) => {
     };
   }
 };
+
+// 5. 비밀번호 찾기 API 호출
+export const findPassword = async (findData) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/find-password`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: findData.username,
+        contact: findData.contact,
+        studentId: findData.studentId
+      })
+    });
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('비밀번호 찾기 API 오류:', error);
+    return {
+      success: false,
+      message: '네트워크 오류가 발생했습니다.'
+    };
+  }
+};

@@ -155,14 +155,14 @@ router.post('/find-id', async (req, res) => {
     if (!contact || !studentId) {
       return res.status(400).json({ 
         success: false, 
-        message: '이메일/전화번호와 학번을 입력해주세요.' 
+        message: '이메일과 학번을 입력해주세요.' 
       });
     }
 
-    // 사용자 조회 - 이메일 또는 전화번호와 학번으로 검색
+    // 사용자 조회 - 이메일과 학번으로 검색 (user_phone 제거)
     const [userRows] = await pool.query(
-      'SELECT user_name FROM users WHERE (user_email = ? OR user_phone = ?) AND user_school_id = ? AND user_status IN ("ACTIVE", "ENROLLED")',
-      [contact, contact, studentId]
+      'SELECT user_name FROM users WHERE user_email = ? AND user_school_id = ? AND user_status IN ("ACTIVE", "ENROLLED")',
+      [contact, studentId]
     );
 
     if (userRows.length > 0) {
@@ -209,6 +209,208 @@ router.get('/check-username/:username', async (req, res) => {
 
   } catch (error) {
     console.error('아이디 중복 확인 오류:', error);
+    return res.status(500).json({
+      success: false,
+      message: '서버 오류가 발생했습니다.'
+    });
+  }
+});
+
+// 5. 비밀번호 찾기 API
+router.post('/find-password', async (req, res) => {
+  try {
+    const { username, contact, studentId } = req.body;
+    
+    // 입력값 검증
+    if (!username || !contact || !studentId) {
+      return res.status(400).json({ 
+        success: false, 
+        message: '아이디, 이메일, 학번을 모두 입력해주세요.' 
+      });
+    }
+
+    // 사용자 조회 - 아이디, 이메일, 학번으로 검색 (user_phone 제거)
+    const [userRows] = await pool.query(
+      'SELECT user_id, user_password FROM users WHERE user_name = ? AND user_email = ? AND user_school_id = ? AND user_status IN ("ACTIVE", "ENROLLED")',
+      [username, contact, studentId]
+    );
+
+    if (userRows.length > 0) {
+      const password = userRows[0].user_password;
+      // 보안을 위해 일부 문자를 마스킹
+      const maskedPassword = password.substring(0, 2) + '*'.repeat(password.length - 2);
+      
+      return res.json({
+        success: true,
+        message: '비밀번호를 찾았습니다.',
+        password: maskedPassword,
+        fullPassword: password // 실제 구현시에는 제거하거나 이메일로 전송
+      });
+    }
+
+    return res.status(404).json({
+      success: false,
+      message: '일치하는 정보를 찾을 수 없습니다.'
+    });
+
+  } catch (error) {
+    console.error('비밀번호 찾기 오류:', error);
+    return res.status(500).json({
+      success: false,
+      message: '서버 오류가 발생했습니다.'
+    });
+  }
+});
+
+// 6. 사용자 정보 조회 API
+router.get('/profile/:userId', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    
+    const [userRows] = await pool.query(
+      'SELECT user_id, user_name, user_email, user_school_id, user_type, user_created_at, user_status FROM users WHERE user_id = ? AND user_status IN ("ACTIVE", "ENROLLED")',
+      [userId]
+    );
+
+    if (userRows.length > 0) {
+      const user = userRows[0];
+      return res.json({
+        success: true,
+        user: {
+          id: user.user_id,
+          username: user.user_name,
+          name: user.user_name,
+          email: user.user_email,
+          studentId: user.user_school_id,
+          type: user.user_type,
+          joinDate: user.user_created_at,
+          status: user.user_status
+        }
+      });
+    }
+
+    return res.status(404).json({
+      success: false,
+      message: '사용자를 찾을 수 없습니다.'
+    });
+
+  } catch (error) {
+    console.error('사용자 정보 조회 오류:', error);
+    return res.status(500).json({
+      success: false,
+      message: '서버 오류가 발생했습니다.'
+    });
+  }
+});
+
+// 7. 프로필 수정 API
+router.put('/profile/:userId', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { name, email } = req.body;
+    
+    // 입력값 검증
+    if (!name || !email) {
+      return res.status(400).json({ 
+        success: false, 
+        message: '이름과 이메일을 입력해주세요.' 
+      });
+    }
+
+    // 이메일 중복 확인 (자신 제외)
+    const [existingEmail] = await pool.query(
+      'SELECT user_id FROM users WHERE user_email = ? AND user_id != ?',
+      [email, userId]
+    );
+
+    if (existingEmail.length > 0) {
+      return res.status(409).json({
+        success: false,
+        message: '이미 사용중인 이메일입니다.'
+      });
+    }
+
+    // 프로필 업데이트 (user_real_name 대신 user_name 업데이트)
+    const [result] = await pool.query(
+      'UPDATE users SET user_name = ?, user_email = ? WHERE user_id = ?',
+      [name, email, userId]
+    );
+
+    if (result.affectedRows > 0) {
+      return res.json({
+        success: true,
+        message: '프로필이 성공적으로 업데이트되었습니다.'
+      });
+    }
+
+    return res.status(404).json({
+      success: false,
+      message: '사용자를 찾을 수 없습니다.'
+    });
+
+  } catch (error) {
+    console.error('프로필 수정 오류:', error);
+    return res.status(500).json({
+      success: false,
+      message: '서버 오류가 발생했습니다.'
+    });
+  }
+});
+
+// 8. 비밀번호 변경 API
+router.put('/change-password/:userId', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { currentPassword, newPassword } = req.body;
+    
+    // 입력값 검증
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({ 
+        success: false, 
+        message: '현재 비밀번호와 새 비밀번호를 입력해주세요.' 
+      });
+    }
+
+    // 현재 비밀번호 확인
+    const [userRows] = await pool.query(
+      'SELECT user_password FROM users WHERE user_id = ?',
+      [userId]
+    );
+
+    if (userRows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: '사용자를 찾을 수 없습니다.'
+      });
+    }
+
+    if (userRows[0].user_password !== currentPassword) {
+      return res.status(400).json({
+        success: false,
+        message: '현재 비밀번호가 올바르지 않습니다.'
+      });
+    }
+
+    // 비밀번호 업데이트
+    const [result] = await pool.query(
+      'UPDATE users SET user_password = ? WHERE user_id = ?',
+      [newPassword, userId]
+    );
+
+    if (result.affectedRows > 0) {
+      return res.json({
+        success: true,
+        message: '비밀번호가 성공적으로 변경되었습니다.'
+      });
+    }
+
+    return res.status(500).json({
+      success: false,
+      message: '비밀번호 변경에 실패했습니다.'
+    });
+
+  } catch (error) {
+    console.error('비밀번호 변경 오류:', error);
     return res.status(500).json({
       success: false,
       message: '서버 오류가 발생했습니다.'
