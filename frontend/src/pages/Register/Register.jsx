@@ -1,9 +1,11 @@
 // React 불러오기
-import React from 'react';
+import React, { useState } from 'react';
 // CSS 파일 불러오기
 import './Register.css';
 // 페이지 이동을 위한 useNavigate 불러오기
 import { useNavigate } from 'react-router-dom';
+// API 서비스 불러오기
+import { registerUser } from '../../services/authService';
 
 // 회원가입 화면 컴포넌트
 function Register() {
