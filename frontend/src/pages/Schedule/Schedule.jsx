@@ -7,10 +7,10 @@ import React, { useRef, useState } from 'react';
 import html2canvas from 'html2canvas';
 
 // 상단 헤더, 사이드바, 하단 네비게이션 등 공통 컴포넌트 import
-import Header from '../../components/Header';
-import Sidebar from '../../components/Sidebar';
-import SidebarWidget from '../../components/SidebarWidget';
-import BottomNav from '../../components/BottomNav';
+import Header from '../../components/Header.jsx';
+import Sidebar from '../../components/Sidebar.jsx';
+import SidebarWidget from '../../components/SidebarWidget.jsx';
+import BottomNav from '../../components/BottomNav.jsx';
 
 // 버튼, 시간표 컴포넌트
 import ScheduleButton from '../../components/ScheduleButton';
