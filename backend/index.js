@@ -9,9 +9,11 @@ app.use(express.json());
 // 📌 라우터 연결
 const timetableRouter = require('./routes/timetable');
 const courseRouter = require('./routes/courses');  // ✅ courses.js 추가
+const authRouter = require('./routes/auth');        // ✅ auth.js 추가
 
 app.use('/api/timetable', timetableRouter);
 app.use('/api/courses', courseRouter);  // ✅ 여기에 연결해야 /api/courses 작동함
+app.use('/api/auth', authRouter);       // ✅ 인증 라우터 연결
 
 // 기본 라우터
 app.get('/', (req, res) => {

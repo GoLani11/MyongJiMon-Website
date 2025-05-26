@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { changePassword, getCurrentUser } from '../../../services/userService';
 
 function ChangePassword() {
   // 비밀번호 폼 상태
@@ -14,6 +15,9 @@ function ChangePassword() {
     newPassword: '',
     confirmPassword: ''
   });
+
+  // 로딩 상태
+  const [loading, setLoading] = useState(false);
 
   // 입력 필드 변경 핸들러
   const handleInputChange = (e) => {
@@ -50,6 +54,9 @@ function ChangePassword() {
     } else if (passwordData.newPassword.length < 8) {
       newErrors.newPassword = '비밀번호는 8자 이상이어야 합니다.';
       isValid = false;
+    } else if (passwordData.currentPassword === passwordData.newPassword) {
+      newErrors.newPassword = '현재 비밀번호와 새 비밀번호가 같습니다.';
+      isValid = false;
     }
 
     // 비밀번호 확인 검사
@@ -66,19 +73,74 @@ function ChangePassword() {
   };
 
   // 폼 제출 핸들러
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (validateForm()) {
-      // 실제로는 API를 통해 서버에 비밀번호 변경 요청
-      alert('비밀번호가 성공적으로 변경되었습니다.');
-      // 폼 초기화
-      setPasswordData({
-        currentPassword: '',
-        newPassword: '',
-        confirmPassword: ''
-      });
+    if (!validateForm()) {
+      return;
     }
+
+    setLoading(true);
+
+    try {
+      // 현재 사용자 정보 가져오기
+      const currentUser = getCurrentUser();
+      if (!currentUser || !currentUser.id) {
+        alert('로그인이 필요합니다.');
+        setLoading(false);
+        return;
+      }
+
+      // API를 통해 비밀번호 변경
+      const result = await changePassword(currentUser.id, {
+        currentPassword: passwordData.currentPassword,
+        newPassword: passwordData.newPassword
+      });
+
+      if (result.success) {
+        alert('비밀번호가 성공적으로 변경되었습니다.');
+        // 폼 초기화
+        setPasswordData({
+          currentPassword: '',
+          newPassword: '',
+          confirmPassword: ''
+        });
+        setErrors({
+          currentPassword: '',
+          newPassword: '',
+          confirmPassword: ''
+        });
+      } else {
+        // 서버에서 온 오류 메시지 처리
+        if (result.message.includes('현재 비밀번호')) {
+          setErrors({
+            ...errors,
+            currentPassword: result.message
+          });
+        } else {
+          alert(result.message || '비밀번호 변경에 실패했습니다.');
+        }
+      }
+    } catch (error) {
+      console.error('비밀번호 변경 오류:', error);
+      alert('비밀번호 변경 중 오류가 발생했습니다.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 취소 핸들러
+  const handleCancel = () => {
+    setPasswordData({
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: ''
+    });
+    setErrors({
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: ''
+    });
   };
 
   return (
@@ -96,6 +158,7 @@ function ChangePassword() {
             className="form-control"
             value={passwordData.currentPassword}
             onChange={handleInputChange}
+            disabled={loading}
           />
           {errors.currentPassword && (
             <p style={{ color: 'red', fontSize: '13px', marginTop: '5px' }}>
@@ -114,6 +177,7 @@ function ChangePassword() {
             className="form-control"
             value={passwordData.newPassword}
             onChange={handleInputChange}
+            disabled={loading}
           />
           {errors.newPassword ? (
             <p style={{ color: 'red', fontSize: '13px', marginTop: '5px' }}>
@@ -136,6 +200,7 @@ function ChangePassword() {
             className="form-control"
             value={passwordData.confirmPassword}
             onChange={handleInputChange}
+            disabled={loading}
           />
           {errors.confirmPassword && (
             <p style={{ color: 'red', fontSize: '13px', marginTop: '5px' }}>
@@ -146,8 +211,17 @@ function ChangePassword() {
 
         {/* 버튼 */}
         <div style={{ marginTop: '30px' }}>
-          <button type="button" className="cancel-button">취소</button>
-          <button type="submit" className="submit-button">비밀번호 변경</button>
+          <button 
+            type="button" 
+            className="cancel-button" 
+            onClick={handleCancel}
+            disabled={loading}
+          >
+            취소
+          </button>
+          <button type="submit" className="submit-button" disabled={loading}>
+            {loading ? '변경 중...' : '비밀번호 변경'}
+          </button>
         </div>
       </form>
     </div>
