@@ -159,7 +159,7 @@ router.post('/find-id', async (req, res) => {
       });
     }
 
-    // 사용자 조회 - 이메일과 학번으로 검색 (user_phone 제거)
+    // 사용자 조회 - 이메일과 학번으로 검색
     const [userRows] = await pool.query(
       'SELECT user_name FROM users WHERE user_email = ? AND user_school_id = ? AND user_status IN ("ACTIVE", "ENROLLED")',
       [contact, studentId]
@@ -229,7 +229,7 @@ router.post('/find-password', async (req, res) => {
       });
     }
 
-    // 사용자 조회 - 아이디, 이메일, 학번으로 검색 (user_phone 제거)
+    // 사용자 조회 - 아이디, 이메일, 학번으로 검색
     const [userRows] = await pool.query(
       'SELECT user_id, user_password FROM users WHERE user_name = ? AND user_email = ? AND user_school_id = ? AND user_status IN ("ACTIVE", "ENROLLED")',
       [username, contact, studentId]
