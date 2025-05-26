@@ -1,0 +1,91 @@
+.post_view_box {
+    display: flex;
+    flex-direction: column;
+
+    width: 1012px;
+    height: 778px;
+    padding: 10px;
+
+    border:1px solid black;
+    border-radius: 10px;
+}
+
+.commnunity_info {
+    margin: 10px 10px;
+    font-size: small;
+    color:grey;
+}
+
+.board_title {
+    color: #0090F9;
+}
+
+.board_title:hover {
+    cursor: pointer;
+}
+
+.post_head_metadata_box {
+    display: flex;
+    width: 1014px;
+    height: 50px;
+    margin-top: 20px;
+}
+
+.person_icon {
+    width: 50px;
+    height: 50px;
+    border: none;
+}
+
+.post_head_text_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.post_owner {
+    margin-left: 10px;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.metadata {
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.post_body_box {
+    flex-grow: 1;
+}
+
+.post_tail_box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 1014px;
+    height: 100px;
+}
+
+.good_box {
+    display: flex;
+    align-items: center;
+    /* post_tail_box의 "justify-content: space-between;"와 결합해
+    UserTag를 왼쪽 정렬시키고, 자기 자신을 가운데 정렬시킨다. */
+}
+
+.good_count {
+    margin: 0px 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #0090F9;
+}
+
+.good_icon {
+    width: 30px;
+    height: 30px;
+}
+
+.good_icon:hover {
+    cursor: pointer;
+}

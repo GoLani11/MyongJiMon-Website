@@ -1,0 +1,64 @@
+.post_edit_box {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.post_title_input_box {
+    width: 1024px;
+    height: 40px;
+    padding: 0px 0px 0px 10px;
+    margin: 0px;
+    /* NanumGothicBold 적용 */
+    font-family: 'NanumGothicBold', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    border: 1px solid #BDBDBD;
+    border-radius: 10px;
+    line-height: 40px;
+    outline: none;
+    resize: none;
+}
+
+.post_content_box {
+    width: 1036px;
+}
+
+.sub_box_title {
+    font-family: 'NanumGothicBold', sans-serif;
+}
+
+/* quill editor의 실제 작성 부분 */
+.ql-container {
+    height: 500px;
+}
+
+.post_button_box {
+    display: flex;
+    width: 1036px;
+    height: 30px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 40px;
+    background-color: #0090F9;
+    border-radius: 12.5px;
+    font-size: small;
+    color:white;
+    font-weight: bold;
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+.post_tail_stub_box {
+    width: 1036px;
+    height: 100px;
+}
