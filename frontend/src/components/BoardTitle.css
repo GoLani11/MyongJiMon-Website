@@ -1,0 +1,13 @@
+.board_title_box {
+    width: 994px;
+    height: 82px;
+    background-color: #0090F9;
+    border-radius: 30px;
+    padding: 10px 20px;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.board_title_text {
+    color: white;
+}

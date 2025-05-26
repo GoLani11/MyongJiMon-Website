@@ -1,0 +1,44 @@
+@font-face {
+    font-family: 'NanumGothicExtraBold';
+    src: url('/public/fonts/NanumGothicExtraBold.woff2') format('woff2'),
+        url('/public/fonts/NanumGothicExtraBold.woff') format('woff'),
+        url('/public/fonts/NanumGothicExtraBold.ttf') format('truetype');
+    font-weight: bold; 
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'NanumGothicBold';
+    src: url('/public/fonts/NanumGothicBold.woff2') format('woff2'),
+        url('/public/fonts/NanumGothicBold.woff') format('woff'),
+        url('/public/fonts/NanumGothicBold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'NanumGothic';
+    src: url('/public/fonts/NanumGothic.woff2') format('woff2'),
+        url('/public/fonts/NanumGothic.woff') format('woff'),
+        url('/public/fonts/NanumGothic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'NanumGothicLight';
+    src: url('/public/fonts/NanumGothicLight.woff2') format('woff2'),
+        url('/public/fonts/NanumGothicLight.woff') format('woff'),
+        url('/public/fonts/NanumGothicLight.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+body {
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
