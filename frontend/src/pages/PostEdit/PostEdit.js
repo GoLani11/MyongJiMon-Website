@@ -1,10 +1,18 @@
 import React, { useState } from "react";
 import ReactQuill from "react-quill-new";
+import { useNavigate } from 'react-router-dom';
+import { nanoid } from 'nanoid';
+import DOMPurify from 'dompurify';
+
+import { useAppContext } from "../DataContext";
 import 'react-quill-new/dist/quill.snow.css';
 import "./PostEdit.css"
 import BoardTitle from "../../components/BoardTitle";
 
-function PostEdit( {boardTitle, addPost}) {
+function PostEdit( {boardTitle}) {
+    const { addPost } = useAppContext();
+    const navigate = useNavigate();  // useNavigate 훅 사용
+
     const [postTitleText, setpostTitleText] = useState("");
     const [postContentText, setpostContentText] = useState("");
 
@@ -30,14 +38,28 @@ function PostEdit( {boardTitle, addPost}) {
         // mysql의 current_timestamp 형식과 일치하는 형태로 가공
         const currentDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 
-        addPost(boardTitle, currentDateTime, postTitleText, postContentText)
+        const newPost = { 
+            postId: nanoid(), 
+            boardId: "test", 
+            PostName: postTitleText, 
+            Name: "aaaaa", 
+            CreateTime: currentDateTime, 
+            GoodCount: 0, 
+            CommentCount: 0, 
+            ViewCount: 0, 
+            UserTagName: "학생", 
+            PostContent: DOMPurify.sanitize(postContentText)
+        };
+        addPost(newPost)
+
+        navigate('/board');
     }
 
     function handleCancleButtonClick(e) {
-        {/* 복귀 codes */}
-
         setpostTitleText("");
         setpostContentText("");
+
+        navigate('/board');
     }
 
     return (
