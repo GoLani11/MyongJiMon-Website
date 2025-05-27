@@ -20,7 +20,7 @@ function PostView( { BoardTitle, PostName, Name, CreateTime, GoodCount, ViewCoun
             </div>
             <div className="post_body_box">
                 <h1>{PostName}</h1>
-                <p>{PostContent}</p>
+                <span dangerouslySetInnerHTML={{__html: PostContent}}/>
             </div>
             <div className="post_tail_box">
                 <UserTag UserTagName={UserTagName}/>

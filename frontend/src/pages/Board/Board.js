@@ -1,5 +1,16 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import {nanoid} from "nanoid";
+import DOMPurify from 'dompurify';
+
+// 상단 헤더, 사이드바, 하단 네비게이션 등 공통 컴포넌트 import
+import Header from '../../components/Header';
+import Sidebar from '../../components/Sidebar';
+import SidebarWidget from '../../components/SidebarWidget';
+import BottomNav from '../../components/BottomNav';
+
+// 각 필요 스타일 import
+import '../../styles/layout.css';
+import '../../styles/global.css';
 
 import './Board.css';
 import BoardTitle from '../../components/BoardTitle';
@@ -9,17 +20,14 @@ import CommentEdit from '../../components/CommentEdit';
 import Comment from '../../components/Comment';
 
 function Board(props) {
-  const [isWatching, setIsWatching] = useState(false);
-  const [selectedPostId, setSelectedPostId] = useState(null);
-
   const [boards, setboards] = useState([
-
+    
   ]);
 
   const [posts, setPosts] = useState([
-    { postId: nanoid(), PostName: "새로운 취미 시작히기", Name: "aaaaa", CreateTime: "2025-05-23 17:22:56", GoodCount: 0, CommentCount:"0", ViewCount: 0, UserTagName: "학생", PostContent: "post content1입니다."},
-    { postId: nanoid(), PostName: "새로운 취미 시작히기 2", Name: "bbbbb", CreateTime: "2025-05-23 13:32:11", GoodCount: 0, CommentCount:"0", ViewCount: 0, UserTagName: "학생", PostContent: "post content2입니다."},
-    { postId: nanoid(), PostName: "새로운 취미 시작히기 3", Name: "ccccc", CreateTime: "2025-05-23 08:00:00", GoodCount: 0, CommentCount:"0", ViewCount: 0, UserTagName: "임직원", PostContent: "post content3입니다."},
+    { postId: nanoid(), PostName: "새로운 취미 시작히기", Name: "aaaaa", CreateTime: "2025-05-23 17:22:56", GoodCount: 0, CommentCount:2, ViewCount: 0, UserTagName: "학생", PostContent: "<p><strong>새로운 취미를 시작하는 것</strong>은 매우 즐겁고 <em>도전적인</em> 일이 될 수 있습니다.</p><p>이제 저는 새로운 취미로 <a href='https://example.com'>요가</a>를 시작했어요!</p><p>여러분도 새로운 취미를 시작해 보세요!</p>"},
+    { postId: nanoid(), PostName: "새로운 취미 시작히기 2", Name: "bbbbb", CreateTime: "2025-05-23 13:32:11", GoodCount: 0, CommentCount:3, ViewCount: 0, UserTagName: "학생", PostContent: "<p><strong>요리</strong>는 매우 재미있고, <em>창의적인</em> 활동입니다.</p><p>오늘은 <a href='https://example.com/recipe'>레시피</a>를 따라 <strong>초콜릿 케이크</strong>를 만들었어요!</p><p>여러분도 시도해 보세요!</p>"},
+    { postId: nanoid(), PostName: "새로운 취미 시작히기 3", Name: "ccccc", CreateTime: "2025-05-23 08:00:00", GoodCount: 0, CommentCount:0, ViewCount: 0, UserTagName: "임직원", PostContent: "<p><strong>독서</strong>는 매우 <em>유익한</em> 취미입니다. 많은 사람들이 즐깁니다.</p><p>최근에 읽은 책은 <a href='https://example.com/book'>'프로그래밍 기초'</a>입니다. 정말 유익한 책이에요!</p>"},
   ]);
 
   const [comments, setComments] = useState([
@@ -29,6 +37,10 @@ function Board(props) {
     { commentId: nanoid(), postId: posts[1].postId, commentOwner: "ddddd", UserTagName: "학생", commentCreateTime: "2025-05-24 12:05:59", commentGoodCount: 1, commentText: "안녕하세요, 좋은 정보 감사합니다!" },
     { commentId: nanoid(), postId: posts[1].postId, commentOwner: "eeeee", UserTagName: "학생", commentCreateTime: "2025-05-23 08:00:00", commentGoodCount: 10, commentText: "이 내용은 정말 유익합니다." }
   ]);
+
+  const [isWatching, setIsWatching] = useState(false);
+  const [selectedPostId, setSelectedPostId] = useState();
+  const [selectedPost, setselectedPost] = useState();
 
   function timeAgo(inputDateTime) {
     const currentTime = new Date();
@@ -62,7 +74,7 @@ function Board(props) {
       GoodCount={content.GoodCount}
       CommentCount={content.CommentCount}
       UserTagName={content.UserTagName}
-      PostContent={content.PostContent}
+      PostContent={DOMPurify.sanitize(content.PostContent)}
       onGoodCountClick={() => handlePostGoodCount(content.postId)}
       onContentClick={() => handlePostClick(content.postId)}
     />
@@ -71,18 +83,17 @@ function Board(props) {
   const commentList = comments
     .filter((comment) => comment.postId === selectedPostId)
     .map((comment) => 
-    <Comment
-      key = {comment.commentId}
-      commentOwner={comment.commentOwner}
-      UserTagName={comment.UserTagName}
-      commentCreateTime={timeAgo(comment.commentCreateTime)}
-      commentGoodCount={comment.commentGoodCount}
-      commentText={comment.commentText}
-      onGoodCountClick={() => handleCommentGoodCount(comment.commentId)}
-    />
-  )
+      <Comment
+        key = {comment.commentId}
+        commentOwner={comment.commentOwner}
+        UserTagName={comment.UserTagName}
+        commentCreateTime={timeAgo(comment.commentCreateTime)}
+        commentGoodCount={comment.commentGoodCount}
+        commentText={comment.commentText}
+        onGoodCountClick={() => handleCommentGoodCount(comment.commentId)}
+      />
+    )
 
-  
   const handlePostGoodCount = (postId) => {
     const tempPost = posts.map((post) => {
       if (post.postId === postId) {
@@ -104,10 +115,25 @@ function Board(props) {
   }
 
   const handlePostClick = (postId) => {
-    console.log(postId);
+    const tempPost = posts.find((post) => post.postId === postId);
+
     setSelectedPostId(postId);
-    setIsWatching(true);
+    setselectedPost(tempPost);
+
+    /* ViewCount 갱신 */
+    /* 선택된 post는 selectedPost를 통해 알 수 있다 */
+    const updatedPost = { ...tempPost, ViewCount: tempPost.ViewCount + 1};
+    setPosts((prevPosts) => /*함수형 update는 첫번째 인자가 이전상태값 */
+      prevPosts.map((post) =>
+        post.postId === postId ? updatedPost : post
+      )
+    );
   }
+
+  useEffect(() => {
+      if(selectedPostId !== undefined)
+        setIsWatching(true);
+    }, [selectedPostId]); // 의존성 배열이 빈 배열이면 한 번만 실행
 
   const onBackToBoardClick = () => {
     setIsWatching(false); // 글 목록으로 돌아가기
@@ -123,11 +149,18 @@ function Board(props) {
       commentGoodCount: 0,
       commentText: commentText
     }
-    console.log(commentCreateTime);
+    
+    /* CommentCount 갱신 */
+    /* 선택된 post는 selectedPost를 통해 알 수 있다 */
+    const updatedPost = { ...selectedPost, CommentCount: selectedPost.CommentCount + 1};
+    setPosts((prevPosts) => /*함수형 update는 첫번째 인자가 이전상태값 */
+      prevPosts.map((post) =>
+        post.postId === selectedPostId ? updatedPost : post
+      )
+    );
+    
     setComments([...comments, newComment]);
   }
-
-  const selectedPost = posts.find((post) => post.postId === selectedPostId);
 
   const boardTemplate = (
     <div>

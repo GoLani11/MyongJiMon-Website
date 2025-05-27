@@ -1,0 +1,15 @@
+services:
+  react:
+    container_name: mjm
+    image: ghcr.io/seclus/myongjimon-website:latest
+    hostname: mjm
+    networks:
+      Main:
+        ipv4_address: 192.168.128.51
+    environment:
+      - TZ=Asia/Seoul
+    restart: always
+
+networks:
+  Main:
+    external: true

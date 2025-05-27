@@ -7,9 +7,14 @@ import Schedule from './Schedule/Schedule';
 import Register from './Register/Register';
 import FindId from './FindId/FindId';
 import FindPassword from './FindPassword/FindPassword';
+/*
 import Admin from './Admin/Admin';
 import MyPage from './MyPage/MyPage';
+*/
 import ChatBot from './ChatBot/ChatBot';
+import Board from './Board/Board';
+import Post from './Post/Post';
+import PostEdit from './PostEdit/PostEdit';
 import './App.css';
 
 function App() {
@@ -23,7 +28,10 @@ function App() {
           <Link to="/schedule">Schedule</Link> | 
           <Link to="/admin">Admin</Link> | 
           <Link to="/mypage">MyPage</Link> | 
-          <Link to="/chatbot">ChatBot</Link>
+          <Link to="/chatbot">ChatBot</Link> | 
+          <Link to="/board">Board</Link> | 
+          <Link to="/post">Post</Link> | 
+          <Link to="/postedit">PostEdit</Link>
         </nav>
         <Routes>
           <Route path="/main" element={<Main />} />
@@ -33,9 +41,14 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/findid" element={<FindId />} />
           <Route path="/findpassword" element={<FindPassword />} />
+          {/*
           <Route path="/admin" element={<Admin />} />
           <Route path="/mypage" element={<MyPage />} />
+          */}
           <Route path="/chatbot" element={<ChatBot />} />
+          <Route path="/board" element={<Board />}/>
+          <Route path="/post" element={<Post />}/>
+          <Route path="/postedit" element={<PostEdit />}/>
         </Routes>
       </div>
     </Router>
