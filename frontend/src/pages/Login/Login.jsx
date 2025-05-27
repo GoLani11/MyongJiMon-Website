@@ -1,18 +1,68 @@
 // React 불러오기
-import React from 'react';
+import React, { useState } from 'react';
 // CSS 파일 불러오기
 import './Login.css';
 // 페이지 이동을 위한 useNavigate 불러오기
 import { useNavigate } from 'react-router-dom';
+// API 서비스 불러오기
+import { loginUser } from '../../services/authService';
 
 // 로그인 화면 컴포넌트
 function Login() {
   const navigate = useNavigate();
+  
+  // 상태 관리
+  const [formData, setFormData] = useState({
+    username: '',
+    password: ''
+  });
+  const [loading, setLoading] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
 
-  // 로그인 폼 제출 시 메인으로 이동
-  const handleLogin = (e) => {
+  // 입력값 변경 처리
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  // 로그인 폼 제출 시 DB 연결
+  const handleLogin = async (e) => {
     e.preventDefault();
-    navigate('/home');
+    setLoading(true);
+
+    try {
+      // API 호출
+      const result = await loginUser(formData);
+      
+      if (result.success) {
+        // 로그인 성공
+        alert(result.message);
+        
+        // 아이디 저장 처리
+        if (rememberMe) {
+          localStorage.setItem('rememberedUsername', formData.username);
+        } else {
+          localStorage.removeItem('rememberedUsername');
+        }
+        
+        // 사용자 정보 저장 (실제 프로젝트에서는 더 안전한 방법 사용)
+        localStorage.setItem('user', JSON.stringify(result.user));
+        
+        // 메인 페이지로 이동
+        navigate('/home');
+      } else {
+        // 로그인 실패
+        alert(result.message);
+      }
+    } catch (error) {
+      console.error('로그인 처리 오류:', error);
+      alert('로그인 중 오류가 발생했습니다.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -30,23 +80,45 @@ function Login() {
           {/* 아이디 입력 */}
           <div className="input-group">
             <label htmlFor="username">아이디</label>
-            <input type="text" id="username" name="username" />
+            <input 
+              type="text" 
+              id="username" 
+              name="username" 
+              value={formData.username}
+              onChange={handleInputChange}
+              required
+            />
           </div>
           
           {/* 비밀번호 입력 */}
           <div className="input-group">
             <label htmlFor="password">비밀번호</label>
-            <input type="password" id="password" name="password" />
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              value={formData.password}
+              onChange={handleInputChange}
+              required
+            />
           </div>
 
           {/* 아이디 저장 */}
           <div className="remember-me">
-            <input type="checkbox" id="remember-id" name="remember-id" />
+            <input 
+              type="checkbox" 
+              id="remember-id" 
+              name="remember-id" 
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+            />
             <label htmlFor="remember-id" className="remember-id-label">아이디 저장</label>
           </div>
 
           {/* 로그인 버튼 */}
-          <button type="submit" className="login-button">로그인</button>
+          <button type="submit" className="login-button" disabled={loading}>
+            {loading ? '로그인 중...' : '로그인'}
+          </button>
         </form>
 
         {/* 아이디/비밀번호 찾기, 회원가입 */}
