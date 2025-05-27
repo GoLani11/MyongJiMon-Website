@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 
 // 초기 상태 정의
@@ -34,6 +34,40 @@ export const AppProvider = ({ children }) => {
     const [boards, setBoards] = useState(initialBoards);
     const [posts, setPosts] = useState(initialPosts);
     const [comments, setComments] = useState(initialComments);
+    
+    // 사용자 인증 상태 관리
+    const [user, setUser] = useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    // 컴포넌트 마운트 시 로컬스토리지에서 사용자 정보 확인
+    useEffect(() => {
+        const savedUser = localStorage.getItem('user');
+        if (savedUser) {
+            try {
+                const userData = JSON.parse(savedUser);
+                setUser(userData);
+                setIsLoggedIn(true);
+            } catch (error) {
+                console.error('사용자 정보 파싱 오류:', error);
+                localStorage.removeItem('user');
+            }
+        }
+    }, []);
+
+    // 로그인 함수
+    const login = (userData) => {
+        setUser(userData);
+        setIsLoggedIn(true);
+        localStorage.setItem('user', JSON.stringify(userData));
+    };
+
+    // 로그아웃 함수
+    const logout = () => {
+        setUser(null);
+        setIsLoggedIn(false);
+        localStorage.removeItem('user');
+        localStorage.removeItem('rememberedUsername');
+    };
 
     const addComment = (newComment) => {
         setComments((prevComments) => [...prevComments, newComment]);
@@ -58,7 +92,13 @@ export const AppProvider = ({ children }) => {
     }
 
     return (
-        <AppContext.Provider value={{ boards, setBoards, posts, setPosts, comments, setComments, addComment, addPost, updatePost, getPost }}>
+        <AppContext.Provider value={{ 
+            boards, setBoards, 
+            posts, setPosts, 
+            comments, setComments, 
+            addComment, addPost, updatePost, getPost,
+            user, isLoggedIn, login, logout
+        }}>
             {children}
         </AppContext.Provider>
     );

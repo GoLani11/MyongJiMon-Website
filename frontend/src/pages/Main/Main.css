@@ -3,9 +3,36 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 60vh;
+  min-height: 80vh;
+  padding: 20px;
+  text-align: center;
 }
 
 .Main h2 {
-  color: #282c34;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+.Main p {
+  color: #666;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.Main button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s ease;
+}
+
+.Main button:hover {
+  background-color: #0056b3;
 } 

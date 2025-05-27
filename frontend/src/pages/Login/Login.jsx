@@ -1,15 +1,18 @@
 // React 불러오기
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // CSS 파일 불러오기
 import './Login.css';
 // 페이지 이동을 위한 useNavigate 불러오기
 import { useNavigate } from 'react-router-dom';
 // API 서비스 불러오기
 import { loginUser } from '../../services/authService';
+// Context 불러오기
+import { useAppContext } from '../DataContext';
 
 // 로그인 화면 컴포넌트
 function Login() {
   const navigate = useNavigate();
+  const { login } = useAppContext();
   
   // 상태 관리
   const [formData, setFormData] = useState({
@@ -18,6 +21,18 @@ function Login() {
   });
   const [loading, setLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+
+  // 컴포넌트 마운트 시 기억된 아이디 불러오기
+  useEffect(() => {
+    const rememberedUsername = localStorage.getItem('rememberedUsername');
+    if (rememberedUsername) {
+      setFormData(prev => ({
+        ...prev,
+        username: rememberedUsername
+      }));
+      setRememberMe(true);
+    }
+  }, []);
 
   // 입력값 변경 처리
   const handleInputChange = (e) => {
@@ -48,8 +63,8 @@ function Login() {
           localStorage.removeItem('rememberedUsername');
         }
         
-        // 사용자 정보 저장 (실제 프로젝트에서는 더 안전한 방법 사용)
-        localStorage.setItem('user', JSON.stringify(result.user));
+        // Context를 통해 사용자 정보 저장
+        login(result.user);
         
         // 메인 페이지로 이동
         navigate('/home');

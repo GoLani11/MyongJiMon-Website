@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';  // ✅ 추가
 import 'react-toastify/dist/ReactToastify.css';   // ✅ 스타일 추가
 import Main from './Main/Main';
@@ -9,16 +9,26 @@ import Schedule from './Schedule/Schedule';
 import Register from './Register/Register';
 import FindId from './FindId/FindId';
 import FindPassword from './FindPassword/FindPassword';
-/*
 import Admin from './Admin/Admin';
 import MyPage from './MyPage/MyPage';
-*/
 import ChatBot from './ChatBot/ChatBot';
 import Board from './Board/Board';
 import Post from './Post/Post';
 import PostEdit from './PostEdit/PostEdit';
-import { AppProvider } from './DataContext';
+import { AppProvider, useAppContext } from './DataContext';
+import ProtectedRoute from '../components/ProtectedRoute';
 import './App.css';
+
+// 로그인한 사용자가 로그인 페이지에 접근할 때 리다이렉트하는 컴포넌트
+const LoginRedirect = () => {
+  const { isLoggedIn } = useAppContext();
+  
+  if (isLoggedIn) {
+    return <Navigate to="/home" replace />;
+  }
+  
+  return <Login />;
+};
 
 function App() {
   return (
@@ -38,22 +48,59 @@ function App() {
           <Link to="/postedit">PostEdit</Link>
         </nav>
         <Routes>
+          <Route path="/" element={<Main />} />
           <Route path="/main" element={<Main />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/schedule" element={<Schedule />} />
+          <Route path="/login" element={<LoginRedirect />} />
           <Route path="/register" element={<Register />} />
           <Route path="/findid" element={<FindId />} />
           <Route path="/findpassword" element={<FindPassword />} />
-          {/*
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/mypage" element={<MyPage />} />
-          */}
-          <Route path="/chatbot" element={<ChatBot />} />
-          <Route path="/board" element={<Board boardTitleTest="자유 게시판"/>}/>
-          <Route path="/post" element={<Post />}/>
-          <Route path="/post/:postId" element={<Post />} /> {/* postId를 URL 파라미터로 받는 라우트 설정 */}
-          <Route path="/postedit" element={<PostEdit />}/>
+          
+          {/* 보호된 라우트들 */}
+          <Route path="/home" element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          } />
+          <Route path="/schedule" element={
+            <ProtectedRoute>
+              <Schedule />
+            </ProtectedRoute>
+          } />
+          <Route path="/mypage" element={
+            <ProtectedRoute>
+              <MyPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin" element={
+            <ProtectedRoute>
+              <Admin />
+            </ProtectedRoute>
+          } />
+          <Route path="/chatbot" element={
+            <ProtectedRoute>
+              <ChatBot />
+            </ProtectedRoute>
+          } />
+          <Route path="/board" element={
+            <ProtectedRoute>
+              <Board boardTitleTest="자유 게시판"/>
+            </ProtectedRoute>
+          }/>
+          <Route path="/post" element={
+            <ProtectedRoute>
+              <Post />
+            </ProtectedRoute>
+          }/>
+          <Route path="/post/:postId" element={
+            <ProtectedRoute>
+              <Post />
+            </ProtectedRoute>
+          } />
+          <Route path="/postedit" element={
+            <ProtectedRoute>
+              <PostEdit />
+            </ProtectedRoute>
+          }/>
         </Routes>
 
         {/* ✅ ToastContainer 추가 */}
