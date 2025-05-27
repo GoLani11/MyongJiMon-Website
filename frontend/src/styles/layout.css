@@ -26,7 +26,7 @@
 /* 게시판 제목 */
 .board-title {
   width: 100%;
-  background-color: darkgray;
+  background-color: var(--primary-blue);
   color: white;
   font-size: 16px;
   font-weight: bold;
