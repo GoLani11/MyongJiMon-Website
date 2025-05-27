@@ -1,7 +1,9 @@
+import { Link } from 'react-router-dom';
+
 import './BoardContent.css';
 import UserTag from './UserTag';
 
-function BoardContent({ PostName, Name, CreateTime, GoodCount, CommentCount, UserTagName, onGoodCountClick, onContentClick}) {
+function BoardContent({ postId, PostName, Name, CreateTime, GoodCount, CommentCount, UserTagName, onGoodCountClick, onContentClick}) {
     return (
         <div className="board_content_box">
             <div className="board_content_metadata_box">
@@ -29,7 +31,10 @@ function BoardContent({ PostName, Name, CreateTime, GoodCount, CommentCount, Use
             className="board_content_box_postname" 
             onClick={onContentClick} 
         >
-            {PostName}
+            <Link 
+                className="board_content_post_title" 
+                to={`/post/${postId}`}>{PostName}
+            </Link>
         </span>
         <UserTag UserTagName={UserTagName}/>
       </div>
