@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { getCurrentUser } from '../../../services/userService';
 
 function AccountSettings() {
   // 계정 설정 상태
@@ -21,17 +22,60 @@ function AccountSettings() {
   };
 
   // 설정 저장 핸들러
-  const handleSaveSettings = (e) => {
+  const handleSaveSettings = async (e) => {
     e.preventDefault();
-    // 실제로는 API를 통해 서버에 설정 저장 요청
-    alert('설정이 저장되었습니다.');
+    
+    try {
+      // 현재 사용자 확인
+      const currentUser = getCurrentUser();
+      if (!currentUser || !currentUser.id) {
+        alert('로그인이 필요합니다.');
+        return;
+      }
+
+      // 실제로는 API를 통해 서버에 설정 저장 요청
+      // TODO: 추후 설정 저장 API 구현 필요
+      console.log('설정 저장:', settings);
+      alert('설정이 저장되었습니다.');
+    } catch (error) {
+      console.error('설정 저장 오류:', error);
+      alert('설정 저장 중 오류가 발생했습니다.');
+    }
   };
 
   // 계정 탈퇴 핸들러
-  const handleAccountDelete = () => {
-    if (window.confirm('정말 탈퇴하시겠습니까? 이 작업은 되돌릴 수 없습니다.')) {
-  
-      alert('계정이 삭제되었습니다. 이용해 주셔서 감사합니다.');
+  const handleAccountDelete = async () => {
+    try {
+      // 현재 사용자 확인
+      const currentUser = getCurrentUser();
+      if (!currentUser || !currentUser.id) {
+        alert('로그인이 필요합니다.');
+        return;
+      }
+
+      const confirmMessage = `정말 탈퇴하시겠습니까?\n\n사용자명: ${currentUser.username}\n이름: ${currentUser.name}\n\n이 작업은 되돌릴 수 없습니다.`;
+      
+      if (window.confirm(confirmMessage)) {
+        const finalConfirm = window.confirm('정말로 계정을 삭제하시겠습니까? 모든 데이터가 영구적으로 삭제됩니다.');
+        
+        if (finalConfirm) {
+          // 실제로는 API를 통해 서버에 계정 삭제 요청
+          // TODO: 추후 계정 삭제 API 구현 필요
+          console.log('계정 삭제 요청:', currentUser.id);
+          
+          // 로컬스토리지 정리
+          localStorage.removeItem('user');
+          localStorage.removeItem('rememberedUsername');
+          
+          alert('계정이 삭제되었습니다. 이용해 주셔서 감사합니다.');
+          
+          // 로그인 페이지로 이동
+          window.location.href = '/login';
+        }
+      }
+    } catch (error) {
+      console.error('계정 삭제 오류:', error);
+      alert('계정 삭제 중 오류가 발생했습니다.');
     }
   };
 

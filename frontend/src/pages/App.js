@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';  // ✅ 추가
+import 'react-toastify/dist/ReactToastify.css';   // ✅ 스타일 추가
 import Main from './Main/Main';
 import Login from './Login/Login';
 import Home from './Home/Home'
@@ -50,6 +52,9 @@ function App() {
           <Route path="/post" element={<Post />}/>
           <Route path="/postedit" element={<PostEdit />}/>
         </Routes>
+
+        {/* ✅ ToastContainer 추가 */}
+        <ToastContainer position="bottom-right" autoClose={3000} />
       </div>
     </Router>
   );
