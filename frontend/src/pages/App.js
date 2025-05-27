@@ -11,21 +11,14 @@ import FindId from './FindId/FindId';
 import FindPassword from './FindPassword/FindPassword';
 import Admin from './Admin/Admin';
 import MyPage from './MyPage/MyPage';
-import ChatBot from './ChatBot/ChatBot';
 import './App.css';
 
 function App() {
   return (
     <Router>
       <div className="App">
-      <nav>
-          <Link to="/">Main</Link> | 
-          <Link to="/login">Login</Link> | 
-          <Link to="/home">Home</Link> | 
-          <Link to="/schedule">Schedule</Link> | 
-          <Link to="/admin">Admin</Link> | 
-          <Link to="/mypage">MyPage</Link> | 
-          <Link to="/chatbot">ChatBot</Link>
+        <nav>
+          <Link to="/">Main</Link> | <Link to="/login">Login</Link> | <Link to="/home">Home</Link> | <Link to="/schedule">Schedule</Link> | <Link to="/admin">Admin</Link> | <Link to="/mypage">MyPage</Link>
         </nav>
         <Routes>
           <Route path="/main" element={<Main />} />
@@ -37,7 +30,6 @@ function App() {
           <Route path="/findpassword" element={<FindPassword />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/mypage" element={<MyPage />} />
-          <Route path="/chatbot" element={<ChatBot />} />
         </Routes>
 
         {/* ✅ ToastContainer 추가 */}
