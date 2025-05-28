@@ -38,7 +38,17 @@ const BottomNav = () => {
           <span className="label">더보기</span>
         </div>
       </div>
-
+      {showWriteMenu && (
+        <div className="write-menu">
+          <span className="label">글쓰기</span>
+          <ul>
+            <li>🎓 교수 게시판</li>
+            <li>🎒 학생 게시판</li>
+            <li>🗣 자유 게시판</li>
+            <li>📚 질문 게시판</li>
+          </ul>
+        </div>
+      )}
       {/* 더보기 메뉴 */}
       {showMoreMenu && (
   <div className="more-menu-3col">
