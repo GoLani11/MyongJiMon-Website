@@ -1,57 +1,69 @@
 .modal-overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background-color: rgba(0,0,0,0.5);
-  display: flex; justify-content: center; align-items: center;
-  z-index: 9999;
+  position: fixed;                                                /* 화면 기준으로 고정된 위치(스크롤 해도 그대로 유지) */
+  top: 0; left: 0;                                                /* 화면의 맨 위 왼쪽부터 시작 */
+  width: 100%; height: 100%;                                      /* 전체 화면 크기를 덮음 */
+  background-color: rgba(0,0,0,0.5);                            /* 반투명한 검은 배경(모달 뒷배경 흐림 효과) */
+  display: flex; justify-content: center; align-items: center;    /* modal 내용을 가운데 정렬(수직 + 수평 모두) */
+  z-index: 9999;                                                  /* 다른 요소 위에 표시되도록 z-index 최상단 설정*/
 }
 
 .modal-content {
-  background-color: #fff;
-  padding: 30px;
-  border-radius: 10px;
-  width: 80%;   /* 🔍 모달 너비 확장 */
-  max-width: 900px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  background-color: #fff;                                       /* 흰색 배경 */
+  padding: 30px;                                                  /* modal 내부 여백 */
+  border-radius: 10px;                                            /* 모서리 둥글게 */
+  width: 80%;                                                     /* 화면의 80% 너비로 모달을 설정 */   
+  max-width: 900px;                                               /* 최대 너비는 900px까지 제한 */ 
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);                       /* 그림자 효과로 떠 있는 듯한 느낌 */
 }
 
 h2 {
-  text-align: center;
-  margin-bottom: 20px;
+  text-align: center;                                             /* 제목 가운데 정렬 */
+  margin-bottom: 20px;                                            /* 아래 여백 20px 설정 */
 }
 
 .course-table {
-  width: 100%;
-  border-collapse: collapse;
+  width: 100%;                                                     /* 테이블 너비를 100%로 설정 */
+  border-collapse: collapse;                                       /* 셀 경계선 중복 제거 */
 }
 
 .course-table th, .course-table td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
+  border: 1px solid #ddd;                                        /* 셀 테두리 연한 회색 */
+  padding: 10px;                                                   /* 셀 내부 여백 */
+  text-align: center;                                              /* 텍스트 가운데 정렬 */
 }
 
 .course-table th {
-  background-color: #f2f2f2;
+  background-color: #f2f2f2;                                      /* 헤더 배경색 연한 회색 */
 }
 
+/* 과목 추가 버튼 */
+.add-btn {
+  margin-left: 5px;                                                 /* 버튼 좌측 여백 */
+  background-color: #2cbf8a;                                      /* 초록색 계열 배경 */
+  color: white;                                                   /* 글자 색상 흰색 */
+  border: none;                                                     /* 테두리 없음 */
+  padding: 5px 10px;                                                /* 내부 여백 : 상하 5px, 좌우 10px */    
+  border-radius: 5px;                                               /* 모서리 둥글게 */        
+}
+
+/* 과목 삭제 버튼 */
 .delete-btn {
-  margin-left: 5px;
-  background-color: #f44336;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
+  margin-left: 5px;                                                 /* 버튼 좌측 여백 */
+  background-color: #f44336;                                      /* 빨간색 배경 */
+  color: white;                                                   /* 글자 색상 흰색 */
+  border: none;                                                     /* 테두리 없음 */
+  padding: 5px 10px;                                                /* 내부 여백 */
+  border-radius: 5px;                                               /* 모서리 둥글게 */
 }
 
+/* modal 닫기 버튼 */
 .close-button {
-  display: block;
-  margin: 20px auto 0 auto; /* ✅ 맨 아래 중앙 정렬 */
-  padding: 10px 20px;
-  background-color: #2196F3;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  display: block;                                                   /* 블록 요소로 만들어 너비 조절 가능 */
+  margin: 20px auto 0 auto;                                         /* 위 여백 20px, 좌우 자동으로 중앙 정렬, 아래 여백 없음 */
+  padding: 10px 20px;                                               /* 버튼 내부 여백 : 상하 10px, 좌우 20px */
+  background-color: #2196F3;                                      /* 파란색 배경 */
+  color: white;                                                   /* 흰색 글자 */
+  border: none;                                                     /* 테두리 없음 */
+  border-radius: 5px;                                               /* 둥근 테두리 */
+  cursor: pointer;                                                  /* 마우스 커서를 포인터로 변경 */
 }
