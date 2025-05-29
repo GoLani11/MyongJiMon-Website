@@ -1,57 +1,66 @@
 .modal-overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background-color: rgba(0,0,0,0.5);
-  display: flex; justify-content: center; align-items: center;
-  z-index: 9999;
+  position: fixed;                                                
+  top: 0; left: 0;                                                
+  width: 100%; height: 100%;                                      
+  background-color: rgba(0,0,0,0.5);                              
+  display: flex; justify-content: center; align-items: center;    
+  z-index: 9999;                                                  
 }
 
 .modal-content {
-  background-color: #fff;
-  padding: 30px;
-  border-radius: 10px;
-  width: 80%;   /* 🔍 모달 너비 확장 */
-  max-width: 900px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  background-color: #fff;                                         
+  padding: 30px;                                                  
+  border-radius: 10px;                                            
+  width: 80%;                                                     
+  max-width: 900px;                                               
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);                         
 }
 
 h2 {
-  text-align: center;
-  margin-bottom: 20px;
+  text-align: center;                                             
+  margin-bottom: 20px;                                            
 }
 
 .course-table {
-  width: 100%;
-  border-collapse: collapse;
+  width: 100%;                                                     
+  border-collapse: collapse;                                       
 }
 
 .course-table th, .course-table td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
+  border: 1px solid #ddd;                                         
+  padding: 10px;                                                   
+  text-align: center;                                              
 }
 
 .course-table th {
-  background-color: #f2f2f2;
+  background-color: #f2f2f2;                                       
+}
+
+.add-btn {
+  margin-right: 5px;            /* 오른쪽 여백으로 정리 */
+  background-color: #2cbf8a;    /* 초록 계열 */
+  color: white;                 
+  border: none;                 
+  padding: 5px 10px;            
+  border-radius: 5px;           
 }
 
 .delete-btn {
-  margin-left: 5px;
-  background-color: #f44336;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
+  margin-left: 5px;             
+  background-color: #f44336;    
+  color: white;                 
+  border: none;                 
+  padding: 5px 10px;            
+  border-radius: 5px;           
 }
 
 .close-button {
-  display: block;
-  margin: 20px auto 0 auto; /* ✅ 맨 아래 중앙 정렬 */
-  padding: 10px 20px;
-  background-color: #2196F3;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  display: block;               
+  margin: 20px auto 0 auto;     
+  padding: 10px 20px;          
+  background-color: #2196F3;    
+  color: white;                 
+  border: none;                 
+  border-radius: 5px;           
+  cursor: pointer;              
 }
