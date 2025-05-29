@@ -36,6 +36,12 @@
   margin: 0px;
 }
 
+/* 게시판 link */
+.board_title_link {
+  color: white;
+  text-decoration: none;
+}
+
 /* 게시글 리스트 */
 .board-posts {
   list-style: none;

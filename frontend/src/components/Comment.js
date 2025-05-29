@@ -1,3 +1,5 @@
+import { FaUserCircle } from 'react-icons/fa';
+
 import "./Comment.css";
 import UserTag from "./UserTag";
 
@@ -6,11 +8,12 @@ function Comment( { commentOwner, UserTagName, commentCreateTime, commentGoodCou
         <div className="comment_box">
             <div className="comment_metadata_box">
                 <div className="comment_metadata_box_1">
-                    <img 
+                    {/* <img 
                         className="comment_persion_icon" 
                         src="/imgs/person_icon.jpg" 
                         alt="anonymous person icon" 
-                    />
+                    /> */}
+                    <FaUserCircle size={42.465} />
                     <span>{commentOwner}</span><span>{commentCreateTime}</span>
                 </div>
                 <div className="comment_metadata_box_2">
@@ -23,7 +26,7 @@ function Comment( { commentOwner, UserTagName, commentCreateTime, commentGoodCou
                     <span>{commentGoodCount}</span>
                 </div>
             </div>
-        {commentText}
+        <span className="commnet_text">{commentText}</span>
         <UserTag UserTagName={UserTagName}/>
       </div>
     );

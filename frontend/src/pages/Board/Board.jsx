@@ -1,22 +1,28 @@
+import { MdEdit } from 'react-icons/md';
+import { useParams, useNavigate } from 'react-router-dom';
+
 // 상단 헤더, 사이드바, 하단 네비게이션 등 공통 컴포넌트 import
-/*
-import Header from '../../components/Header';
-import Sidebar from '../../components/Sidebar';
-import SidebarWidget from '../../components/SidebarWidget';
-import BottomNav from '../../components/BottomNav';
-*/
+import Header from '../../components/Header.jsx';
+import Sidebar from '../../components/Sidebar.jsx';
+import SidebarWidget from '../../components/SidebarWidget.jsx';
+import BottomNav from '../../components/BottomNav.jsx';
 
-// 각 필요 스타일 import
-// import '../../styles/layout.css';
-// import '../../styles/global.css';
-
-import { useAppContext } from "../DataContext";
+import { useAppContext } from "../DataContext.jsx";
 import './Board.css';
-import BoardTitle from '../../components/BoardTitle';
-import BoardContent from '../../components/BoardContent';
+import BoardTitle from '../../components/BoardTitle.jsx';
+import BoardContent from '../../components/BoardContent.js';
 
-function Board({boardTitleTest}) {
-  const {posts, setPosts, updatePost} = useAppContext();
+function Board() {
+  const {posts, setPosts, updatePost, getBoard} = useAppContext();
+  const navigate = useNavigate();
+  const { boardId } = useParams();
+
+  if(!boardId) {
+    navigate('/home');
+    return null; // no rendering
+  }
+
+  const boardName = getBoard(boardId).boardName;
 
   function timeAgo(inputDateTime) {
     const currentTime = new Date();
@@ -41,13 +47,16 @@ function Board({boardTitleTest}) {
     }
   }
 
-  const boardContentList = posts.map((content) => 
+  const boardContentList = posts
+    .filter((content) => content.boardId === boardId)
+    .map((content) => 
     <BoardContent
       key = {content.postId}
       postId = {content.postId}
       PostName={content.PostName}
       Name={content.Name}
       CreateTime={timeAgo(content.CreateTime)}
+      ViewCount={content.ViewCount}
       GoodCount={content.GoodCount}
       CommentCount={content.CommentCount}
       UserTagName={content.UserTagName}
@@ -82,16 +91,42 @@ function Board({boardTitleTest}) {
     updatePost(updatedPost);
   }
 
-  // useEffect(() => {
-
-  //   }, [selectedPostId]); // 의존성 배열이 빈 배열이면 한 번만 실행
+  const handlePostEditButtonclick = () => {
+    navigate(`/postedit/${boardId}`);
+  }
 
   return (
-    <div>
-      <BoardTitle BoardTitle={boardTitleTest}/>
-      {boardContentList}
+    <div className="board_root_box">
+      <Header />
+      <div className="sidebar-wrapper">
+        <div className="sidebar-trigger" />
+        <Sidebar />
+      </div>
+
+      <div className="board_main_content_box">
+        <div className="balance_weight_box" />
+        
+        {/* Original Content */}
+        <div>
+          {/* 게시판 제목 */}
+          <BoardTitle boardTitle={boardName} />
+
+          {/* 게시판 내용 */}
+          {boardContentList}
+
+          <div class="board_tail_box">
+            <div className="board_post_edit_button" onClick={handlePostEditButtonclick}>
+              <MdEdit />
+              &nbsp;
+              <span class="board_post_edit_button_text">작성하기</span>
+            </div>
+          </div>
+        </div>
+        <SidebarWidget />
+      </div>
+      <BottomNav />
     </div>
-  );
+  );  
 }
 
 export default Board;

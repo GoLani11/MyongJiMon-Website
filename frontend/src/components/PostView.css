@@ -1,12 +1,16 @@
 .post_view_box {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    text-align: start;
+
+    background-color: white;
 
     width: 1012px;
     height: 778px;
     padding: 10px;
 
-    border:1px solid black;
+    border: 1px solid #ccc;
     border-radius: 10px;
 }
 
@@ -40,6 +44,7 @@
 .post_head_text_box {
     display: flex;
     flex-direction: column;
+    align-items: start;
     justify-content: center;
 }
 
@@ -56,6 +61,10 @@
 
 .post_body_box {
     flex-grow: 1;
+}
+
+.post_view_post_name {
+    font-family: 'NanumGothicExtraBold', sans-serif;
 }
 
 .post_tail_box {

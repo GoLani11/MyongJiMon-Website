@@ -1,3 +1,24 @@
+.post_root_box {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    overflow: auto;
+}
+
+.post_main_content_box {
+    display: flex;
+    width: 1484px;
+    margin: 10px 10px 0 48px;
+    gap: 24px;
+}
+
+/*  side widget으로 인해 main content가 중앙 정렬 되지 않는 문제를 해결하는 요소 */
+.balance_weight_box {
+    width: 200px;
+    height: 100%;
+}
+
 .comment_edit_box {
     display: flex;
     align-items: center;

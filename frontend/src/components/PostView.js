@@ -1,3 +1,5 @@
+import { FaUserCircle } from 'react-icons/fa';
+
 import './PostView.css'
 import UserTag from './UserTag';
 
@@ -5,13 +7,19 @@ function PostView( { BoardTitle, PostName, Name, CreateTime, GoodCount, ViewCoun
     return (
         <div className="post_view_box">
             <div className="post_head_box">
-                <p className="commnunity_info">커뮤니티 / <span className="board_title" onClick={onBackToBoardClick}>{BoardTitle}</span></p>
+                <p className="commnunity_info">
+                    커뮤니티 / 
+                    <span className="board_title" onClick={onBackToBoardClick}>
+                        {BoardTitle}
+                    </span>
+                </p>
                 <div className="post_head_metadata_box">
-                    <img 
+                    {/* <img 
                         className="person_icon" 
                         src="/imgs/person_icon.jpg" 
                         alt="persion icon"
-                    />
+                    /> */}
+                    <FaUserCircle size={42.465} />
                     <div className="post_head_text_box">
                         <span className="post_owner">{Name}</span>
                         <span className="metadata">{CreateTime} ➿{ViewCount}</span>
@@ -19,7 +27,7 @@ function PostView( { BoardTitle, PostName, Name, CreateTime, GoodCount, ViewCoun
                 </div>
             </div>
             <div className="post_body_box">
-                <h1>{PostName}</h1>
+                <h1 class="post_view_post_name">{PostName}</h1>
                 <span dangerouslySetInnerHTML={{__html: PostContent}}/>
             </div>
             <div className="post_tail_box">

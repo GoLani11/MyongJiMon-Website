@@ -1,11 +1,14 @@
 // src/components/BoardColumn.tsx
 import React from "react";
+import {Link} from "react-router-dom";
 import "../styles/layout.css";
 
-const BoardColumn = ({ title, posts }) => {
+const BoardColumn = ({ title, posts, boardId}) => {
   return (
     <section className="board-column">
-      <h2 className="board-title">{title}</h2>
+      <h2 className="board-title">
+        <Link className="board_title_link" to={`/board/${boardId}`}>{title}</Link>
+      </h2>
       <ul className="board-posts">
         {posts.map((post) => (
           <li key={post.id} className="board-post">
