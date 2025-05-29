@@ -42,10 +42,7 @@ function App() {
           <Link to="/schedule">Schedule</Link> | 
           <Link to="/admin">Admin</Link> | 
           <Link to="/mypage">MyPage</Link> | 
-          <Link to="/chatbot">ChatBot</Link> | 
-          <Link to="/board">Board</Link> | 
-          <Link to="/post">Post</Link> | 
-          <Link to="/postedit">PostEdit</Link>
+          <Link to="/chatbot">ChatBot</Link> 
         </nav>
         <Routes>
           <Route path="/" element={<Main />} />
@@ -83,7 +80,12 @@ function App() {
           } />
           <Route path="/board" element={
             <ProtectedRoute>
-              <Board boardTitleTest="자유 게시판"/>
+              <Board/>
+            </ProtectedRoute>
+          }/>
+          <Route path="/board/:boardId" element={
+            <ProtectedRoute>
+              <Board/>
             </ProtectedRoute>
           }/>
           <Route path="/post" element={
@@ -97,6 +99,11 @@ function App() {
             </ProtectedRoute>
           } />
           <Route path="/postedit" element={
+            <ProtectedRoute>
+              <PostEdit />
+            </ProtectedRoute>
+          }/>
+          <Route path="/postedit/:boardId" element={
             <ProtectedRoute>
               <PostEdit />
             </ProtectedRoute>

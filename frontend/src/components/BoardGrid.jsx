@@ -125,6 +125,7 @@ const BoardGrid = () => {
           key={board.boardId}
           title={board.boardName}
           posts={board.posts}
+          boardId={board.boardId}
         />
       ))}
     </div>

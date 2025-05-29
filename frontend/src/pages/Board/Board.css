@@ -42,3 +42,53 @@ body {
     font-family: 'Nanum Gothic', sans-serif;
 }
 
+.board_root_box {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    overflow: auto;
+}
+
+.board_main_content_box {
+    display: flex;
+    width: 1484px;
+    margin: 10px 10px 0 48px;
+    gap: 24px;
+}
+
+/*  side widget으로 인해 main content가 중앙 정렬 되지 않는 문제를 해결하는 요소 */
+.balance_weight_box {
+    width: 200px;
+    height: 100%;
+}
+
+.board_tail_box {
+    display: flex;
+    justify-content: end;
+    width: 1034px;
+}
+
+/* 게시글 작성 button */
+.board_post_edit_button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 40px;
+    margin-top: 20px;
+    background-color: #0090F9;
+    border-radius: 10px;
+    font-size: small;
+    color:white;
+    font-weight: bold;
+}
+
+.board_post_edit_button:hover {
+    cursor: pointer;
+}
+
+.board_post_edit_button_text {
+    color: white;
+    text-decoration: none;
+}

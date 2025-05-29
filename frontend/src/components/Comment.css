@@ -1,7 +1,9 @@
 .comment_box {
-    width: 1034px;
-    padding: 10px 0px;
-    border-bottom: 2px solid #D9D9D9;
+    width: 1012px;
+    padding: 10px 10px;
+    text-align: start;
+    background-color: white;
+    border-bottom: 2px solid #ccc;
 }
 
 .comment_metadata_box {
@@ -35,4 +37,9 @@
 
 .comment_metadata_box_2_good_icon:hover {
     cursor:pointer;
+}
+
+.commnet_text {
+    display: inline-block;
+    margin-bottom: 10px;
 }

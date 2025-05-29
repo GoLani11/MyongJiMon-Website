@@ -1,23 +1,57 @@
+import { useState } from 'react';
 import { nanoid } from 'nanoid';
-import { useParams, Navigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import { useAppContext } from "../DataContext";
 import BoardTitle from '../../components/BoardTitle';
 import PostView from '../../components/PostView';
-import CommentEdit from '../../components/CommentEdit';
 import Comment from '../../components/Comment';
+import "./Post.css"
 
-function Post({boardTitle}) {
-    const { comments, setComments, updatePost, getPost } = useAppContext();
+// 상단 헤더, 사이드바, 하단 네비게이션 등 공통 컴포넌트 import
+import Header from '../../components/Header.jsx';
+import Sidebar from '../../components/Sidebar.jsx';
+import SidebarWidget from '../../components/SidebarWidget.jsx';
+import BottomNav from '../../components/BottomNav.jsx';
+
+// 각 필요 스타일 import
+import '../../styles/layout.css';
+import '../../styles/global.css';
+
+// 반응형 design import
+import "../../styles/responsive.css";
+
+function Post() {
+    const { comments, setComments, updatePost, getPost, addComment, getBoard } = useAppContext();
     const { postId } = useParams();
+    const [inputText, setInputText] = useState("");
+    const navigate = useNavigate();
 
     // postId가 없으면, board로 redirect
     if(!postId) {
-        Navigate('/board')
+        navigate('/board')
         return null; // no rendering
     } 
     
     const post = getPost(postId);
+    const board = getBoard(post.boardId);
+    const boardId = board.boardId;
+    const boardTitle = board.boardName;
+
+    const commentList = comments
+        // .filter((comment) => comment.postId === post.postId)
+        .filter((comment) => comment.postId === post.postId)
+        .map((comment) => 
+            <Comment
+                key = {comment.commentId}
+                commentOwner={comment.commentOwner}
+                UserTagName={comment.UserTagName}
+                commentCreateTime={timeAgo(comment.commentCreateTime)}
+                commentGoodCount={comment.commentGoodCount}
+                commentText={comment.commentText}
+                onGoodCountClick={() => handleCommentGoodCount(comment.commentId)}
+            />
+        );
 
     function timeAgo(inputDateTime) {
         const currentTime = new Date();
@@ -42,45 +76,47 @@ function Post({boardTitle}) {
         }
     };
 
-    function addComment(commentCreateTime, commentText)  {
+    const handleInputTextChange = (e) => {
+        setInputText(e.target.value);
+    }
+
+     function handleCommentAddButton(e) {
+        const currentTimeDateObj = new Date();
+
+        // 연도, 월, 일, 시간, 분, 초를 추출
+        const year = currentTimeDateObj.getFullYear();
+        const month = currentTimeDateObj.getMonth() + 1;  // 월은 0부터 시작하므로 1을 더해줘야 합니다.
+        const day = currentTimeDateObj.getDate();
+        const hours = currentTimeDateObj.getHours();
+        const minutes = String(currentTimeDateObj.getMinutes()).padStart(2, '0');
+        const seconds = String(currentTimeDateObj.getSeconds()).padStart(2, '0');
+
+        // mysql의 current_timestamp 형식과 일치하는 형태로 가공
+        const currentDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        
         const newComment = { 
             commentId: nanoid(),
             postId: post.postId,
             commentOwner: "test",
             UserTagName: "학생",
-            commentCreateTime: commentCreateTime,
+            commentCreateTime: currentDateTime,
             commentGoodCount: 0,
-            commentText: commentText
+            commentText: inputText
         }
         
         /* CommentCount 갱신 */
         /* 선택된 post는 post를 통해 알 수 있다 */
         const updatedPost = { ...post, CommentCount: post.CommentCount + 1};
-        // setPosts((prevPosts) => /*함수형 update는 첫번째 인자가 이전상태값 */
-        //     prevPosts.map((post) =>
-        //         post.postId === post.postId ? updatedPost : post
-        //     )
-        // );
         
-        updatePost(updatedPost);
         addComment(newComment);
+        updatePost(updatedPost);
+        setInputText("");
     }
 
-    const commentList = comments
-        // .filter((comment) => comment.postId === post.postId)
-        .filter((comment) => comment.postId === post.postId)
-        .map((comment) => 
-            <Comment
-                key = {comment.commentId}
-                commentOwner={comment.commentOwner}
-                UserTagName={comment.UserTagName}
-                commentCreateTime={timeAgo(comment.commentCreateTime)}
-                commentGoodCount={comment.commentGoodCount}
-                commentText={comment.commentText}
-                onGoodCountClick={() => handleCommentGoodCount(comment.commentId)}
-            />
-        );
-    
+    const onBackToBoardClick = () => {
+        navigate(`/board/${boardId}`);
+    }
+
     const handlePostGoodCount = (postId) => {
         // const tempPost = posts.map((post) => {
         //     if (post.postId === postId) {
@@ -103,24 +139,51 @@ function Post({boardTitle}) {
     };
 
     return (
-        <div>
-            <BoardTitle boardTitle={boardTitle}/>
-            <PostView
-                key = {post?.postId}
-                BoardTitle={boardTitle}
-                PostName={post?.PostName} 
-                Name={post?.Name}
-                ViewCount={post?.ViewCount}
-                CreateTime={post?.CreateTime}
-                GoodCount={post?.GoodCount}
-                UserTagName={post?.UserTagName}
-                PostContent={post?.PostContent}
-                // onGoodCountClick={() => handlePostGoodCount(post?.postId)}
-                onGoodCountClick={() => handlePostGoodCount()}
-                // onBackToBoardClick={onBackToBoardClick}
-            />
-            <CommentEdit addComment={addComment}/>
-            {commentList}
+        <div className="post_root_box">
+            <Header />
+            <div className="sidebar-wrapper">
+                <div className="sidebar-trigger" />
+                <Sidebar />
+            </div>
+
+            <div className="post_main_content_box">
+                <div className="balance_weight_box" />
+                {/* Original Content */}
+                <div>
+                    <BoardTitle boardTitle={boardTitle}/>
+                    <PostView
+                        key = {post?.postId}
+                        BoardTitle={boardTitle}
+                        PostName={post?.PostName} 
+                        Name={post?.Name}
+                        ViewCount={post?.ViewCount}
+                        // "몇초전"과 같은 형식으로 변경
+                        CreateTime={timeAgo(post?.CreateTime)}
+                        GoodCount={post?.GoodCount}
+                        UserTagName={post?.UserTagName}
+                        PostContent={post?.PostContent}
+                        // onGoodCountClick={() => handlePostGoodCount(post?.postId)}
+                        onGoodCountClick={() => handlePostGoodCount()}
+                        onBackToBoardClick={onBackToBoardClick}
+                    />
+                    <div className="comment_edit_box">
+                        <textarea 
+                            className="comment_edit_textarea"
+                            onChange={handleInputTextChange}
+                            value={inputText}
+                        />
+                        <img 
+                            className="comment_edit_box_send_icon" 
+                            src="/imgs/send_icon.png" 
+                            alt="comment edit button"
+                            onClick={handleCommentAddButton}
+                        />
+                    </div>
+                    {commentList}
+                </div>
+                <SidebarWidget />
+            </div>
+            <BottomNav />
         </div>
     );
 

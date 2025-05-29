@@ -1,7 +1,10 @@
 .board_content_box {
-    width: 1034px;
-    height: 98px;
-    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 1014px;
+    padding: 10px;
+    background-color: white;
     border-bottom: 2px solid #D9D9D9;
 }
 
@@ -9,6 +12,12 @@
     display: flex;
     justify-content: space-between;
     gap: 10px;
+}
+
+.board_content_box_postname {
+    font-family: 'NanumGothicExtraBold', sans-serif;
+    font-size: 20px;
+    margin-bottom: 10px;
 }
 
 .board_content_box_postname:hover {
