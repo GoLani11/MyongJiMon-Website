@@ -1,126 +1,91 @@
-// ScheduleTable.jsx
+// ScheduleTabel.jsx
+
 import React from 'react';
+// ScheduleTable 전용 CSS 파일 불러오기
 import '../styles/ScheduleTable.css';
 
-// 요일 배열 정의(시간표의 열 제목)
+// 요일 배열(테이블의 열 제목으로 사용)
 const days = ['월', '화', '수', '목', '금'];
-
-// 시간 배열 정의(테이블의 행 제목 / 09:00 ~ 19:00까지 표시)
+// 시간대 배열(테이블의 행 제목으로 사용)
 const times = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'];
 
-// 샘플 수업 데이터 : 시간표에 들어갈 강의 정보
-const sampleSchedule = [
-    {
-        subject: '프로그래밍응용',  
-        day: '화',                  // 요일
-        start: '09:00',             // 시작 시간
-        end: '11:00',               // 끝나는 시간
-        location: '창조관 612',      // 강의실
-        color: '#FFD28F',           // 배경 색상
-    },
-    {
-        subject: '게임제작실습1',
-        day: '수',
-        start: '13:00',
-        end: '15:00',
-        location: '창조관 601',
-        color: '#A7F0BA',
-    },
-    {
-        subject: '컴퓨터디자인',
-        day: '수',
-        start: '15:00',
-        end: '17:00',
-        location: '창조관 601',
-        color: '#B5C9F8',
-    },
-    {
-        subject: '인터넷통신',
-        day: '목',
-        start: '09:00',
-        end: '11:00',
-        location: '창조관 608',
-        color: '#E7FFA6',
-    },
-];
-
-// 수업의 시작~끝 시간 차이를 계산
-// 이 값은 테이블에서 병합(rowSpan) 시에 사용
-function getDuration(start, end) {
-    const startHour = parseInt(start.split(':')[0], 10);    // ex : "13:00" -> 13
-    const endHour = parseInt(end.split(':')[0], 10);        // ex : "15:00" -> 15
-    return endHour - startHour;                             // ex : 결과 -> 2 = rowSpan
+// 랜덤 색상 생성 함수 getRandomColor 정의 - 같은 course_id는 항상 같은 색을 가지도록
+function getRandomColor(course_id) {
+    const colors = ['#FFDDC1', '#FFC9DE', '#D0E6A5', '#A5D8FF', '#FFD6A5', '#C1E1FF', '#FEC8D8', '#B5EAD7'];
+    return colors[course_id % colors.length];   // course_id로 색 배열에서 색을 선택
 }
 
-// 테이블 전체 컨테이너
-function ScheduleTable() {
+// HH:MM 형식의 문자열을 분(minute) 단위 숫자로 변환
+function timeToMinutes(timeStr) {
+    const [hours, minutes] = timeStr.split(':').map(Number);    // 시와 분으로 분리
+    return hours * 60 + minutes;                                // 시를 분 단위로 변환 후 분과 합산
+}
+
+// ScheduleTable 컴포넌트 정의
+function ScheduleTable({ timetable }) {
+    // displayMap : 각 수업(course_id)이 이미 출력되었는지 여부를 저장하는 객체
+    const displayMap = {};  // key = course_id, value = true (출력 여부)
+
     return (
-        <div className="schedule-table">
+        <div className="schedule-table">    {/* 테이블을 감싸는 div */}
             <table>
-                {/* 테이블 헤더 부분 */}
+                {/* 테이블 헤더 영역 */}
                 <thead>
                     <tr>
-                        {/* 시간 열 헤더 */}
-                        <th>시간</th>
-                        {days.map((day) => (
-                            // 월~금 요일 헤더 자동 렌더링
-                            <th key={day}>{day}</th>
-                        ))}
+                        <th>시간</th>                                {/* 첫 번째 열은 시간 표시 */}
+                        {days.map(day => <th key={day}>{day}</th>)} {/* 요일을 열 제목으로 출력 */}
                     </tr>
                 </thead>
-
-                {/* 테이블 본문 부분 */}
+                {/* 테이블 본문 영역 */}
                 <tbody>
-                    {times.map((time) => (
-                        // 각 시간마다 한 줄씩 생성
-                        // times 배열을 순회하며 시간 행 생성
-                        <tr key={time}>
+                    {times.map((time, rowIndex) => (    // 각 시간대에 대해 행 생성
+                        <tr key={time}>                             {/* 행의 고유 key로 시간 사용 */}
+                            <td className="time-label">{time}</td>  {/* 첫 열에 시간 표시 */}
+                            {days.map(day => {          // 각 요일마다 열 생성
+                                const currentTime = timeToMinutes(time);    // 현재 시간대를 분으로 계산
+                                const timeKey = `${day}-${time}`;           // 열의 고유 key 생성
 
-                            {/* 왼쪽 시간 열 */}
-                            <td className="time-label">{time}</td>
-                            
-                            {/* 요일별 셀 생성 */}
-                            {days.map((day) => {
-                                // 이 시간대에 시작하는 수업 찾기
-                                // classData : 해당 요일, 시간에 수업이 있는지 확인
-                                const classData = sampleSchedule.find(
-                                    (cls) => cls.day === day && cls.start === time
-                                );
-                                
-                                // 이 시간은 이미 다른 셀(rowSpan) 안에 포함되는가?
-                                // isRendered : 이 셀이 이미 윗 셀에 병합되어 있는지 체크 -> 병합된 셀 내부하면 따로 td 만들지 않음
-                                const isRendered = sampleSchedule.some(
-                                    (cls) =>
-                                        cls.day === day &&
-                                        cls.start !== time &&
-                                        times.indexOf(time) > times.indexOf(cls.start) &&
-                                        times.indexOf(time) < times.indexOf(cls.end)
-                                );
-                                
-                                // 이미 병합된 셀 안에 있다면 null 반환 -> 렌더링하지 않음
-                                if (isRendered) return null;
-                                
-                                // 수업이 있는 셀이라면 rowSpan을 적용하여 병합 표시 + 색상 적용
-                                if (classData) {
-                                    const rowSpan = getDuration(classData.start, classData.end);
-                                    return (
-                                        <td
-                                            key={`${day}-${time}`}
-                                            rowSpan={rowSpan}       // 시간 길이만큼 병합
-                                            className="time-slot"
-                                            style={{ backgroundColor: classData.color }}    // 과목 색상
-                                        >
-                                            <div className="class-block">
-                                                <strong>{classData.subject}</strong>                                    {/* 과목명 */}
-                                                <div className="location">{classData.location}</div>                    {/* 강의실 */}
-                                                <div className="time-range">{classData.start} ~ {classData.end}</div>   {/* 시간 */}
-                                            </div>
-                                        </td>
-                                    );
+                                // 현재 시간에 해당하는 수업 찾기
+                                const classAtThisTime = timetable.find(cls => {
+                                    if (cls.course_day_of_week !== day) return false;                   // 요일이 다르면 제외
+                                    const start = timeToMinutes(cls.course_start_time.slice(0, 5));     // 수업 시작시간
+                                    const end = timeToMinutes(cls.course_end_time.slice(0, 5));         // 수업 종료시간
+                                    return currentTime >= start && currentTime < end;                   // 현재 시간에 포함되는지 확인
+                                });
+
+                                if (!classAtThisTime) {
+                                    // 이 시간대에 해당하는 수업이 없다면 빈 칸 반환
+                                    return <td key={timeKey} className="time-slot"></td>;
                                 }
 
-                                // 수업이 없을 경우 빈 칸 반환
-                                return <td key={`${day}-${time}`} className="time-slot" />;
+                                // 이미 이 수업을 출력한 경우(null 반환)
+                                if (displayMap[classAtThisTime.course_id]) {
+                                    return null;    // 중복 출력 방지(rowspan 덕분에)
+                                }
+
+                                // rowspan 계산 : 수업이 몇 시간(몇 칸) 차지하는 지 계산
+                                const start = timeToMinutes(classAtThisTime.course_start_time.slice(0, 5));
+                                const end = timeToMinutes(classAtThisTime.course_end_time.slice(0, 5));
+                                const span = Math.ceil((end - start) / 60); // 1시간 단위로 나눔
+
+                                // 해당 course_id 출력 처리
+                                displayMap[classAtThisTime.course_id] = true;
+
+                                // 수업 칸 반환 - rowspan 적용 및 스타일 지정
+                                return (
+                                    <td key={timeKey} className="time-slot" rowSpan={span}>
+                                        <div
+                                            className="class-block"
+                                            style={{ backgroundColor: getRandomColor(classAtThisTime.course_id) }}  // 배경색 지정
+                                        >
+                                            <strong>{classAtThisTime.course_name}</strong>  {/* 과목명 */}
+                                            <div className="location">{classAtThisTime.course_location}</div> {/* 강의실 */}
+                                            <div className="time-range">
+                                                {classAtThisTime.course_start_time.slice(0, 5)} ~ {classAtThisTime.course_end_time.slice(0, 5)} {/* 시간 범위 */}
+                                            </div>
+                                        </div>
+                                    </td>
+                                );
                             })}
                         </tr>
                     ))}
@@ -129,7 +94,5 @@ function ScheduleTable() {
         </div>
     );
 }
-
-
 
 export default ScheduleTable;
