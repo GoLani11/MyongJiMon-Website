@@ -1,16 +1,16 @@
-/* PostEdit 페이지 기본 컨테이너 */
+/* page root box */
 .postedit_root_box {
     display: flex;
     align-items: center;
     flex-direction: column;
-    overflow: auto;
 }
 
+/* main content box */
 .post_edit_main_content_box {
     display: flex;
     justify-content: center;
     width: 1484px;
-    margin: 10px 10px 20px 48px;
+    margin: 10px 10px 20px 48px !important;
     gap: 24px;
 }
 
@@ -24,57 +24,63 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    gap: 20px;
+    width: 1036px;
+    gap: 10px;
 }
 
 .post_edit_box {
     display: flex;
     flex-direction: column;
-    width: 1034px;
     gap: 20px;
+    text-align: left;
 }
 
 .post_title_input_box {
-    width: 1012px;
-    height: 60px;
-    padding: 10px;
+    width: 1034px;
+    height: 40px;
     margin: 0px;
-
+    /* padding: 10px 0px 0px 10px; */
+    /* NanumGothicBold 적용 */
+    font-family: 'NanumGothicBold', sans-serif;
     font-size: 16px;
-    
-    border: 1px solid #0090F9;
-    border-radius: 20px;
-
+    font-weight: bold;
+    outline: none;
     resize: none;
+    overflow: hidden;
+    line-height: 40px;
+    
+   
+    background-color: white;
+    border: 1px solid #BDBDBD;
+    border-radius: 10px;
 }
 
 .post_content_box {
-    width: 1034px;
+    width: 1036px;
 }
 
 .sub_box_title {
-    font-size: 20px;
-    margin-bottom: 10px;
+    font-family: 'NanumGothicBold', sans-serif;
 }
 
+/* quill editor */
 .ql-toolbar {
-    border-top: 1px solid #0090F9!important;
-    border-left: 1px solid #0090F9!important;
-    border-right: 1px solid #0090F9!important;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .ql-container {
-    border-bottom: 1px solid #0090F9!important;
-    border-left: 1px solid #0090F9!important;
-    border-right: 1px solid #0090F9!important;
-    height: 200px;
+    height: 500px;
+    background-color: white;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 .post_button_box {
     display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
+    width: 1036px;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .button {
@@ -84,7 +90,7 @@
     width: 100px;
     height: 40px;
     background-color: #0090F9;
-    border-radius: 10px;
+    border-radius: 12.5px;
     font-size: small;
     color:white;
     font-weight: bold;
@@ -100,11 +106,11 @@
     justify-content: center;
     width: 100px;
     height: 40px;
+    border: 1px solid #BDBDBD;
     background-color: white;
-    border: 1px solid #0090F9;
+    color:black;
     border-radius: 10px;
     font-size: small;
-    color:#0090F9;
     font-weight: bold;
 }
 
@@ -113,14 +119,14 @@
 }
 
 .post_tail_stub_box {
-    width: 100%;
+    width: 1036px;
     height: 100px;
 }
 
 /* 크기 감소 단게 */
 @media (min-width: 1300px) and (max-width: 1500px) {
     /* main content box */
-    .post_edit_main_content_box {
+    .post_main_content_box {
         width: 100%;
         gap: 16px; 
     }
@@ -129,20 +135,17 @@
         display: none;
     }
 
-    .post_edit_center_content_box {
-        width: 80%;
-    }
-
-    .post_edit_box,
-    .post_title_input_box,
-    .post_content_box {
+    .post_edit_center_content_box
+    .post_title_box
+    .post_edit_box
+    .post_title_input_box {
         width: 100%;
     }
 }
 
 @media (min-width: 450px) and (max-width: 1300px) {
     /* main content box */
-    .post_edit_main_content_box {
+    .post_main_content_box {
         width: 100%;
         gap: 16px; 
     }
@@ -151,20 +154,28 @@
         display: none;
     }
 
+    .post_edit_main_content_box {
+        width:100%;
+    }
+
     .post_edit_center_content_box {
-        width: 80%;
+        width:80%;
     }
 
     .post_edit_box,
-    .post_title_input_box,
-    .post_content_box {
+    .board_title_box,
+    .post_edit_box,
+    .post_content_box,
+    .post_title_input_box, 
+    .quill,
+    .ql-toolbar,
+    .ql-container {
         width: 100%;
     }
 
     .post_button_box {
-        flex-direction: column;
-        gap: 10px;
-    }
+        width: 100%;
+    }   
 }
 
 @media (max-width: 640px) {
