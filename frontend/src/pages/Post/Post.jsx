@@ -155,7 +155,7 @@ function Post() {
     };
 
     return (
-        <div className="post_root_box">
+        <div className="page-container post_root_box">
             <Header />
             <div className="sidebar-wrapper">
                 <div className="sidebar-trigger" />
@@ -166,42 +166,45 @@ function Post() {
                 <div className="balance_weight_box" />
                 {/* Original Content */}
                 <div className="post_center_content_box">
-                    <BoardTitle boardTitle={boardTitle}/>
-                    <PostView
-                        key = {post?.postId}
-                        BoardTitle={boardTitle}
-                        PostName={post?.PostName} 
-                        Name={post?.Name}
-                        ViewCount={post?.ViewCount}
-                        // "몇초전"과 같은 형식으로 변경
-                        CreateTime={timeAgo(post?.CreateTime)}
-                        GoodCount={post?.GoodCount}
-                        UserTagName={post?.UserTagName}
-                        PostContent={post?.PostContent}
+                    <PostView 
+                        BoardTitle={board.boardName}
+                        PostName={post.PostName}
+                        Name={post.Name}
+                        CreateTime={timeAgo(post.CreateTime)}
+                        GoodCount={post.GoodCount}
+                        ViewCount={post.ViewCount}
+                        UserTagName={post.UserTagName}
                         onGoodCountClick={handlePostGoodCount}
                         onBackToBoardClick={onBackToBoardClick}
+                        PostContent={post.PostContent}
                     />
+
+                    {/* comment list */}
+                    <div className="comment_list_box">
+                        {commentList}
+                    </div>
+
+                    {/* add comment input */}
                     <div className="comment_edit_box">
-                        <textarea 
+                        <textarea
                             className="comment_edit_textarea"
                             onChange={handleInputTextChange}
                             value={inputText}
+                            placeholder="댓글을 입력하세요"
                         />
                         <img 
                             className="comment_edit_box_send_icon" 
                             src="/imgs/send_icon.png" 
-                            alt="comment edit button"
+                            alt="send_icon"
                             onClick={handleCommentAddButton}
                         />
                     </div>
-                    {commentList}
                 </div>
                 <SidebarWidget />
             </div>
             <BottomNav />
         </div>
     );
-
 }
 
 export default Post;

@@ -49,61 +49,63 @@ export default function ChatBot() {
   };
 
   return (
-    <div className="chatbot-container">
-      {/* 헤더 */}
-      <div className="chatbot-header">
-        <div className="logo">명지몬</div>
-        <div className="lang">KR/EN</div>
-        <div className="menu">≡</div>
-      </div>
-
-      {/* 메시지 영역 */}
-      <div className="chatbot-messages">
-        {messages.map((msg) => (
-          <div key={msg.id} className={`message-bubble ${msg.type}`}>
-            {msg.text}
-          </div>
-        ))}
-      </div>
-
-      {/* 메뉴 버튼 그리드 */}
-      <div className="menu-slider">
-        <div className="menu-page">
-          {menuButtons
-            .slice(page * 8, page * 8 + 8)
-            .map((btn, i) => (
-              <div key={i} className="menu-button">
-                <div className="icon">{btn.icon}</div>
-                <div className="label">{btn.label}</div>
-              </div>
-            ))}
+    <div className="page-container">
+      <div className="chatbot-container">
+        {/* 헤더 */}
+        <div className="chatbot-header">
+          <div className="logo">명지몬</div>
+          <div className="lang">KR/EN</div>
+          <div className="menu">≡</div>
         </div>
 
-        {/* 페이지 인디케이터 */}
-        <div className="page-dots">
-          {Array.from({ length: totalPages }, (_, idx) => (
-            <span
-              key={idx}
-              className={`dot ${idx === page ? 'active' : ''}`}
-              onClick={() => setPage(idx)}
-            >
-              ●
-            </span>
+        {/* 메시지 영역 */}
+        <div className="chatbot-messages">
+          {messages.map((msg) => (
+            <div key={msg.id} className={`message-bubble ${msg.type}`}>
+              {msg.text}
+            </div>
           ))}
         </div>
-      </div>
 
-      {/* 입력창 */}
-      <div className="chatbot-input">
-        <span className="home-icon">🏠</span>
-        <input
-          type="text"
-          placeholder="질문을 입력하세요."
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-        />
-        <button onClick={sendMessage}>↗</button>
+        {/* 메뉴 버튼 그리드 */}
+        <div className="menu-slider">
+          <div className="menu-page">
+            {menuButtons
+              .slice(page * 8, page * 8 + 8)
+              .map((btn, i) => (
+                <div key={i} className="menu-button">
+                  <div className="icon">{btn.icon}</div>
+                  <div className="label">{btn.label}</div>
+                </div>
+              ))}
+          </div>
+
+          {/* 페이지 인디케이터 */}
+          <div className="page-dots">
+            {Array.from({ length: totalPages }, (_, idx) => (
+              <span
+                key={idx}
+                className={`dot ${idx === page ? 'active' : ''}`}
+                onClick={() => setPage(idx)}
+              >
+                ●
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* 입력창 */}
+        <div className="chatbot-input">
+          <span className="home-icon">🏠</span>
+          <input
+            type="text"
+            placeholder="질문을 입력하세요."
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
+          <button onClick={sendMessage}>↗</button>
+        </div>
       </div>
     </div>
   );
