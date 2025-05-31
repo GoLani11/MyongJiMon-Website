@@ -52,8 +52,9 @@ body {
 
 .board_main_content_box {
     display: flex;
+    justify-content: center;
     width: 1484px;
-    margin: 10px 10px 0 48px;
+    margin: 10px 10px 20px 48px;
     gap: 24px;
 }
 
@@ -61,6 +62,13 @@ body {
 .balance_weight_box {
     width: 200px;
     height: 100%;
+}
+
+.board_center_content_box {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .board_tail_box {
@@ -76,7 +84,6 @@ body {
     justify-content: center;
     width: 100px;
     height: 40px;
-    margin-top: 20px;
     background-color: #0090F9;
     border-radius: 10px;
     font-size: small;
@@ -91,4 +98,47 @@ body {
 .board_post_edit_button_text {
     color: white;
     text-decoration: none;
+}
+
+/* 크기 감소 단게 */
+@media (min-width: 1300px) and (max-width: 1500px) {
+    /* main content box */
+    .board_main_content_box {
+        width: 100%;
+        gap: 16px; 
+    }
+
+    .balance_weight_box {
+        display: none;
+    }
+}
+
+@media (min-width: 450px) and (max-width: 1300px) {
+    /* main content box */
+    .board_main_content_box {
+        width: 100%;
+        gap: 16px; 
+    }
+
+    .board_center_content_box {
+        width: 80%;
+    }
+
+    .board_content_list_box,
+    .board_tail_box {
+        width: 100%;
+    }
+
+    .balance_weight_box {
+        display: none;
+    }
+}
+
+@media (max-width: 640px) {
+    .board_main_content_box {
+        margin-bottom: 84px;
+    }
+    .board_tail_box {
+        display: none;
+    }
 }

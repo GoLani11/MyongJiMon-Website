@@ -2,6 +2,13 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 
 // 초기 상태 정의
+const initialUserTags = [
+    { userType: "STUDENT", userTag: "학생"},
+    { userType: "PROFESSOR", userTag: "교수"},
+    { userType: "STAFF", userTag: "임직원"},
+    { userType: "ADMIN", userTag: "관리자"}
+]
+
 const initialBoards = [
     { boardId: "popular", boardName: "자유 게시판" },
     { boardId: "free", boardName: "자유 게시판" },
@@ -21,8 +28,8 @@ const initialPosts = [
     { postId: nanoid(), boardId: "popular", PostName: "맛집 추천 부탁해요", Name: "김도현", CreateTime: "2025-05-28 14:35:00", GoodCount: 0, CommentCount: 0, ViewCount: 0, UserTagName: "학생", PostContent: "<p>서울 근처 숨겨진 맛집 있으면 추천해 주세요! 저는 매운 음식을 좋아합니다.</p>" },
     { postId: nanoid(), boardId: "popular", PostName: "운동 루틴 공유", Name: "임수빈", CreateTime: "2025-05-28 14:40:00", GoodCount: 0, CommentCount: 0, ViewCount: 0, UserTagName: "학생", PostContent: "<p>효과 좋은 운동 루틴 있으면 알려주세요. 홈트레이닝 중심으로요.</p>" },
     { postId: nanoid(), boardId: "popular", PostName: "자기계발 도서 추천", Name: "서지훈", CreateTime: "2025-05-28 14:45:00", GoodCount: 0, CommentCount: 0, ViewCount: 0, UserTagName: "학생", PostContent: "<p>최근에 읽은 자기계발서 중에서 인상 깊었던 책 추천합니다. 동기부여에 좋았어요.</p>" },
-    { postId: nanoid(), boardId: "free", PostName: "오늘 뭐 먹었나요?", Name: "이수민", CreateTime: "2025-05-28 14:50:00", GoodCount: 0, CommentCount: 0, ViewCount: 0, UserTagName: "학생", PostContent: "<p>오늘 점심 뭐 먹었나요? 저는 치킨을 먹었는데 너무 맛있었어요! 여러분의 추천 음식도 알려주세요.</p>" },
-    { postId: nanoid(), boardId: "free", PostName: "취미 생활 공유해요", Name: "박지윤", CreateTime: "2025-05-28 14:55:00", GoodCount: 0, CommentCount: 0, ViewCount: 0, UserTagName: "학생", PostContent: "<p>최근에 새로 시작한 취미 있으신가요? 저는 그림 그리기를 시작했어요. 다들 어떤 취미 하시는지 궁금합니다!</p>" },
+    { postId: nanoid(), boardId: "free", PostName: "오늘 뭐 먹었나요?", Name: "이수민", CreateTime: "2025-05-28 14:50:00", GoodCount: 0, CommentCount: 4, ViewCount: 0, UserTagName: "학생", PostContent: "<p>오늘 점심 뭐 먹었나요? 저는 치킨을 먹었는데 너무 맛있었어요! 여러분의 추천 음식도 알려주세요.</p>" },
+    { postId: nanoid(), boardId: "free", PostName: "취미 생활 공유해요", Name: "박지윤", CreateTime: "2025-05-28 14:55:00", GoodCount: 0, CommentCount: 1, ViewCount: 0, UserTagName: "학생", PostContent: "<p>최근에 새로 시작한 취미 있으신가요? 저는 그림 그리기를 시작했어요. 다들 어떤 취미 하시는지 궁금합니다!</p>" },
     { postId: nanoid(), boardId: "free", PostName: "새로운 친구 만들기", Name: "김영호", CreateTime: "2025-05-28 15:00:00", GoodCount: 0, CommentCount: 0, ViewCount: 0, UserTagName: "학생", PostContent: "<p>대학 생활에서 새로운 친구를 만들기 위한 팁 공유해요. 혹시 좋은 방법 있으면 알려주세요.</p>" },
     { postId: nanoid(), boardId: "free", PostName: "주말에 뭐 할까요?", Name: "정민지", CreateTime: "2025-05-28 15:05:00", GoodCount: 0, CommentCount: 0, ViewCount: 0, UserTagName: "학생", PostContent: "<p>이번 주말에 뭘 할지 아직 정하지 못했어요. 추천할만한 활동 있나요?</p>" },
     { postId: nanoid(), boardId: "free", PostName: "매일 읽을 만한 웹툰 추천", Name: "최유진", CreateTime: "2025-05-28 15:10:00", GoodCount: 0, CommentCount: 0, ViewCount: 0, UserTagName: "학생", PostContent: "<p>재미있게 볼 수 있는 웹툰 있으면 추천 부탁드려요! 요즘 자주 보는 웹툰 있나요?</p>" },
@@ -64,12 +71,14 @@ const initialPosts = [
 ];
 
 const initialComments = [
-    { commentId: nanoid(), postId: initialPosts[0].postId, commentOwner: "aaaaa", UserTagName: "학생", commentCreateTime: "2025-05-24 21:57:44", commentGoodCount: 0, commentText: "test입니다." },
-    { commentId: nanoid(), postId: initialPosts[0].postId, commentOwner: "bbbbb", UserTagName: "학생", commentCreateTime: "2025-05-24 19:45:30", commentGoodCount: 3, commentText: "이것은 테스트 댓글입니다." },
-    { commentId: nanoid(), postId: initialPosts[1].postId, commentOwner: "ccccc", UserTagName: "학생", commentCreateTime: "2025-05-24 15:22:10", commentGoodCount: 5, commentText: "디자인 관련 의견을 남깁니다." },
-    { commentId: nanoid(), postId: initialPosts[1].postId, commentOwner: "ddddd", UserTagName: "학생", commentCreateTime: "2025-05-24 12:05:59", commentGoodCount: 1, commentText: "안녕하세요, 좋은 정보 감사합니다!" },
-    { commentId: nanoid(), postId: initialPosts[1].postId, commentOwner: "eeeee", UserTagName: "학생", commentCreateTime: "2025-05-23 08:00:00", commentGoodCount: 10, commentText: "이 내용은 정말 유익합니다." }
+    { commentId: nanoid(), postId: initialPosts[10].postId, commentOwner: "이지은", UserTagName: "학생", commentCreateTime: "2025-05-24 21:57:44", commentGoodCount: 0, commentText: "test입니다." },
+    { commentId: nanoid(), postId: initialPosts[10].postId, commentOwner: "최은지", UserTagName: "학생", commentCreateTime: "2025-05-24 19:45:30", commentGoodCount: 0, commentText: "이것은 테스트 댓글입니다." },
+    { commentId: nanoid(), postId: initialPosts[10].postId, commentOwner: "김주현", UserTagName: "학생", commentCreateTime: "2025-05-24 15:22:10", commentGoodCount: 0, commentText: "디자인 관련 의견을 남깁니다." },
+    { commentId: nanoid(), postId: initialPosts[10].postId, commentOwner: "윤정호", UserTagName: "학생", commentCreateTime: "2025-05-24 12:05:59", commentGoodCount: 0, commentText: "안녕하세요, 좋은 정보 감사합니다!" },
+    { commentId: nanoid(), postId: initialPosts[11].postId, commentOwner: "홍진우", UserTagName: "학생", commentCreateTime: "2025-05-23 08:00:00", commentGoodCount: 0, commentText: "이 내용은 정말 유익합니다." }
 ];
+
+const postPerPage = 7; // page 당 출력할 게시글의 개수
 
 // Context 생성
 const AppContext = createContext();
@@ -78,9 +87,12 @@ export const useAppContext = () => useContext(AppContext);
 
 // Context Provider 컴포넌트
 export const AppProvider = ({ children }) => {
+    const [userTags, setUserTags] = useState(initialUserTags);
     const [boards, setBoards] = useState(initialBoards);
     const [posts, setPosts] = useState(initialPosts);
     const [comments, setComments] = useState(initialComments);
+    const [postLikes, setPostLikes] = useState([]); 
+    const [commentLikes, setCommentLikes] = useState([]);
     
     // 사용자 인증 상태 관리
     const [user, setUser] = useState(null);
@@ -149,12 +161,68 @@ export const AppProvider = ({ children }) => {
         return boards.some(board => board.boardId === boardId);
     }
 
+    const getBoardPageCount = (boardId) => {
+        const selectedBoardPosts = posts.filter(post => post.boardId === boardId); // 선택된 게시판의 게시글만 선택
+        const boardPostCount = selectedBoardPosts.length; // 게시글들의 전체 개수
+
+        // 필요한 page의 개수
+        // 게시판의 게시글 개수를 page 당 게시글 개수로 나눈다.
+        const boardPageCount = Math.ceil(boardPostCount / postPerPage); 
+        
+        return boardPageCount;
+    }
+
+    const getUserTag = (type) => {
+        return userTags.find(userTag => userTag.userType === type).userTag;
+    };
+
+    const addPostLike = (postLikeObj) => {
+        setPostLikes((prevPostLikes) => [...prevPostLikes, postLikeObj]);
+    };
+
+    const addCommentLike = (commentLikeObj) => {
+        setCommentLikes((prevCommentLikes) => [...prevCommentLikes, commentLikeObj]);
+    };
+
+    const isAlreadyPostLike = (userId, postId) => {
+        // 해당 post에 해당 사용자가 추천을 했으면 true
+        return postLikes.some(postLike => postLike.postId === postId &&
+            postLike.userId === userId); 
+    }
+
+    const isAlreadyCommentLike = (userId, commentId) => {
+        // 해당 comment에 해당 사용자가 추천을 했으면 true
+        return commentLikes.some(commentLike => commentLike.userId === userId &&
+            commentLike.commentId === commentId); 
+    }
+
+    const getFormattedDateTime = () => {
+        const currentTimeDateObj = new Date();
+
+        // 연도, 월, 일, 시간, 분, 초를 추출
+        const year = currentTimeDateObj.getFullYear();
+        const month = currentTimeDateObj.getMonth() + 1;  // 월은 0부터 시작하므로 1을 더해줘야 합니다.
+        const day = currentTimeDateObj.getDate();
+        const hours = currentTimeDateObj.getHours();
+        const minutes = String(currentTimeDateObj.getMinutes()).padStart(2, '0');
+        const seconds = String(currentTimeDateObj.getSeconds()).padStart(2, '0');
+
+        // mysql의 current_timestamp 형식과 일치하는 형태로 가공
+        const currentDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+        return currentDateTime;
+    }
+
     return (
         <AppContext.Provider value={{ 
+            userTags, setUserTags,
             boards, setBoards, 
             posts, setPosts, 
             comments, setComments, 
-            addComment, addPost, updatePost, getPost, getBoard, isValidBoardId,
+            postPerPage,
+            addComment, addPost, updatePost, getPost, 
+            getBoard, isValidBoardId, getBoardPageCount, getUserTag,
+            addPostLike, addCommentLike, isAlreadyPostLike, isAlreadyCommentLike, getFormattedDateTime, 
             user, isLoggedIn, login, logout
         }}>
             {children}

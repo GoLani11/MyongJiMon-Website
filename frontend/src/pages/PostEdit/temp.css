@@ -1,0 +1,137 @@
+/* 최소 크기 */
+@media (min-width: 1500px) {
+    /* page root box */
+    .postedit_root_box {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    /* main content box */
+    .post_main_content_box {
+        display: flex;
+        width: 1484px;
+        margin: 10px 10px 20px 48px !important;
+        gap: 24px;
+    }
+
+    /*  side widget으로 인해 main content가 중앙 정렬 되지 않는 문제를 해결하는 요소 */
+    .balance_weight_box {
+        width: 200px;
+        height: 100%;
+    }
+
+    .post_edit_box {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        text-align: left;
+    }
+
+    .post_title_input_box {
+        width: 1024px;
+        height: 40px;
+        padding: 0px 0px 0px 10px;
+        margin: 0px;
+        /* NanumGothicBold 적용 */
+        font-family: 'NanumGothicBold', sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        border: 1px solid #BDBDBD;
+        border-radius: 10px;
+        line-height: 40px;
+        outline: none;
+        resize: none;
+    }
+
+    .post_content_box {
+        width: 1036px;
+    }
+
+    .sub_box_title {
+        font-family: 'NanumGothicExtraBold', sans-serif;
+        font-size:larger;
+    }
+
+    /* quill editor */
+    .ql-toolbar {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    .ql-container {
+        height: 500px;
+        background-color: white;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    .post_button_box {
+        display: flex;
+        width: 1036px;
+        height: 30px;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100px;
+        height: 40px;
+        background-color: #0090F9;
+        border-radius: 12.5px;
+        font-size: small;
+        color:white;
+        font-weight: bold;
+    }
+
+    .button:hover {
+        cursor: pointer;
+    }
+
+    .cancle_button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100px;
+        height: 40px;
+        border: 1px solid #BDBDBD;
+        background-color: white;
+        color:black;
+        border-radius: 10px;
+        font-size: small;
+        font-weight: bold;
+    }
+
+    .cancle_button:hover {
+        cursor: pointer;
+    }
+
+    .post_tail_stub_box {
+        width: 1036px;
+        height: 100px;
+    }
+}
+
+/* 크기 감소 단게 */
+@media (min-width: 1080px) and (max-width: 1500px) {
+/* page root box */
+.postedit_root_box {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* main content box */
+.post_main_content_box {
+    width: 100%;
+    margin: 10px 10px 20px 48px;
+    gap: 16px; 
+}
+
+.post_title_input_box {
+    width: 1024px;
+}
+}

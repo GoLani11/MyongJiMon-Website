@@ -3,7 +3,7 @@ import { FaUserCircle } from 'react-icons/fa';
 import "./Comment.css";
 import UserTag from "./UserTag";
 
-function Comment( { commentOwner, UserTagName, commentCreateTime, commentGoodCount, onGoodCountClick, commentText }) {
+function Comment( { commentId, commentOwner, UserTagName, commentCreateTime, commentGoodCount, onGoodCountClick, commentText }) {
     return (
         <div className="comment_box">
             <div className="comment_metadata_box">
@@ -21,7 +21,7 @@ function Comment( { commentOwner, UserTagName, commentCreateTime, commentGoodCou
                         className="comment_metadata_box_2_good_icon" 
                         src="/imgs/good_icon.png" 
                         alt="good_count"
-                        onClick={onGoodCountClick}
+                        onClick={onGoodCountClick(commentId)}
                     />
                     <span>{commentGoodCount}</span>
                 </div>
