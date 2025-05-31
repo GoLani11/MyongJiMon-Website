@@ -49,7 +49,6 @@ function Login() {
     setLoading(true);
 
     try {
-      // API 호출
       const result = await loginUser(formData);
       
       if (result.success) {

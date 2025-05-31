@@ -6,10 +6,11 @@
 }
 
 /* main content box */
-.post_main_content_box {
+.post_edit_main_content_box {
     display: flex;
+    justify-content: center;
     width: 1484px;
-    margin: 10px 10px 0 48px;
+    margin: 10px 10px 20px 48px !important;
     gap: 24px;
 }
 
@@ -17,6 +18,14 @@
 .balance_weight_box {
     width: 200px;
     height: 100%;
+}
+
+.post_edit_center_content_box {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 1036px;
+    gap: 10px;
 }
 
 .post_edit_box {
@@ -27,19 +36,21 @@
 }
 
 .post_title_input_box {
-    width: 1024px;
+    width: 1034px;
     height: 40px;
-    padding: 0px 0px 0px 10px;
     margin: 0px;
+    /* padding: 10px 0px 0px 10px; */
     /* NanumGothicBold 적용 */
     font-family: 'NanumGothicBold', sans-serif;
     font-size: 16px;
     font-weight: bold;
-    border: 1px solid #BDBDBD;
-    border-radius: 10px;
-    line-height: 40px;
     outline: none;
     resize: none;
+    line-height: 40px;
+   
+    background-color: white;
+    border: 1px solid #BDBDBD;
+    border-radius: 10px;
 }
 
 .post_content_box {
@@ -66,7 +77,6 @@
 .post_button_box {
     display: flex;
     width: 1036px;
-    height: 30px;
     justify-content: space-between;
     align-items: center;
 }
@@ -109,4 +119,65 @@
 .post_tail_stub_box {
     width: 1036px;
     height: 100px;
+}
+
+/* 크기 감소 단게 */
+@media (min-width: 1300px) and (max-width: 1500px) {
+    /* main content box */
+    .post_main_content_box {
+        width: 100%;
+        gap: 16px; 
+    }
+
+    .balance_weight_box {
+        display: none;
+    }
+
+    .post_edit_center_content_box
+    .post_title_box
+    .post_edit_box
+    .post_title_input_box {
+        width: 100%;
+    }
+}
+
+@media (min-width: 450px) and (max-width: 1300px) {
+    /* main content box */
+    .post_main_content_box {
+        width: 100%;
+        gap: 16px; 
+    }
+
+    .balance_weight_box {
+        display: none;
+    }
+
+    .post_edit_main_content_box {
+        width:100%;
+    }
+
+    .post_edit_center_content_box {
+        width:80%;
+    }
+
+    .post_edit_box,
+    .board_title_box,
+    .post_edit_box,
+    .post_content_box,
+    .post_title_input_box, 
+    .quill,
+    .ql-toolbar,
+    .ql-container {
+        width: 100%;
+    }
+
+    .post_button_box {
+        width: 100%;
+    }   
+}
+
+@media (max-width: 640px) {
+    .post_edit_main_content_box {
+        margin-bottom: 84px;
+    }
 }

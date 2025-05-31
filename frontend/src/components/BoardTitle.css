@@ -1,13 +1,29 @@
 .board_title_box {
-    width: 994px;
+    display:flex;
+    align-items: center;
+    width: 100%;
     height: 82px;
+    margin-top: 10px;
     background-color: #0090F9;
     border-radius: 30px;
-    padding: 10px 20px;
     text-align: left;
-    margin-bottom: 20px;
 }
 
 .board_title_text {
+    padding: 0 20px;
     color: white;
+}
+
+@media (min-width: 1300px) and (max-width: 1500px) {
+    .board_title_box {
+        width: 100%;
+        padding: 0;
+    }
+}
+
+@media (min-width: 1000px) and (max-width: 1300px) {
+    .board_title_box {
+        width: 80%;
+        padding: 0;
+    }
 }

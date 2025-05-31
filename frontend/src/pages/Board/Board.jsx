@@ -1,5 +1,5 @@
 import { MdEdit } from 'react-icons/md';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 
 // 상단 헤더, 사이드바, 하단 네비게이션 등 공통 컴포넌트 import
 import Header from '../../components/Header.jsx';
@@ -11,10 +11,14 @@ import { useAppContext } from "../DataContext.jsx";
 import './Board.css';
 import BoardTitle from '../../components/BoardTitle.jsx';
 import BoardContent from '../../components/BoardContent.js';
+import Pagination from '../../components/Pagination.jsx';
 
 function Board() {
-  const {posts, setPosts, updatePost, getBoard} = useAppContext();
+  const { posts, setPosts, updatePost, getBoard, postPerPage } = useAppContext();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // url 경로 parameter 가져오기
   const { boardId } = useParams();
 
   if(!boardId) {
@@ -22,7 +26,34 @@ function Board() {
     return null; // no rendering
   }
 
+  // query parameter 가져오기 e.g. ?key=value
+  const currentPageNum = parseInt(searchParams.get('page')) || 1; // page parameter가 없으면 1
+
   const boardName = getBoard(boardId).boardName;
+
+  // 한 page에 출력할 게시글의 개수대로 posts를 분할해둔다.
+  const startIndex = (currentPageNum - 1) * postPerPage;
+  const pagedPosts = posts
+    .slice().reverse() // 원본 배열을 변경하지 않고, 복사본을 뒤집는다.
+    .filter((post) => post.boardId === boardId)
+    .slice(startIndex, startIndex + postPerPage);
+
+  // 한 page에 출력한 게시글들을 생성
+  const boardContentList = pagedPosts.map((content) => 
+    <BoardContent
+      key = {content.postId}
+      postId = {content.postId}
+      PostName={content.PostName}
+      Name={content.Name}
+      CreateTime={timeAgo(content.CreateTime)}
+      ViewCount={content.ViewCount}
+      GoodCount={content.GoodCount}
+      CommentCount={content.CommentCount}
+      UserTagName={content.UserTagName}
+      onGoodCountClick={() => handlePostGoodCount(content.postId)}
+      onContentClick={() => handlePostClick(content.postId)}
+    />
+  )
 
   function timeAgo(inputDateTime) {
     const currentTime = new Date();
@@ -46,24 +77,6 @@ function Board() {
       return `${Math.floor(diffInDays / 365)}년 전`;
     }
   }
-
-  const boardContentList = posts
-    .filter((content) => content.boardId === boardId)
-    .map((content) => 
-    <BoardContent
-      key = {content.postId}
-      postId = {content.postId}
-      PostName={content.PostName}
-      Name={content.Name}
-      CreateTime={timeAgo(content.CreateTime)}
-      ViewCount={content.ViewCount}
-      GoodCount={content.GoodCount}
-      CommentCount={content.CommentCount}
-      UserTagName={content.UserTagName}
-      onGoodCountClick={() => handlePostGoodCount(content.postId)}
-      onContentClick={() => handlePostClick(content.postId)}
-    />
-  )
 
   const handlePostGoodCount = (postId) => {
     const tempPost = posts.map((post) => {
@@ -92,8 +105,13 @@ function Board() {
   }
 
   const handlePostEditButtonclick = () => {
-    navigate(`/postedit/${boardId}`);
+    navigate(`/postedit?board=${boardId}`);
   }
+
+  // page 변경 handler
+  const handlePageChange = (newPageNum) => {
+    setSearchParams({ page: newPageNum.toString() });
+  };
 
   return (
     <div className="board_root_box">
@@ -107,12 +125,20 @@ function Board() {
         <div className="balance_weight_box" />
         
         {/* Original Content */}
-        <div>
+        <div className="board_center_content_box">
           {/* 게시판 제목 */}
           <BoardTitle boardTitle={boardName} />
 
           {/* 게시판 내용 */}
-          {boardContentList}
+          <div className="board_content_list_box">
+            {boardContentList}
+          </div>
+
+          <Pagination 
+            boardId={boardId}
+            currentPageNum={currentPageNum}
+            onPageChange={handlePageChange}
+          />
 
           <div class="board_tail_box">
             <div className="board_post_edit_button" onClick={handlePostEditButtonclick}>

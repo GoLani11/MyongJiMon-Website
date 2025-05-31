@@ -22,18 +22,26 @@ import '../../styles/global.css';
 import "../../styles/responsive.css";
 
 function Post() {
-    const { comments, setComments, updatePost, getPost, addComment, getBoard } = useAppContext();
+    const { user, getUserTag, comments, setComments, updatePost, getPost, addComment, getBoard, getFormattedDateTime, 
+        addPostLike, addCommentLike, isAlreadyPostLike, isAlreadyCommentLike } = useAppContext();
     const { postId } = useParams();
     const [inputText, setInputText] = useState("");
     const navigate = useNavigate();
 
-    // postId가 없으면, board로 redirect
+    // postId가 없으면, home로 redirect
     if(!postId) {
-        navigate('/board')
+        navigate('/home')
         return null; // no rendering
     } 
     
     const post = getPost(postId);
+
+    // 없는 post라면, home로 redirect
+    if( post === undefined) {
+        navigate('/home');
+        return null;
+    }
+    
     const board = getBoard(post.boardId);
     const boardId = board.boardId;
     const boardTitle = board.boardName;
@@ -44,6 +52,7 @@ function Post() {
         .map((comment) => 
             <Comment
                 key = {comment.commentId}
+                commentId = {comment.commentId}
                 commentOwner={comment.commentOwner}
                 UserTagName={comment.UserTagName}
                 commentCreateTime={timeAgo(comment.commentCreateTime)}
@@ -81,25 +90,12 @@ function Post() {
     }
 
      function handleCommentAddButton(e) {
-        const currentTimeDateObj = new Date();
-
-        // 연도, 월, 일, 시간, 분, 초를 추출
-        const year = currentTimeDateObj.getFullYear();
-        const month = currentTimeDateObj.getMonth() + 1;  // 월은 0부터 시작하므로 1을 더해줘야 합니다.
-        const day = currentTimeDateObj.getDate();
-        const hours = currentTimeDateObj.getHours();
-        const minutes = String(currentTimeDateObj.getMinutes()).padStart(2, '0');
-        const seconds = String(currentTimeDateObj.getSeconds()).padStart(2, '0');
-
-        // mysql의 current_timestamp 형식과 일치하는 형태로 가공
-        const currentDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-        
         const newComment = { 
             commentId: nanoid(),
             postId: post.postId,
-            commentOwner: "test",
-            UserTagName: "학생",
-            commentCreateTime: currentDateTime,
+            commentOwner: user?.username,
+            UserTagName: getUserTag(user?.type),
+            commentCreateTime: getFormattedDateTime(),
             commentGoodCount: 0,
             commentText: inputText
         }
@@ -117,25 +113,45 @@ function Post() {
         navigate(`/board/${boardId}`);
     }
 
-    const handlePostGoodCount = (postId) => {
-        // const tempPost = posts.map((post) => {
-        //     if (post.postId === postId) {
-        //         return { ...post, GoodCount: post.GoodCount + 1 };
-        //     }
-        //     return post;
-        // });
-        const tempPost = { ...post, GoodCount: post.GoodCount + 1 };
-        updatePost(tempPost);
+    const handlePostGoodCount = () => {
+        // '좋아요'를 하지 않은 사용자라면
+        if (!isAlreadyPostLike(user?.id, postId)) {
+            // '게시글 좋아요' table에 추가
+            const postLikeObj = {
+                postId: postId,
+                boardId: boardId,
+                userId: user?.id,
+                currentTime: getFormattedDateTime()
+            };
+            addPostLike(postLikeObj);
+            
+            // 해당 post의 좋아요 값 + 1
+            const tempPost = { ...post, GoodCount: post.GoodCount + 1 };
+            updatePost(tempPost);
+        }
     };
 
     const handleCommentGoodCount = (commentId) => {
-        const tempComment = comments.map((comment) => {
-            if (comment.commentId === commentId) {
-                return { ...comment, commentGoodCount: comment.commentGoodCount + 1 };
-            }
-            return comment;
-        });
-        setComments(tempComment);
+         // '좋아요'를 하지 않은 사용자라면
+        if (!isAlreadyCommentLike(user?.id, commentId)) {
+            // '댓글 좋아요' table에 추가
+            const commentLikeObj = {
+                commentId: commentId,
+                postId: postId,
+                userId: user?.id,
+                currentTime: getFormattedDateTime()
+            };
+            addCommentLike(commentLikeObj);
+
+            // 해당 댓글의 좋아요 값 + 1
+            const tempComment = comments.map((comment) => {
+                if (comment.commentId === commentId) {
+                    return { ...comment, commentGoodCount: comment.commentGoodCount + 1 };
+                }
+                return comment;
+            });
+            setComments(tempComment);
+        }
     };
 
     return (
@@ -149,7 +165,7 @@ function Post() {
             <div className="post_main_content_box">
                 <div className="balance_weight_box" />
                 {/* Original Content */}
-                <div>
+                <div className="post_center_content_box">
                     <BoardTitle boardTitle={boardTitle}/>
                     <PostView
                         key = {post?.postId}
@@ -162,8 +178,7 @@ function Post() {
                         GoodCount={post?.GoodCount}
                         UserTagName={post?.UserTagName}
                         PostContent={post?.PostContent}
-                        // onGoodCountClick={() => handlePostGoodCount(post?.postId)}
-                        onGoodCountClick={() => handlePostGoodCount()}
+                        onGoodCountClick={handlePostGoodCount}
                         onBackToBoardClick={onBackToBoardClick}
                     />
                     <div className="comment_edit_box">

@@ -4,7 +4,7 @@ import { FaUserCircle } from 'react-icons/fa';
 import './BoardContent.css';
 import UserTag from './UserTag';
 
-function BoardContent({ postId, PostName, Name, CreateTime, ViewCount, GoodCount, CommentCount, UserTagName, onGoodCountClick, onContentClick}) {
+function BoardContent({ postId, PostName, Name, CreateTime, GoodCount, CommentCount, UserTagName, onContentClick}) {
     return (
         <div className="board_content_box">
             <div className="board_content_metadata_box">
@@ -18,7 +18,6 @@ function BoardContent({ postId, PostName, Name, CreateTime, ViewCount, GoodCount
                         className="board_content_metadata_box_2_good_icon" 
                         src="/imgs/good_icon.png" 
                         alt="good_count"
-                        onClick={onGoodCountClick}
                     />
                     <span>{GoodCount}</span>
                     <img 

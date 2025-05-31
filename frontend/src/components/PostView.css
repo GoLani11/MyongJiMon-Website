@@ -7,7 +7,7 @@
     background-color: white;
 
     width: 1012px;
-    height: 778px;
+    height: 578px;
     padding: 10px;
 
     border: 1px solid #ccc;
@@ -97,4 +97,19 @@
 
 .good_icon:hover {
     cursor: pointer;
+}
+
+@media (min-width: 450px) and (max-width: 1300px) {
+    .post_view_box,
+    .post_head_metadata_box,
+    .post_tail_box {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 640px) {
+    .post_view_box {
+        height: 500px;
+    }
 }

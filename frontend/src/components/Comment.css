@@ -43,3 +43,10 @@
     display: inline-block;
     margin-bottom: 10px;
 }
+
+@media (min-width: 450px) and (max-width: 1300px) {
+    .comment_box {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}

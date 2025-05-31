@@ -8,8 +8,9 @@
 
 .post_main_content_box {
     display: flex;
+    justify-content: center;
     width: 1484px;
-    margin: 10px 10px 0 48px;
+    margin: 10px 10px 20px 48px;
     gap: 24px;
 }
 
@@ -19,6 +20,13 @@
     height: 100%;
 }
 
+.post_center_content_box {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
 .comment_edit_box {
     display: flex;
     align-items: center;
@@ -26,7 +34,6 @@
 
     width: 1034px;
     height: 100px;
-    margin: 20px 0px;
 }
 
 .comment_edit_textarea {
@@ -51,4 +58,44 @@
 
 .comment_edit_box_send_icon:hover {
     cursor:pointer;
+}
+
+/* 크기 감소 단게 */
+@media (min-width: 1300px) and (max-width: 1500px) {
+    /* main content box */
+    .post_main_content_box {
+        width: 100%;
+        gap: 16px; 
+    }
+
+    .balance_weight_box {
+        display: none;
+    }
+}
+@media (min-width: 450px) and (max-width: 1300px) {
+    /* main content box */
+    .post_main_content_box {
+        width: 100%;
+        gap: 16px; 
+    }
+
+    .post_center_content_box {
+        width: 80%;
+    }
+
+    .board_content_list_box,
+    .comment_edit_box,
+    .board_tail_box {
+        width: 100%;
+    }
+
+    .balance_weight_box {
+        display: none;
+    }
+}
+
+@media (max-width: 640px) {
+    .post_main_content_box {
+        margin-bottom: 84px;
+    }
 }

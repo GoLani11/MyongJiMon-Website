@@ -52,15 +52,15 @@
     height: 21.875px;
 }
 
-.board_content_metadata_box_2_good_icon:hover {
-    cursor:pointer;
-}
-
-.board_content_metadata_box_2_comment_icon:hover {
-    cursor:pointer;
-}
-
 .board_content_post_title {
     color:black;
     text-decoration: none;
+}
+
+@media (min-width: 450px) and (max-width: 1300px) {
+    .board_content_box {
+        width: 100%;
+        /* padding과 border를 html 요소의 width, height 계산에 포함 */
+        box-sizing: border-box
+    }
 }

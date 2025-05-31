@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ReactQuill from "react-quill-new";
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 import DOMPurify from 'dompurify';
 
@@ -23,12 +23,15 @@ import '../../styles/global.css';
 import "../../styles/responsive.css";
 
 function PostEdit() {
-    const { addPost, getBoard, isValidBoardId } = useAppContext();
-    const { boardId } = useParams();
+    const { user, getUserTag, addPost, getBoard, isValidBoardId, getFormattedDateTime } = useAppContext();
+    const [searchParams] = useSearchParams();
     const navigate = useNavigate();  // useNavigate 훅 사용
 
     const [postTitleText, setpostTitleText] = useState("");
     const [postContentText, setpostContentText] = useState("");
+
+    // query parameter 가져오기 e.g. ?key=value
+    const boardId = searchParams.get('board');
 
     // postId가 없으면, board로 redirect
     if(!boardId) {
@@ -53,34 +56,21 @@ function PostEdit() {
     }
 
     function handleRegisterButtonClick(e) {
-        const currentTimeDateObj = new Date();
-
-        // 연도, 월, 일, 시간, 분, 초를 추출
-        const year = currentTimeDateObj.getFullYear();
-        const month = currentTimeDateObj.getMonth() + 1;  // 월은 0부터 시작하므로 1을 더해줘야 합니다.
-        const day = currentTimeDateObj.getDate();
-        const hours = currentTimeDateObj.getHours();
-        const minutes = String(currentTimeDateObj.getMinutes()).padStart(2, '0');
-        const seconds = String(currentTimeDateObj.getSeconds()).padStart(2, '0');
-
-        // mysql의 current_timestamp 형식과 일치하는 형태로 가공
-        const currentDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-
         const newPost = { 
             postId: nanoid(), 
             boardId: boardId, 
             PostName: postTitleText, 
-            Name: "aaaaa", 
-            CreateTime: currentDateTime, 
+            Name: user.username, 
+            CreateTime: getFormattedDateTime(), 
             GoodCount: 0, 
             CommentCount: 0, 
             ViewCount: 0, 
-            UserTagName: "학생", 
+            UserTagName: getUserTag(user.type), 
             PostContent: DOMPurify.sanitize(postContentText)
         };
         addPost(newPost)
 
-        navigate('/board');
+        navigate(`/board/${boardId}`);
     }
 
     function handleCancleButtonClick(e) {
@@ -99,10 +89,10 @@ function PostEdit() {
                 <Sidebar />
             </div>
 
-            <div className="post_main_content_box">
+            <div className="post_edit_main_content_box">
                 <div className="balance_weight_box" />
                 {/* Original Content */}
-                <div>
+                <div className="post_edit_center_content_box">
                     <BoardTitle boardTitle={boardName}/>
                     <div className="post_edit_box">
                         <div className="post_title_box">
@@ -112,7 +102,7 @@ function PostEdit() {
                                 onChange={handleInputTitleTextChange}
                                 value={postTitleText}
                                 placeholder="제목을 입력하세요"
-                            ></textarea>
+                            />
                         </div>
                         {/* 편집기 */}
                         <div className="post_content_box">
