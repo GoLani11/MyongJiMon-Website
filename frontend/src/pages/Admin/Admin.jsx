@@ -41,7 +41,7 @@ function Admin() {
   };
 
   return (
-    <div className="admin-container">
+    <div className="page-container admin-container">
       <h1 className="admin-title">관리자 페이지</h1>
       
       <div className="admin-content">

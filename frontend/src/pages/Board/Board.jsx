@@ -114,7 +114,7 @@ function Board() {
   };
 
   return (
-    <div className="board_root_box">
+    <div className="page-container board_root_box">
       <Header />
       <div className="sidebar-wrapper">
         <div className="sidebar-trigger" />

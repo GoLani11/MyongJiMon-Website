@@ -4,7 +4,7 @@ import React from 'react';
 import './Main.css';
 // Context와 라우터 import
 import { useAppContext } from '../DataContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 // Main 컴포넌트 함수 생성. 메인(홈) 화면 역할
 function Main() {
@@ -13,26 +13,15 @@ function Main() {
 
   // 화면에 출력할 JSX 반환
   return (
-    // Main이라는 className을 가진 div 생성
-    <div className="Main">
-      {/* "Main Page" 제목 출력 */}
-      <h2>명지몬 홈페이지</h2>
-      
-      {isLoggedIn ? (
-        // 로그인한 경우
-        <div>
-          <p>안녕하세요, {user?.nickname || user?.username}님!</p>
-          <p>명지몬에 오신 것을 환영합니다.</p>
-          <button onClick={() => navigate('/home')}>커뮤니티 홈으로 이동</button>
-        </div>
-      ) : (
-        // 로그인하지 않은 경우
-        <div>
-          <p>명지몬 홈페이지에 오신 것을 환영합니다!</p>
-          <p>로그인하여 더 많은 기능을 이용해보세요.</p>
-          <button onClick={() => navigate('/login')}>로그인하기</button>
-        </div>
-      )}
+    <div className="page-container">
+      <div className="Main">
+        <h2>MyongJiMon에 오신 것을 환영합니다!</h2>
+        <p>명지대학교 학생들을 위한 커뮤니티 플랫폼입니다.</p>
+        <p>로그인하여 다양한 서비스를 이용해보세요.</p>
+        <Link to="/login">
+          <button>로그인하러 가기</button>
+        </Link>
+      </div>
     </div>
   );
 }

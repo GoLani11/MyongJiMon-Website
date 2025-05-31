@@ -9,7 +9,7 @@ import BottomNav from "../../components/BottomNav.jsx";
 
 function App() {
   return (
-    <div className="app-container">
+    <div className="page-container">
       <Header />
       <div className="sidebar-wrapper">
         <div className="sidebar-trigger"></div>

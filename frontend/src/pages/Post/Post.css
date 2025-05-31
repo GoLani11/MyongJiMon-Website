@@ -2,7 +2,6 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-
     overflow: auto;
 }
 
@@ -72,6 +71,7 @@
         display: none;
     }
 }
+
 @media (min-width: 450px) and (max-width: 1300px) {
     /* main content box */
     .post_main_content_box {

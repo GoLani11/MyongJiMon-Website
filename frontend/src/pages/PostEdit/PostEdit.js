@@ -82,7 +82,7 @@ function PostEdit() {
     }
 
     return (
-        <div className="postedit_root_box">
+        <div className="page-container postedit_root_box">
             <Header />
             <div className="sidebar-wrapper">
                 <div className="sidebar-trigger" />

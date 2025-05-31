@@ -1,13 +1,4 @@
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-}
-
-#root {
-  width: 100%;
-}
+/* html, body 전역 설정 제거 - global.css에서 처리 */
 
 /* 전체 컨테이너 */
 .chatbot-container {
