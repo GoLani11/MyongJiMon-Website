@@ -68,10 +68,10 @@ router.post('/login', async (req, res) => {
 // 2. 회원가입 API
 router.post('/register', async (req, res) => {
   try {
-    const { username, password, confirmPassword, name, email, studentId } = req.body;
+    const { username, password, confirmPassword, email, studentId } = req.body;
     
     // 입력값 검증
-    if (!username || !password || !confirmPassword || !name || !email || !studentId) {
+    if (!username || !password || !confirmPassword || !email || !studentId) {
       return res.status(400).json({ 
         success: false, 
         message: '모든 필드를 입력해주세요.' 
@@ -127,8 +127,8 @@ router.post('/register', async (req, res) => {
 
     // 사용자 등록
     const [result] = await pool.query(
-      'INSERT INTO users (user_name, user_password, user_email, user_type, user_school_id, user_status, user_real_name, user_created_at) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())',
-      [username, password, email, 'STUDENT', studentId, 'ENROLLED', name]
+      'INSERT INTO users (user_name, user_password, user_email, user_type, user_school_id, user_status, user_created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())',
+      [username, password, email, 'STUDENT', studentId, 'ENROLLED']
     );
 
     return res.status(201).json({
