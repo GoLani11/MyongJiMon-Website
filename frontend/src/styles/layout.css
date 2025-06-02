@@ -104,3 +104,14 @@
   font-size: 15px;
   font-weight: 600;
 }
+
+.reaction-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.reaction-icon {
+  width: 14px;
+  height: 14px;
+}

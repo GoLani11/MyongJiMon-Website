@@ -37,7 +37,7 @@
     width: 14px;
     height: 14px;
     margin: 8px;
-    background-color: black;
+    object-fit: contain;
   }
   
   .search-input {
