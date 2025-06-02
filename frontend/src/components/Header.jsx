@@ -22,9 +22,9 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header-left">
-        <div className="logo-box" />
+      <span className="logo-text" onClick={() => navigate('/')}>명지몬</span>
         <div className="search-box">
-          <div className="search-icon" role="img" aria-label="search icon" />
+        <img src="/imgs/search_icon.png" alt="검색 아이콘" className="search-icon"/>
           <input
             type="text"
             placeholder="검색어를 입력하세요"

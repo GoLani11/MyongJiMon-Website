@@ -15,12 +15,12 @@
     align-items: center;
   }
   
-  .logo-box {
-    width: 34px;
-    height: 34px;
-    background-color: var(--primary-blue);
-    border-radius: 5px;
-    margin: 0px 16px;
+  .logo-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--primary-blue);
+    margin: 0 16px;
+    cursor: pointer;
   }
   
   .search-box {
@@ -37,15 +37,18 @@
     width: 14px;
     height: 14px;
     margin: 8px;
-    background-color: black;
+    object-fit: contain;
   }
   
   .search-input {
     flex: 1;
+    height: 100%;                 
     font-size: 14px;
     background: none;
     border: none;
     outline: none;
+    padding: 0 4px;               
+    box-sizing: border-box;
   }
   
   .weather-text {

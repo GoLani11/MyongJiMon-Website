@@ -59,7 +59,15 @@
   flex-direction: column;
   gap: 8px;
 }
-
+.post-bottom {
+  font-size: 15px;
+  font-weight: 600;
+  text-align: left; /* ← 왼쪽 정렬 명시 */
+}
+.post-title {
+  display: block;
+  text-align: left; /* ← span에 직접 줄 경우 block 처리 필요 */
+}
 /* 게시글 첫 번째 줄 */
 .post-header {
   display: flex;
@@ -103,4 +111,15 @@
 .post-bottom {
   font-size: 15px;
   font-weight: 600;
+}
+
+.reaction-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.reaction-icon {
+  width: 14px;
+  height: 14px;
 }

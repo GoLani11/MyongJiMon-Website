@@ -20,8 +20,14 @@ const BoardColumn = ({ title, posts, boardId}) => {
                 <span className="time">{post.time}</span>
               </div>
               <div className="reactions">
-                <span>👍 {post.likes}</span>
-                <span>💬 {post.comments}</span>
+                <div className="reaction-item">
+                  <img src="/imgs/good_icon_blue.png" alt="좋아요" className="reaction-icon" />
+                  <span>{post.likes}</span>
+                </div>
+                <div className="reaction-item">
+                  <img src="/imgs/comment_icon.png" alt="댓글" className="reaction-icon" />
+                  <span>{post.comments}</span>
+                </div>
               </div>
             </div>
             {/* 두 번째 줄: 게시글 제목 */}
