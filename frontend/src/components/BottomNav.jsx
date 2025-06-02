@@ -1,19 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/bottomnav.css";
 
 const BottomNav = () => {
   const [showWriteMenu, setShowWriteMenu] = useState(false);
   const [showMoreMenu, setShowMoreMenu] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 640);
+
+  // 윈도우 리사이즈에 따라 모바일 여부 판단
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 640);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const toggleWriteMenu = () => {
     setShowWriteMenu((prev) => !prev);
-    setShowMoreMenu(false); // 메뉴 동시 열림 방지
+    setShowMoreMenu(false);
   };
 
   const toggleMoreMenu = () => {
     setShowMoreMenu((prev) => !prev);
-    setShowWriteMenu(false); // 메뉴 동시 열림 방지
+    setShowWriteMenu(false);
   };
+
+  // 모바일이 아닐 경우 메뉴 자동 닫기
+  useEffect(() => {
+    if (!isMobile) {
+      setShowWriteMenu(false);
+      setShowMoreMenu(false);
+    }
+  }, [isMobile]);
+
+  // 모바일 전용 렌더링
+  if (!isMobile) return null;
 
   return (
     <>
@@ -38,6 +60,7 @@ const BottomNav = () => {
           <span className="label">더보기</span>
         </div>
       </div>
+
       {showWriteMenu && (
         <div className="write-menu">
           <span className="label">글쓰기</span>
@@ -49,33 +72,33 @@ const BottomNav = () => {
           </ul>
         </div>
       )}
-      {/* 더보기 메뉴 */}
-      {showMoreMenu && (
-  <div className="more-menu-3col">
-    <div className="menu-3col-columns">
-      <div className="column">
-        <div>Q&A</div>
-        <div>커뮤니티</div>
-        <div>동아리</div>
-      </div>
-      <div className="column">
-        <div>시간표</div>
-        <div>학사 일정</div>
-        <div>공지 사항</div>
-      </div>
-      <div className="column">
-        <div><strong>마이페이지</strong></div>
-        <div>회원가입</div>
-        <div>챗봇</div>
-      </div>
-    </div>
 
-    <div className="menu-bottom">
-      <button className="login-btn">로그인</button>
-      <button className="join-btn">회원가입</button>
-    </div>
-  </div>
-)}
+      {showMoreMenu && (
+        <div className="more-menu-3col">
+          <div className="menu-3col-columns">
+            <div className="column">
+              <div>Q&A</div>
+              <div>커뮤니티</div>
+              <div>동아리</div>
+            </div>
+            <div className="column">
+              <div>시간표</div>
+              <div>학사 일정</div>
+              <div>공지 사항</div>
+            </div>
+            <div className="column">
+              <div><strong>마이페이지</strong></div>
+              <div>회원가입</div>
+              <div>챗봇</div>
+            </div>
+          </div>
+
+          <div className="menu-bottom">
+            <button className="login-btn">로그인</button>
+            <button className="join-btn">회원가입</button>
+          </div>
+        </div>
+      )}
     </>
   );
 };
