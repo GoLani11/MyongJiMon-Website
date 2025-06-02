@@ -142,4 +142,4 @@ backend/node_modules/
 
 # docker-compose.yml은 생략
 docker-compose.yml
-
+Dockerfile
