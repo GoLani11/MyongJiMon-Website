@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import './ChatBot.css';
+import { useNavigate } from "react-router-dom";
 
 export default function ChatBot() {
+  const navigate = useNavigate();
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([
     { id: 1, type: 'bot', text: '안녕하세요! 명지몬입니다. 무엇을 도와드릴까요?' },
@@ -53,7 +55,7 @@ export default function ChatBot() {
       <div className="chatbot-container">
         {/* 헤더 */}
         <div className="chatbot-header">
-          <div className="logo">명지몬</div>
+          <div className="logo" onClick={() => navigate('/home')}>명지몬</div>
           <div className="lang">KR/EN</div>
           <div className="menu">≡</div>
         </div>
@@ -96,7 +98,6 @@ export default function ChatBot() {
 
         {/* 입력창 */}
         <div className="chatbot-input">
-          <span className="home-icon">🏠</span>
           <input
             type="text"
             placeholder="질문을 입력하세요."
@@ -104,7 +105,9 @@ export default function ChatBot() {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
           />
-          <button onClick={sendMessage}>↗</button>
+          <button onClick={sendMessage}>
+          <img src="/imgs/write_icon.png" alt="작성하기" className="enter" />
+          </button>
         </div>
       </div>
     </div>

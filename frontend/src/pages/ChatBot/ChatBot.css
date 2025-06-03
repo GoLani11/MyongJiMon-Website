@@ -1,9 +1,9 @@
-/* html, body 전역 설정 제거 - global.css에서 처리 */
-
 /* 전체 컨테이너 */
 .chatbot-container {
   margin: 0 auto;
   height: 100vh;
+  width: 100vw; 
+  min-width: 320px; 
   display: flex;
   flex-direction: column;
   background-color: #ffffff;
@@ -26,7 +26,10 @@
 .chatbot-header .logo {
   color: #0095FF;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 20px;
+}
+.logo {
+  cursor: pointer;
 }
 
 .chatbot-header .lang,
@@ -185,4 +188,10 @@
   margin-right: 8px;
   font-size: 18px;
   color: #888;
+}
+.enter {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  cursor: pointer;
 }

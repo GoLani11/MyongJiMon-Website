@@ -8,6 +8,7 @@ import UserManagement from './components/UserManagement';
 import PostManagement from './components/PostManagement';
 import NoticeManagement from './components/NoticeManagement';
 import ReportManagement from './components/ReportManagement';
+import Header from "../../components/Header.jsx";
 
 function Admin() {
   // 현재 메뉴 상태
@@ -42,6 +43,7 @@ function Admin() {
 
   return (
     <div className="page-container admin-container">
+            <Header />
       <h1 className="admin-title">관리자 페이지</h1>
       
       <div className="admin-content">

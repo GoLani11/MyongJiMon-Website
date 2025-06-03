@@ -9,6 +9,8 @@ import ChangePassword from './components/ChangePassword';
 import MyPosts from './components/MyPosts';
 import AccountSettings from './components/AccountSettings';
 import FriendGroupManagement from './components/FriendGroupManagement';
+import Header from "../../components/Header.jsx";
+import BottomNav from "../../components/BottomNav.jsx";
 
 function MyPage() {
   // 현재 활성 메뉴 상태
@@ -46,6 +48,7 @@ function MyPage() {
 
   return (
     <div className="page-container mypage-container">
+            <Header />
       <h1 className="mypage-title">마이페이지</h1>
       
       <div className="mypage-content">
@@ -70,6 +73,7 @@ function MyPage() {
           {renderComponent()}
         </div>
       </div>
+      <BottomNav />
     </div>
   );
 }
