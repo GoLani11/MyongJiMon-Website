@@ -37,12 +37,8 @@ const Sidebar = () => {
           <img src="/imgs/schedule_icon.png" alt="시간표" className="icon" />
         </button>
 
-        <button className="sidebar__icon" aria-label="학사일정">
-          <img
-            src="/imgs/academicboard_icon.png"
-            alt="학사일정"
-            className="icon"
-          />
+        <button className="sidebar__icon" aria-label="학사일정" onClick={() => navigate("/board/academic")}>
+          <img src="/imgs/academicboard_icon.png" alt="학사일정" className="icon" />
         </button>
 
         <button
@@ -70,7 +66,7 @@ const Sidebar = () => {
                 <div onClick={() => navigate("/board/free")}>자유게시판</div>
                 <div onClick={() => navigate("/board/student")}>학생게시판</div>
                 <div onClick={() => navigate("/board/professor")}>교수게시판</div>
-                <div>공지사항</div>
+                <div onClick={() => navigate("/board/notices")}>공지사항</div>
               </div>
             </div>
           )}

@@ -52,7 +52,7 @@ const BottomNav = () => {
           <img src="/imgs/write_icon.png" alt="작성하기" className="icon" />
           </button>
         </div>
-        <div className="nav-item">
+        <div className="nav-item" onClick={() => navigate("/board/academic")}>
         <img src="/imgs/academicboard_icon.png" alt="학사일정" className="icon" />
           <span className="label">학사일정</span>
         </div>
@@ -90,7 +90,7 @@ const BottomNav = () => {
             <div className="column">
               <div onClick={() => navigate("/mypage")}><strong>마이페이지</strong></div>
               <div onClick={() => navigate("/chatbot")}>챗봇</div>
-              <div>공지 사항</div>
+              <div onClick={() => navigate("/board/notices")}>공지 사항</div>
             </div>
           </div>
 
