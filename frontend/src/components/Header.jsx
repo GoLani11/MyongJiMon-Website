@@ -22,7 +22,7 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header-left">
-      <span className="logo-text" onClick={() => navigate('/')}>명지몬</span>
+      <span className="logo-text" onClick={() => navigate('/home')}>명지몬</span>
         <div className="search-box">
         <img src="/imgs/search_icon.png" alt="검색 아이콘" className="search-icon"/>
           <input

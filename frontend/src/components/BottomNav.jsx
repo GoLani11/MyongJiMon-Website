@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/bottomnav.css";
 
 const BottomNav = () => {
   const [showWriteMenu, setShowWriteMenu] = useState(false);
   const [showMoreMenu, setShowMoreMenu] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 640);
+  const navigate = useNavigate();
 
-  // 윈도우 리사이즈에 따라 모바일 여부 판단
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 640);
@@ -26,7 +27,6 @@ const BottomNav = () => {
     setShowWriteMenu(false);
   };
 
-  // 모바일이 아닐 경우 메뉴 자동 닫기
   useEffect(() => {
     if (!isMobile) {
       setShowWriteMenu(false);
@@ -34,29 +34,30 @@ const BottomNav = () => {
     }
   }, [isMobile]);
 
-  // 모바일 전용 렌더링
   if (!isMobile) return null;
 
   return (
     <>
       <div className="bottom-nav">
-        <div className="nav-item">
-          <span className="icon">📅</span>
+        <div className="nav-item" onClick={() => navigate("/schedule")}>
+        <img src="/imgs/schedule_icon.png" alt="시간표" className="icon" />
           <span className="label">시간표</span>
         </div>
-        <div className="nav-item">
-          <span className="icon">📋</span>
-          <span className="label">게시판</span>
+        <div className="nav-item" onClick={() => navigate("/board/popular")}>
+        <img src="/imgs/board_icon.png" alt="인기게시판" className="icon" />
+          <span className="label">인기게시판</span>
         </div>
         <div className="nav-item center-button">
-          <button className="plus-button" onClick={toggleWriteMenu}>＋</button>
+          <button className="plus-button" onClick={toggleWriteMenu}>
+          <img src="/imgs/write_icon.png" alt="작성하기" className="icon" />
+          </button>
         </div>
         <div className="nav-item">
-          <span className="icon">🎓</span>
+        <img src="/imgs/academicboard_icon.png" alt="학사일정" className="icon" />
           <span className="label">학사일정</span>
         </div>
         <div className="nav-item" onClick={toggleMoreMenu}>
-          <span className="icon">☰</span>
+        <img src="/imgs/seemore_icon.png" alt="더보기" className="icon" />
           <span className="label">더보기</span>
         </div>
       </div>
@@ -65,10 +66,10 @@ const BottomNav = () => {
         <div className="write-menu">
           <span className="label">글쓰기</span>
           <ul>
-            <li>🎓 교수 게시판</li>
-            <li>🎒 학생 게시판</li>
-            <li>🗣 자유 게시판</li>
-            <li>📚 질문 게시판</li>
+            <li onClick={() => navigate("/postedit?board=free")}>🗣 자유 게시판</li>
+            <li onClick={() => navigate("/postedit?board=student")}>🎒 학생 게시판</li>
+            <li onClick={() => navigate("/postedit?board=professor")}>🎓 교수 게시판</li>
+            <li onClick={() => navigate("/postedit?board=question")}>📚 질문 게시판</li>
           </ul>
         </div>
       )}
@@ -77,25 +78,25 @@ const BottomNav = () => {
         <div className="more-menu-3col">
           <div className="menu-3col-columns">
             <div className="column">
-              <div>Q&A</div>
-              <div>커뮤니티</div>
-              <div>동아리</div>
+              <div onClick={() => navigate("/board/question")}>질문게시판</div>
+              <div onClick={() => navigate("/board/free")}>자유게시판</div>
+              <div onClick={() => navigate("/board/student")}>학생게시판</div>
             </div>
             <div className="column">
-              <div>시간표</div>
-              <div>학사 일정</div>
+              <div onClick={() => navigate("/schedule")}>시간표</div>
+              <div onClick={() => navigate("/schedule")}>학사 일정</div>
+              <div onClick={() => navigate("/board/professor")}>교수시판</div>
+            </div>
+            <div className="column">
+              <div onClick={() => navigate("/mypage")}><strong>마이페이지</strong></div>
+              <div onClick={() => navigate("/chatbot")}>챗봇</div>
               <div>공지 사항</div>
-            </div>
-            <div className="column">
-              <div><strong>마이페이지</strong></div>
-              <div>회원가입</div>
-              <div>챗봇</div>
             </div>
           </div>
 
           <div className="menu-bottom">
-            <button className="login-btn">로그인</button>
-            <button className="join-btn">회원가입</button>
+            <button className="login-btn" onClick={() => navigate("/login")}>로그인</button>
+            <button className="join-btn" onClick={() => navigate("/register")}>회원가입</button>
           </div>
         </div>
       )}

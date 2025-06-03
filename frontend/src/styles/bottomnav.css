@@ -48,7 +48,7 @@
   align-items: center;
 }
 .write-menu {
-  position: fixed; /* ✅ 화면 기준으로 고정 */
+  position: fixed;
   bottom: 80px;
   left: 50%;
   transform: translateX(-50%);
@@ -178,6 +178,9 @@
   gap: 12px;
   font-size: 15px;
 }
+.column div {
+  cursor: pointer;
+}
 
 .menu-bottom {
   display: flex;
@@ -257,4 +260,10 @@
   background: #0095FF;
   color: white;
   border: none;
+}
+.icon {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 4px;
+  object-fit: contain;
 }
