@@ -2,102 +2,138 @@
 
 /* schedule-table 영역 기본 설정 */
 .schedule-table {
-    margin: 0;                          /* 외부 여백 제거 */
-    padding: 0;                         /* 내부 여백 제거 */
+    width: 100%;                        /* 컨테이너 너비 100% */
+    max-width: 100%;                    /* 최대 너비 100% */
+    margin: 0 auto;                     /* 가운데 정렬 */
+    padding: 0;
+    overflow-x: auto;                   /* 가로 스크롤 허용 */
 }
 
 /* schedule-table 내부 table 스타일 */
 .schedule-table table {
-    width: 100%;                        /* 테이블 너비를 100%로 설정 */
-    border-collapse: collapse;          /* 셀 사이의 간격 제거 */
-    table-layout: fixed;                /* 열 너비를 고정하여 일정하게 유지 */
-    background-color: white;          /* 배경색을 흰색으로 설정 */
-    border: 1px solid #ccc;           /* 테이블 테두리 색을 연한 회색으로 설정 */
-    margin: 0;                          /* 외부 여백 제거 */
-    padding: 0;                         /* 내부 여백 제거 */
+    width: 100%;                        /* 테이블 너비 100% */
+    border-collapse: collapse;          /* 셀 간격 제거 */
+    table-layout: fixed;                /* 열 너비 고정 */
+    background-color: white;
+    border: 1px solid #ccc;
+    margin: 0;
+    padding: 0;
 }
 
-/* 테이블의 셀(th, td) 스타일 */
+/* 테이블 셀 스타일 (공통) */
 .schedule-table th,
 .schedule-table td {
-    border: 1px solid #ccc;           /* 셀 경계선 색상을 연한 회색으로 설정 */
-    height: 46px;                       /* 셀 높이를 46px로 설정 */
-    padding: 0;                         /* 셀 내부 여백 제거 */
-    line-height: 1.3;                   /* 텍스트 줄 간격 설정 */
-    font-size: 0.8125rem;               /* 글자 크기 설정(약 13px) */
-    overflow: hidden;                   /* 내용이 넘칠 경우 숨김 */
-    text-overflow: ellipsis;            /* 넘친 텍스트를 "..."으로 표시 */
-    white-space: nowrap;                /* 줄바꿈 방지 */
-    box-sizing: border-box;             /* padding, border 포함 크기 계산 */
+    border: 1px solid #ccc;
+    height: 60px;                      /* 기본 셀 높이 */
+    padding: 0;
+    font-size: clamp(12px, 1.2vw, 14px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+    vertical-align: middle;
+    box-sizing: border-box;
 }
 
-/* 첫 열(시간 레이블) 스타일 */
+/* 첫 열(시간)과 요일 열 너비 비율 고정 */
+.schedule-table th:first-child,
+.schedule-table td:first-child {
+    width: 15%;                        /* 시간 열 15% */
+}
+
+.schedule-table th:not(:first-child),
+.schedule-table td:not(:first-child) {
+    width: 17%;                        /* 요일 열 각각 약 17% */
+}
+
+/* 타임라벨 스타일 */
 .time-label {
-    font-weight: bold;                  /* 글자 굵게 */
-    background-color: #f2f2f2;        /* 연한 회색 배경 */
+    font-weight: bold;
+    background-color: #f2f2f2;
 }
 
-/* 수업이 표시되는 셀 스타일 */
-.time-slot {
-    vertical-align: top;                /* 내용이 위쪽에 정렬되도록 설정 */
-    background-color: #fff;           /* 배경색 흰색 */
-    position: relative;                 /* 내부에 절대 위치 요소 추가 가능 */
-    height: 46px;                       /* 높이를 46px로 유지 */
-    padding: 0;                         /* 내부 여백 제거 */
-    box-sizing: border-box;             /* border 포함 크기 계산 */
-}
-
-/* 수업 블록(과목명 + 장소 + 시간) 스타일 */
+/* 수업 셀 스타일 */
 .class-block {
-    font-size: 12px;                    /* 기본 글자 크기 12px 설정 */
-    padding: 4px;                       /* 내부 여백 4px 설정 */
-    text-align: center;                 /* 텍스트 가운데 정렬 */
-    line-height: 1.4;                   /* 줄 간격 */
-    color: #111;                      /* 글자 색(진한 회색) */
-    overflow: hidden;                   /* 내용이 넘칠 경우 숨김 처리 */
-    text-overflow: ellipsis;            /* 넘치는 내용 "..."으로 처리 */
-    white-space: nowrap;                /* 줄바꿈 방지 */
-    width: 100%;                        /* 블록 너비를 셀에 맞춤 */
-    height: 100%;                       /* 블록 높이를 셀에 맞춤 */
-    display: flex;                      /* 내부 요소를 flexbox로 배치 */
-    flex-direction: column;             /* flex 방향을 세로로 설정 */
-    justify-content: center;            /* 세로 가운데 정렬 */
-    box-sizing: border-box;             /* border 포함 크기 계산 */
+    font-size: clamp(10px, 1vw, 12px);
+    padding: 4px;
+    text-align: center;
+    line-height: 1.4;
+    color: #111;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
 }
 
-/* 수업 장소 스타일 */
 .class-block .location {
-    font-size: 11px;                    /* 글자 크기 11px 설정 */
-    color: #444;                      /* 글자 색(회색) */
+    font-size: clamp(9px, 0.9vw, 11px);
+    color: #444;
 }
 
-/* 수업 시간 범위 스타일 */
 .class-block .time-range {
-    font-size: 10px;                    /* 글자 크기 10px 설정 */
-    color: #666;                      /* 글자 색(더 연한 회색) */
+    font-size: clamp(8px, 0.8vw, 10px);
+    color: #666;
 }
 
-/* 학기 레이블 스타일 */
+/* 학기 레이블 */
 .semester-label {
-    font-size: 18px;                    /* 글자 크기 18px 설정 */
-    font-weight: bold;                  /* 글자 굵게 */
-    color: #111;                      /* 글자 색(진한 회색) */
-    border: 1px solid black;          /* 테두리 : 검정색 */
-    border-radius: 6px;                 /* 모서리 둥글게 */
-    padding: 8px 12px;                  /* 내부 여백 : 상하 8px, 좌우 12px*/
-    margin-bottom: 8px;                 /* 아래쪽 간격 8px 설정 */
-    text-align: center;                 /* 가운데 정렬 */
-    background-color: #fff;           /* 배경색 흰색 */
-    box-sizing: border-box;             /* border 포함 크기 계산 */
+    font-size: clamp(16px, 2vw, 18px);
+    font-weight: bold;
+    color: #111;
+    border: 1px solid black;
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    text-align: center;
+    background-color: #fff;
+    box-sizing: border-box;
 }
 
-/* 반응형 : 화면 너비가 640px 이하일 때 */
-@media (max-width: 640px) {
+/* 반응형 처리 */
+@media (max-width: 768px) {
+    .schedule-table th,
+    .schedule-table td {
+        font-size: clamp(10px, 2vw, 12px);
+        height: clamp(30px, 5vw, 50px);
+    }
+
+    .class-block {
+        font-size: clamp(9px, 1.8vw, 11px);
+        padding: clamp(2px, 1vw, 4px);
+    }
+
+    .semester-label {
+        font-size: clamp(14px, 3vw, 16px);
+    }
+}
+
+@media (max-width: 480px) {
+    .schedule-table th:first-child,
+    .schedule-table td:first-child {
+        width: 20%;                    /* 모바일에서 시간 열 조금 확대 */
+    }
+
+    .schedule-table th:not(:first-child),
+    .schedule-table td:not(:first-child) {
+        width: calc(80% / 5);          /* 나머지 요일 열 비율 자동 계산 */
+    }
 
     .schedule-table th,
     .schedule-table td {
-        height: 40px;                   /* 셀 높이를 40px로 줄임(기존 44px) */
-        padding: 0;                     /* 내부 여백 제거 */
-        font-size: 0.75rem;             /* 글자 크기를 조금 줄임(약 12px) */
+        font-size: clamp(9px, 3vw, 11px);
+        height: clamp(28px, 6vw, 40px);
+    }
+
+    .class-block {
+        font-size: clamp(8px, 2vw, 10px);
+    }
+
+    .semester-label {
+        font-size: clamp(13px, 3vw, 15px);
     }
 }

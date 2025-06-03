@@ -112,7 +112,7 @@ body {
     }
 }
 
-@media (min-width: 450px) and (max-width: 1300px) {
+@media (max-width: 1300px) {
     /* main content box */
     .board_main_content_box {
         width: 100%;
