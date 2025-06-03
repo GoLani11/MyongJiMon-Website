@@ -10,11 +10,13 @@ const initialUserTags = [
 ]
 
 const initialBoards = [
-    { boardId: "popular", boardName: "자유 게시판" },
+    { boardId: "popular", boardName: "인기글" },
     { boardId: "free", boardName: "자유 게시판" },
     { boardId: "question", boardName: "질문 게시판" },
     { boardId: "student", boardName: "학생 게시판" },
-    { boardId: "professor", boardName: "교수 게시판" }
+    { boardId: "professor", boardName: "교수 게시판" },
+    { boardId: "notices", boardName: "공지사항" },
+    { boardId: "academic", boardName: "학사일정" }
 ];
 
 const initialPosts = [
@@ -67,7 +69,17 @@ const initialPosts = [
     { postId: nanoid(), boardId: "professor", PostName: "학문적 연구 방법", Name: "이수경", CreateTime: "2025-05-28 17:50:00", GoodCount: 0, CommentCount: 0, ViewCount: 0, UserTagName: "교수", PostContent: "<p>학문적 연구를 진행할 때 가장 중요하게 생각하는 점은 무엇인가요? 실험과 이론 연구의 균형에 대해 논의해봅시다.</p>" },
     { postId: nanoid(), boardId: "professor", PostName: "교수-학생 관계 개선", Name: "홍진우", CreateTime: "2025-05-28 17:55:00", GoodCount: 0, CommentCount: 0, ViewCount: 0, UserTagName: "교수", PostContent: "<p>교수와 학생 간의 신뢰를 구축하기 위한 방법은 무엇일까요? 열린 소통의 중요성에 대해 이야기해봅시다.</p>" },
     { postId: nanoid(), boardId: "professor", PostName: "온라인 수업의 장단점", Name: "김다혜", CreateTime: "2025-05-28 18:00:00", GoodCount: 0, CommentCount: 0, ViewCount: 0, UserTagName: "교수", PostContent: "<p>온라인 수업의 장단점에 대해 논의하고 싶습니다. 저는 대면 수업을 선호하지만, 온라인 수업의 유용한 점도 있습니다.</p>" },
-    { postId: nanoid(), boardId: "professor", PostName: "연구 자금 확보 방법", Name: "윤정호", CreateTime: "2025-05-28 18:05:00", GoodCount: 0, CommentCount: 0, ViewCount: 0, UserTagName: "교수", PostContent: "<p>연구 자금을 확보하기 위한 전략에 대해 이야기해봅시다. 저는 자금 확보를 위해 다양한 기관과 협력 중입니다.</p>" }
+    { postId: nanoid(), boardId: "professor", PostName: "연구 자금 확보 방법", Name: "윤정호", CreateTime: "2025-05-28 18:05:00", GoodCount: 0, CommentCount: 0, ViewCount: 0, UserTagName: "교수", PostContent: "<p>연구 자금을 확보하기 위한 전략에 대해 이야기해봅시다. 저는 자금 확보를 위해 다양한 기관과 협력 중입니다.</p>" },
+    { postId: nanoid(), boardId: "notices", PostName: "여름방학 일정 공지", Name: "관리자", CreateTime: "2025-05-20 09:00:00", GoodCount: 0, CommentCount: 0, ViewCount: 0, UserTagName: "관리자", PostContent: "<p>2025년 여름방학은 6월 22일부터 시작됩니다. 자세한 사항은 학사일정을 참고해 주세요.</p>" },
+    { postId: nanoid(), boardId: "notices", PostName: "졸업논문 제출 안내", Name: "교무처", CreateTime: "2025-05-18 14:30:00", GoodCount: 0, CommentCount: 0, ViewCount: 0, UserTagName: "교직원", PostContent: "<p>2025학년도 졸업논문 제출 마감은 6월 10일입니다. 기간 내 반드시 제출 바랍니다.</p>" },
+    { postId: nanoid(), boardId: "notices", PostName: "도서관 리모델링 안내", Name: "총무팀", CreateTime: "2025-05-15 11:00:00", GoodCount: 0, CommentCount: 0, ViewCount: 0, UserTagName: "교직원", PostContent: "<p>도서관이 6월 1일부터 2주간 리모델링 공사에 들어갑니다. 이용에 참고 바랍니다.</p>" },
+    { postId: nanoid(), boardId: "notices", PostName: "2025학년도 2학기 등록금 납부 안내", Name: "재무팀", CreateTime: "2025-05-12 10:00:00", GoodCount: 0, CommentCount: 0, ViewCount: 0, UserTagName: "교직원", PostContent: "<p>등록금 납부 기간은 7월 1일부터 7월 10일까지입니다. 마감일을 꼭 지켜주세요.</p>" },
+    { postId: nanoid(), boardId: "notices", PostName: "2025년 1학기 기말고사 일정 안내", Name: "학사팀", CreateTime: "2025-05-10 16:00:00", GoodCount: 0, CommentCount: 0, ViewCount: 0, UserTagName: "교직원", PostContent: "<p>기말고사는 6월 15일부터 6월 21일까지 진행됩니다. 개인별 시험 일정은 포털에서 확인하세요.</p>" },
+    { postId: nanoid(), boardId: "academic", PostName: "2025학년도 1학기 개강일", Name: "학사팀", CreateTime: "2025-02-01 09:00:00", GoodCount: 0, CommentCount: 0, ViewCount: 0, UserTagName: "교직원", PostContent: "<p>2025학년도 1학기 개강일은 3월 3일(월)입니다. 수강 준비를 미리 해주시기 바랍니다.</p>" },
+    { postId: nanoid(), boardId: "academic", PostName: "수강신청 일정 안내", Name: "학사팀", CreateTime: "2025-01-25 14:00:00", GoodCount: 0, CommentCount: 0, ViewCount: 0, UserTagName: "교직원", PostContent: "<p>수강신청은 2월 10일부터 2월 14일까지입니다. 포털에서 신청 가능합니다.</p>" },
+    { postId: nanoid(), boardId: "academic", PostName: "중간고사 기간 안내", Name: "교무처", CreateTime: "2025-04-05 10:30:00", GoodCount: 0, CommentCount: 0, ViewCount: 0, UserTagName: "교직원", PostContent: "<p>2025년 1학기 중간고사는 4월 21일부터 4월 25일까지 진행됩니다.</p>" },
+    { postId: nanoid(), boardId: "academic", PostName: "수업일수 3/4선 안내", Name: "학사관리팀", CreateTime: "2025-05-01 08:45:00", GoodCount: 0, CommentCount: 0, ViewCount: 0, UserTagName: "교직원", PostContent: "<p>1학기 수업일수 3/4선은 5월 17일입니다. 이후 수강 철회가 불가능합니다.</p>" },
+    { postId: nanoid(), boardId: "academic", PostName: "여름 계절학기 신청 안내", Name: "교무처", CreateTime: "2025-05-25 13:00:00", GoodCount: 0, CommentCount: 0, ViewCount: 0, UserTagName: "교직원", PostContent: "<p>여름 계절학기 신청은 6월 1일부터 6월 7일까지입니다. 포털에서 신청 바랍니다.</p>" },
 ];
 
 const initialComments = [

@@ -105,7 +105,8 @@ function Board() {
   }
 
   const handlePostEditButtonclick = () => {
-    navigate(`/postedit?board=${boardId}`);
+    if(boardId !== 'popular' && boardId !== 'notices' && boardId !== 'academic')
+      navigate(`/postedit?board=${boardId}`);
   }
 
   // page 변경 handler
@@ -140,13 +141,17 @@ function Board() {
             onPageChange={handlePageChange}
           />
 
-          <div class="board_tail_box">
-            <div className="board_post_edit_button" onClick={handlePostEditButtonclick}>
-              <MdEdit />
-              &nbsp;
-              <span class="board_post_edit_button_text">작성하기</span>
+          {/* popular가 아닌 경우, 작성하기 button을 출력 */}
+          {boardId !== 'popular' && boardId !== 'notices' && boardId !== 'academic' && 
+          (
+            <div class="board_tail_box">
+              <div className="board_post_edit_button" onClick={handlePostEditButtonclick}>
+                <MdEdit />
+                &nbsp;
+                <span class="board_post_edit_button_text">작성하기</span>
+              </div>
             </div>
-          </div>
+          )}
         </div>
         <SidebarWidget />
       </div>
