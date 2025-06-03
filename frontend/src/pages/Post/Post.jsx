@@ -58,7 +58,7 @@ function Post() {
                 commentCreateTime={timeAgo(comment.commentCreateTime)}
                 commentGoodCount={comment.commentGoodCount}
                 commentText={comment.commentText}
-                onGoodCountClick={() => handleCommentGoodCount(comment.commentId)}
+                onGoodCountClick={() => handleCommentGoodCount()}
             />
         );
 
@@ -90,7 +90,6 @@ function Post() {
     }
 
      function handleCommentAddButton(e) {
-        console.log()
         const newComment = { 
             commentId: nanoid(),
             postId: post.postId,
