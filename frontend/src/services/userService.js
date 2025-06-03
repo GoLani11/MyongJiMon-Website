@@ -2,6 +2,8 @@
 
 // API 기본 URL
 const API_BASE_URL = 'http://localhost:5000/api/auth';
+// const API_BASE_URL = 'http://192.168.128.52:5000/api/auth';
+// const API_BASE_URL = 'http://mjimon.duckdns.org:5000/api/auth';
 
 // 1. 사용자 정보 조회 API 호출
 export const getUserProfile = async (userId) => {

@@ -2,6 +2,8 @@
 
 // API 기본 URL (환경에 따라 수정 가능)
 const API_BASE_URL = 'http://localhost:5000/api/auth';
+// const API_BASE_URL = 'http://192.168.128.52:5000/api/auth';
+// const API_BASE_URL = 'http://mjimon.duckdns.org:5000/api/auth';
 
 // 1. 로그인 API 호출
 export const loginUser = async (loginData) => {
