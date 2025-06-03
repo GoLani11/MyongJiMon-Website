@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import ReactQuill from "react-quill-new";
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { nanoid } from 'nanoid';
@@ -26,12 +26,10 @@ function PostEdit() {
     const { user, getUserTag, addPost, getBoard, isValidBoardId, getFormattedDateTime } = useAppContext();
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();  // useNavigate 훅 사용
-
+    const boardId = searchParams.get('board'); // query parameter 가져오기 e.g. ?key=value
+ 
     const [postTitleText, setpostTitleText] = useState("");
     const [postContentText, setpostContentText] = useState("");
-
-    // query parameter 가져오기 e.g. ?key=value
-    const boardId = searchParams.get('board');
 
     // postId가 없으면, board로 redirect
     if(!boardId) {
@@ -69,7 +67,7 @@ function PostEdit() {
             PostContent: DOMPurify.sanitize(postContentText)
         };
         addPost(newPost)
-
+        
         navigate(`/board/${boardId}`);
     }
 
